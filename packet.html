@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Your Packet | UnderstandMe</title>
+<meta name="description" content="A guided set of exercises shared by your provider.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Tools
+          <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="index.html#tools">All tools</a>
+          <a href="values-sort.html">Values Card Sort</a>
+          <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+          <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+          <a href="wheel-of-life.html">Wheel of Life</a>
+          <a href="decision-matrix.html">Weigh Your Options</a>
+          <a href="genogram.html">Genogram Builder</a>
+          <a href="step-builder.html">Step Builder</a>
+          <a href="week-builder.html">Week Builder</a>
+        </div>
+      </div>
+      <a href="providers.html">For Providers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <div class="nav-actions">
+        <a class="btn btn-outline btn-sm" href="login.html">Log in</a>
+        <a class="btn btn-primary btn-sm" href="index.html#tools">Try a tool</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+<div class="um-flow" id="um-flow" hidden></div>
+
+<main>
+
+  <section class="page-hero um-page-hero">
+    <div class="container">
+      <p class="eyebrow">Your packet</p>
+      <h1 id="pk-title">Your exercises</h1>
+      <p class="lede" id="pk-lede"></p>
+    </div>
+  </section>
+  <section class="um-section" style="padding-top:56px">
+    <div class="container">
+      <div class="um-packet">
+        <ol class="um-packet-list" id="pk-list"></ol>
+        <div class="text-center" id="pk-actions"></div>
+        <p class="um-callout"><strong>Private by design.</strong> You complete each exercise in your own browser. Nothing you enter is sent to your provider or to us. At the end of each one, print or save the results and bring them to your next session.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid um-footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Calm, private, and ready to take with you.</p>
+      </div>
+      <div>
+        <h4>Toolkit</h4>
+        <a href="values-sort.html">Values Card Sort</a>
+        <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+        <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+        <a href="wheel-of-life.html">Wheel of Life</a>
+        <a href="decision-matrix.html">Weigh Your Options</a>
+        <a href="genogram.html">Genogram Builder</a>
+        <a href="step-builder.html">Step Builder</a>
+        <a href="week-builder.html">Week Builder</a>
+      </div>
+      <div>
+        <h4>Providers</h4>
+        <a href="providers.html">Dashboard &amp; packets</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="login.html">Log in</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For education and self-reflection. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/flow.js"></script>
+<script>
+(function () {
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
+  var ids = UMFlow.ids;
+  var list = document.getElementById("pk-list");
+  var actions = document.getElementById("pk-actions");
+  var p = UM.profile;
+  var from = UM.source === "link" && (p.practice || p.name) ? (p.practice || p.name) : "";
+  if (!ids.length) {
+    document.getElementById("pk-lede").textContent = "This link doesn\u2019t include any exercises. You can still browse the full toolkit.";
+    var a = el("a", "btn btn-primary btn-lg", "Browse the tools"); a.href = "index.html#tools"; actions.appendChild(a);
+    return;
+  }
+  document.getElementById("pk-title").textContent = from ? "A packet from " + from : "Your exercises";
+  document.getElementById("pk-lede").textContent = ids.length + (ids.length === 1 ? " exercise" : " exercises") + ", in this order. Take your time. You can stop and come back to any step.";
+  ids.forEach(function (id, i) {
+    var t = umToolById(id);
+    var li = el("li", "um-packet-item");
+    li.appendChild(el("div", "um-step-num", String(i + 1)));
+    var body = el("div");
+    body.appendChild(el("h3", "", t.name));
+    body.appendChild(el("p", "", t.blurb));
+    li.appendChild(body);
+    li.appendChild(el("span", "um-packet-time", t.time));
+    list.appendChild(li);
+  });
+  var start = el("a", "btn btn-primary btn-lg", "Begin with step 1"); start.href = UMFlow.href(ids[0]);
+  actions.appendChild(start);
+})();
+</script>
+</body>
+</html>

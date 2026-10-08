@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Pricing | UnderstandMe</title>
+<meta name="description" content="UnderstandMe pricing: free for patients, with provider and practice plans on the way.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Tools
+          <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="index.html#tools">All tools</a>
+          <a href="values-sort.html">Values Card Sort</a>
+          <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+          <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+          <a href="wheel-of-life.html">Wheel of Life</a>
+          <a href="decision-matrix.html">Weigh Your Options</a>
+          <a href="genogram.html">Genogram Builder</a>
+          <a href="step-builder.html">Step Builder</a>
+          <a href="week-builder.html">Week Builder</a>
+        </div>
+      </div>
+      <a href="providers.html">For Providers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <div class="nav-actions">
+        <a class="btn btn-outline btn-sm" href="login.html">Log in</a>
+        <a class="btn btn-primary btn-sm" href="index.html#tools">Try a tool</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+<div class="um-flow" id="um-flow" hidden></div>
+
+<main>
+
+  <section class="page-hero um-page-hero">
+    <div class="container">
+      <p class="eyebrow">Pricing</p>
+      <h1>Simple plans, free while we build.</h1>
+      <p class="lede" id="pr-note"></p>
+    </div>
+  </section>
+  <section class="um-section">
+    <div class="container">
+      <div class="um-plans" id="pr-plans"></div>
+      <p class="um-note">Placeholder amounts for preview. Plans marked &ldquo;Soon&rdquo; describe features that are not built yet.</p>
+    </div>
+  </section>
+  <section class="um-section um-section-alt">
+    <div class="container">
+      <div class="um-head"><p class="eyebrow">Questions</p><h2>Good to know</h2></div>
+      <div class="um-faq" id="pr-faq"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid um-footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Calm, private, and ready to take with you.</p>
+      </div>
+      <div>
+        <h4>Toolkit</h4>
+        <a href="values-sort.html">Values Card Sort</a>
+        <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+        <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+        <a href="wheel-of-life.html">Wheel of Life</a>
+        <a href="decision-matrix.html">Weigh Your Options</a>
+        <a href="genogram.html">Genogram Builder</a>
+        <a href="step-builder.html">Step Builder</a>
+        <a href="week-builder.html">Week Builder</a>
+      </div>
+      <div>
+        <h4>Providers</h4>
+        <a href="providers.html">Dashboard &amp; packets</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="login.html">Log in</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For education and self-reflection. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/pricing-data.js"></script>
+<script>
+(function () {
+  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 1.5"/></svg>';
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
+  document.getElementById("pr-note").textContent = UM_PRICING_NOTE;
+  var wrap = document.getElementById("pr-plans");
+  UM_PLANS.forEach(function (p) {
+    var card = el("div", "um-plan" + (p.featured ? " um-plan-featured" : ""));
+    if (p.featured) card.appendChild(el("span", "um-plan-badge", "Most popular"));
+    card.appendChild(el("h3", "", p.name));
+    card.appendChild(el("p", "um-plan-for", p.forWho));
+    var price = el("p", "um-plan-price", p.price + " ");
+    price.appendChild(el("span", "", p.per));
+    card.appendChild(price);
+    var ul = el("ul");
+    p.features.forEach(function (f) {
+      var li = el("li", f.soon ? "soon" : "");
+      var ic = el("span"); ic.innerHTML = f.soon ? CLOCK : CHECK; li.appendChild(ic.firstChild);
+      li.appendChild(el("span", "", f.text));
+      if (f.soon) li.appendChild(el("span", "um-soon-tag", "Soon"));
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    var btn = el(p.cta.href ? "a" : "span", "btn " + p.cta.style, p.cta.label);
+    if (p.cta.href) btn.href = p.cta.href; else btn.setAttribute("aria-disabled", "true");
+    card.appendChild(btn);
+    wrap.appendChild(card);
+  });
+  var faq = document.getElementById("pr-faq");
+  UM_PRICING_FAQ.forEach(function (f) {
+    var d = el("details"); d.appendChild(el("summary", "", f.q)); d.appendChild(el("p", "", f.a)); faq.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>

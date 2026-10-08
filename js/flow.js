@@ -1,0 +1,139 @@
+/* Packet flow -- walks a patient from one tool to the next.
+ *
+ * A packet is just an ordered list of tool ids in the URL (?flow=a,b,c).
+ * Nothing about the patient is involved; the list is the provider's choice.
+ * On a tool page this adds a step bar under the header and a "next" panel
+ * after the exercise. With no packet it offers a few other tools to explore.
+ */
+var UMFlow = (function () {
+  "use strict";
+
+  var MAX = 8;
+
+  function parse(str) {
+    var seen = {}, out = [];
+    (str || "").split(",").forEach(function (id) {
+      id = id.trim();
+      if (!seen[id] && umToolById(id) && out.length < MAX) { seen[id] = true; out.push(id); }
+    });
+    return out;
+  }
+
+  var ids = [];
+  try { ids = parse(new URLSearchParams(window.location.search).get("flow")); } catch (e) { /* none */ }
+
+  function currentId() {
+    var m = window.location.pathname.match(/([^\/]+)\.html$/);
+    return m ? m[1] : "";
+  }
+
+  function href(id) { return UM.carryHref(id + ".html"); }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  }
+
+  function renderBar(idx) {
+    var bar = document.getElementById("um-flow");
+    if (!bar) return;
+    bar.textContent = "";
+    var inner = el("div", "container um-flow-inner");
+    inner.appendChild(el("span", "um-flow-label", "Your packet · Step " + (idx + 1) + " of " + ids.length));
+    var list = el("ol", "um-flow-steps");
+    ids.forEach(function (id, i) {
+      var li = el("li", i < idx ? "is-done" : i === idx ? "is-current" : "");
+      var t = umToolById(id);
+      if (i === idx) {
+        li.appendChild(el("span", "", t.name));
+        li.setAttribute("aria-current", "step");
+      } else {
+        var a = el("a", "", t.name);
+        a.href = href(id);
+        li.appendChild(a);
+      }
+      list.appendChild(li);
+    });
+    inner.appendChild(list);
+    bar.appendChild(inner);
+    bar.hidden = false;
+  }
+
+  function mount(node) {
+    var main = document.querySelector("main");
+    if (main) main.appendChild(node);
+  }
+
+  function renderNext(idx) {
+    var wrap = el("section", "um-next");
+    var inner = el("div", "container");
+    var card = el("div", "um-next-card");
+    var nextId = ids[idx + 1];
+    if (nextId) {
+      var t = umToolById(nextId);
+      card.appendChild(el("p", "eyebrow", "Next in your packet"));
+      var h = el("h2", "", t.name);
+      card.appendChild(h);
+      card.appendChild(el("p", "", t.blurb));
+      card.appendChild(el("p", "small", "Finished here? Save or print this one first, using the Save & share button. Then continue."));
+      var a = el("a", "btn btn-primary btn-lg", "Continue to " + t.name);
+      a.href = href(nextId);
+      card.appendChild(a);
+    } else {
+      card.appendChild(el("p", "eyebrow", "Packet complete"));
+      card.appendChild(el("h2", "", "That’s the last exercise."));
+      card.appendChild(el("p", "", "Save or print what you completed and bring it to your provider. Nothing you entered was sent anywhere."));
+      var b = el("a", "btn btn-outline btn-lg", "Back to the packet overview");
+      b.href = href("packet");
+      card.appendChild(b);
+    }
+    inner.appendChild(card);
+    wrap.appendChild(inner);
+    mount(wrap);
+  }
+
+  function renderMore(cur) {
+    var pool = UM_TOOLS.filter(function (t) { return t.id !== cur && t.who !== "Clinician-led"; });
+    var start = 0;
+    UM_TOOLS.forEach(function (t, i) { if (t.id === cur) start = i; });
+    var picks = [];
+    for (var i = 1; i <= UM_TOOLS.length && picks.length < 3; i++) {
+      var t = UM_TOOLS[(start + i) % UM_TOOLS.length];
+      if (pool.indexOf(t) !== -1) picks.push(t);
+    }
+    var wrap = el("section", "um-more");
+    var inner = el("div", "container");
+    inner.appendChild(el("p", "eyebrow", "Keep going"));
+    inner.appendChild(el("h2", "", "Other exercises you might try"));
+    var grid = el("div", "um-more-grid");
+    picks.forEach(function (t) {
+      var a = el("a", "um-more-card");
+      a.href = href(t.id);
+      var ic = el("span", "um-icon"); ic.innerHTML = umToolIcon(t);
+      a.appendChild(ic);
+      var body = el("span", "um-more-body");
+      body.appendChild(el("strong", "", t.name));
+      body.appendChild(el("span", "", t.time));
+      a.appendChild(body);
+      grid.appendChild(a);
+    });
+    inner.appendChild(grid);
+    wrap.appendChild(inner);
+    mount(wrap);
+  }
+
+  function init() {
+    var cur = currentId();
+    if (!umToolById(cur)) return;
+    var idx = ids.indexOf(cur);
+    if (idx !== -1) { renderBar(idx); renderNext(idx); }
+    else if (cur !== "suds-tracker") renderMore(cur);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  return { ids: ids, parse: parse, href: href };
+})();

@@ -57,7 +57,6 @@ var UM = (function () {
   }
 
   var source = "none";
-  var linkToken = "";
   var profile = clean({});
 
   (function init() {
@@ -65,7 +64,7 @@ var UM = (function () {
       var p = new URLSearchParams(window.location.search).get("p");
       if (p) {
         var fromLink = decode(p);
-        if (fromLink) { profile = fromLink; source = "link"; linkToken = p; return; }
+        if (fromLink) { profile = fromLink; source = "link"; return; }
       }
     } catch (e) { /* fall through */ }
     var saved = readDevice();
@@ -147,15 +146,35 @@ var UM = (function () {
     el.hidden = false;
   }
 
-  /* Keep the provider's branding when a patient moves between pages. */
+  /* Keep the provider's branding and the packet order when someone moves
+     between tool pages. Only tool/home/packet links are touched. */
+  var CARRY = ["p", "flow"];
+  var CARRY_TARGET = /^(index|packet|values-sort|avoidance-calculator|suds-tracker|wheel-of-life|decision-matrix|genogram|step-builder|week-builder)\.html(#.*)?$/i;
+
+  function carryQuery() {
+    var params;
+    try { params = new URLSearchParams(window.location.search); } catch (e) { return ""; }
+    var out = [];
+    CARRY.forEach(function (k) {
+      var v = params.get(k);
+      if (v) out.push(k + "=" + encodeURIComponent(v).replace(/%2C/g, ","));
+    });
+    return out.length ? "?" + out.join("&") : "";
+  }
+
+  function carryHref(href) {
+    var q = carryQuery();
+    if (!q || !CARRY_TARGET.test(href)) return href;
+    var parts = href.split("#");
+    return parts[0] + q + (parts[1] ? "#" + parts[1] : "");
+  }
+
   function carryLinks() {
-    if (source !== "link") return;
+    if (!carryQuery()) return;
     var links = document.querySelectorAll("a[href]");
     for (var i = 0; i < links.length; i++) {
       var href = links[i].getAttribute("href");
-      if (!/^[a-z-]+\.html(#.*)?$/i.test(href) || /^providers\.html/i.test(href)) continue;
-      var parts = href.split("#");
-      links[i].setAttribute("href", parts[0] + "?p=" + linkToken + (parts[1] ? "#" + parts[1] : ""));
+      if (href.indexOf("?") === -1) links[i].setAttribute("href", carryHref(href));
     }
   }
 
@@ -165,11 +184,22 @@ var UM = (function () {
     return base + file + q + (extra || "");
   }
 
+  function markActiveNav() {
+    var m = window.location.pathname.match(/([^\/]+\.html)$/);
+    var page = m ? m[1] : "index.html";
+    var links = document.querySelectorAll(".main-nav > a");
+    for (var i = 0; i < links.length; i++) {
+      var h = links[i].getAttribute("href").split("?")[0].split("#")[0];
+      if (h === page) links[i].setAttribute("aria-current", "page");
+    }
+  }
+
   function onReady() {
     fillLetterheads();
     fillBanner();
     fillMailto();
     carryLinks();
+    markActiveNav();
     var y = document.getElementById("year");
     if (y) y.textContent = new Date().getFullYear();
   }
@@ -183,6 +213,7 @@ var UM = (function () {
     clean: clean, encode: encode, decode: decode,
     save: save, forget: forget, hasProfile: hasProfile, toolUrl: toolUrl,
     letterheadName: letterheadName, letterheadContact: letterheadContact, letterheadLine: letterheadLine,
+    carryHref: carryHref, carryQuery: carryQuery, carryLinks: carryLinks,
     refresh: onReady
   };
 })();

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>document.documentElement.classList.add("js");</script>
 <title>UnderstandMe | A toolkit for providers and their patients</title>
-<meta name="description" content="Eight guided psychology exercises for providers and their patients. Nothing you enter is saved or sent anywhere.">
+<meta name="description" content="Eight calm, guided psychology exercises for providers and their patients. Private by design, with print-ready results.">
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/um.css">
 </head>
@@ -21,12 +21,29 @@
       <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
       <span class="um-wordmark">Understand<em>Me</em></span>
     </a>
-    <nav class="main-nav" id="main-nav">
-      <a href="index.html">Home</a>
-      <a href="index.html#tools">Tools</a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Tools
+          <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown-panel">
+          <a href="index.html#tools">All tools</a>
+          <a href="values-sort.html">Values Card Sort</a>
+          <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+          <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+          <a href="wheel-of-life.html">Wheel of Life</a>
+          <a href="decision-matrix.html">Weigh Your Options</a>
+          <a href="genogram.html">Genogram Builder</a>
+          <a href="step-builder.html">Step Builder</a>
+          <a href="week-builder.html">Week Builder</a>
+        </div>
+      </div>
       <a href="providers.html">For Providers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
       <div class="nav-actions">
-        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+        <a class="btn btn-outline btn-sm" href="login.html">Log in</a>
+        <a class="btn btn-primary btn-sm" href="index.html#tools">Try a tool</a>
       </div>
     </nav>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
@@ -36,32 +53,120 @@
 </header>
 <div class="nav-scrim"></div>
 <p class="um-provider-banner" id="um-provider-banner" hidden></p>
+<div class="um-flow" id="um-flow" hidden></div>
 
 <main>
 
   <section class="um-hero">
-    <div class="container">
-      <p class="eyebrow">A toolkit for providers and their patients</p>
-      <h1>Understand yourself, one exercise at a time.</h1>
-      <p class="lede">Eight guided exercises that turn what is hard to put into words into something you can see, print, and talk through together.</p>
-      <div class="um-hero-actions">
-        <a class="btn btn-primary btn-lg" href="#tools">Explore the tools</a>
-        <a class="btn btn-outline btn-lg" href="providers.html">I&rsquo;m a provider</a>
+    <span class="um-blob um-blob-a" aria-hidden="true"></span><span class="um-blob um-blob-b" aria-hidden="true"></span>
+    <div class="container um-hero-grid">
+      <div>
+        <p class="eyebrow">A toolkit for providers and their patients</p>
+        <h1>Make the <span style="white-space:nowrap">hard-to-say</span> <em>easier</em> to see.</h1>
+        <p class="lede">Eight guided exercises that turn what is difficult to put into words into something you can look at, print, and talk through together. Calm, private, and ready for the room.</p>
+        <div class="um-hero-actions">
+          <a class="btn btn-primary btn-lg" href="#tools">Explore the tools</a>
+          <a class="btn btn-outline btn-lg" href="providers.html">I&rsquo;m a provider</a>
+        </div>
+        <ul class="um-chips"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No sign-up for patients</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nothing stored online</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Print-ready results</li></ul>
       </div>
-      <div class="um-pillars">
-        <div class="um-pillar"><h3>Nothing is collected</h3><p>No sign-up for patients and no patient data stored on any server. What you enter stays in your browser.</p></div>
-        <div class="um-pillar"><h3>Take it with you</h3><p>Every exercise ends in a print-ready summary to bring to a session or keep for yourself.</p></div>
-        <div class="um-pillar"><h3>Built for the room</h3><p>Providers can send a branded link, so the printed results carry their practice details.</p></div>
+      <div class="um-hero-art"><svg viewBox="0 0 400 400" role="img" aria-label="A calm, balanced circle with a soft petal shape inside">
+  <defs>
+    <radialGradient id="ha-g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#EAF1F3"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ha-p" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#719CA8" stop-opacity=".55"/><stop offset="100%" stop-color="#C98A5E" stop-opacity=".35"/></linearGradient>
+  </defs>
+  <circle cx="200" cy="200" r="190" fill="url(#ha-g)"/>
+  <g fill="none" stroke="#719CA8">
+    <circle class="um-ring" cx="200" cy="200" r="170" stroke-opacity=".25"/>
+    <circle class="um-ring" cx="200" cy="200" r="125" stroke-opacity=".35"/>
+    <circle class="um-ring" cx="200" cy="200" r="80" stroke-opacity=".5"/>
+    <circle cx="200" cy="200" r="36" stroke-opacity=".6"/>
+  </g>
+  <g stroke="#719CA8" stroke-opacity=".22" stroke-width="1"><path d="M200 30v340M30 200h340M80 80l240 240M320 80L80 320"/></g>
+  <path d="M200 70 L292 112 L322 210 L262 296 L190 318 L112 270 L84 188 L128 108 Z" fill="url(#ha-p)" stroke="#557C8B" stroke-width="2" stroke-linejoin="round"/>
+  <g fill="#fff" stroke="#557C8B" stroke-width="2">
+    <circle cx="200" cy="70" r="7"/><circle cx="292" cy="112" r="7"/><circle cx="322" cy="210" r="7"/><circle cx="262" cy="296" r="7"/><circle cx="190" cy="318" r="7"/><circle cx="112" cy="270" r="7"/><circle cx="84" cy="188" r="7"/><circle cx="128" cy="108" r="7"/>
+  </g>
+  <circle cx="200" cy="200" r="9" fill="#C98A5E"/>
+</svg></div>
+    </div>
+  </section>
+
+  <section class="um-section" id="how">
+    <div class="container">
+      <div class="um-head">
+        <p class="eyebrow">How it works</p>
+        <h2>From a link to a conversation</h2>
+        <p>Three quiet steps, with nothing to install and nothing to log into.</p>
+      </div>
+      <div class="um-steps">
+        <div class="um-step reveal"><div class="um-step-num">1</div><h3>Choose</h3><p>A provider picks one exercise or builds a short packet. Anyone can also explore on their own.</p></div>
+        <div class="um-step reveal reveal-delay-1"><div class="um-step-num">2</div><h3>Reflect</h3><p>The exercise runs privately in the browser, one gentle step at a time, at your own pace.</p></div>
+        <div class="um-step reveal reveal-delay-2"><div class="um-step-num">3</div><h3>Bring it along</h3><p>Print, save as PDF, copy as text, or email a draft. Then talk it through in session.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section-pad" id="tools">
+  <section class="um-section um-section-alt" id="tools">
     <div class="container">
-      <p class="eyebrow">The toolkit</p>
-      <h2>Choose an exercise</h2>
+      <div class="um-head">
+        <p class="eyebrow">The toolkit</p>
+        <h2>Choose an exercise</h2>
+        <p>Each one ends with a take-away you can print or share.</p>
+      </div>
       <div class="um-tools" id="um-tools"></div>
-      <p class="um-callout"><strong>Educational, not clinical.</strong> These tools support reflection and conversation. They do not diagnose, treat, or replace professional care.</p>
+    </div>
+  </section>
+
+  <section class="um-section">
+    <div class="container um-split">
+      <div>
+        <p class="eyebrow">Guided packets</p>
+        <h2>One link. A thoughtful path through several tools.</h2>
+        <p class="lede">Providers can line up exercises in the order that makes sense. Patients move from one to the next, with a clear sense of where they are.</p>
+        <ul class="um-checks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Pick and reorder tools in the provider dashboard.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Printouts and the banner carry your name and contact details.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>No patient data returns to you or to us.</span></li>
+        </ul>
+        <a class="btn btn-primary" href="providers.html">Build a packet</a>
+      </div>
+      <div class="um-mock" aria-hidden="true">
+        <div class="um-mock-bar"><i></i><i></i><i></i></div>
+        <ol class="um-mock-steps">
+          <li class="done"><span class="n">&#10003;</span><span>Wheel of Life</span><span>10 min</span></li>
+          <li class="on"><span class="n">2</span><span>Values Card Sort</span><span>20&ndash;30 min</span></li>
+          <li><span class="n">3</span><span>Step Builder</span><span>15 min</span></li>
+          <li><span class="n">4</span><span>Week Builder</span><span>20 min</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="um-section um-band">
+    <div class="container">
+      <div class="um-head">
+        <p class="eyebrow">Calm by design</p>
+        <h2>Built to feel safe to use</h2>
+        <p>Reflective work should not feel like filling out a form for someone else.</p>
+      </div>
+      <div class="um-band-grid">
+        <div class="um-band-card"><span class="um-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Private by default</h3><p>There is no patient database. What you type stays in your browser unless you choose to print, save, or send it.</p></div>
+        <div class="um-band-card"><span class="um-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-9 5-14 15-15 0 10-5 15-14 15"/><path d="M5 19c3-5 6-8 11-11"/></svg></span><h3>Paced, not pressured</h3><p>One idea per screen, plain language, and nothing timed unless the exercise needs it.</p></div>
+        <div class="um-band-card"><span class="um-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></span><h3>Made to be shared</h3><p>Every exercise produces a clean one-page summary designed for the conversation that follows.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="um-section um-cta">
+    <div class="container">
+      <h2>Start with one small exercise.</h2>
+      <p>No account, no cost, and no commitment. Pick the one that fits what is on your mind.</p>
+      <div class="um-hero-actions">
+        <a class="btn btn-primary btn-lg" href="#tools">Browse the tools</a>
+        <a class="btn btn-outline btn-lg" href="pricing.html">See pricing</a>
+      </div>
+      <p class="small" style="margin-top:28px;">Educational tools, not a clinical assessment or a substitute for professional care.</p>
     </div>
   </section>
 
@@ -69,19 +174,32 @@
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-grid um-footer-grid">
       <div>
         <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
-        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+        <p>A toolkit for providers and their patients. Calm, private, and ready to take with you.</p>
       </div>
       <div>
-        <h4>Explore</h4>
-        <a href="index.html#tools">All tools</a>
-        <a href="providers.html">For providers</a>
+        <h4>Toolkit</h4>
+        <a href="values-sort.html">Values Card Sort</a>
+        <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+        <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+        <a href="wheel-of-life.html">Wheel of Life</a>
+        <a href="decision-matrix.html">Weigh Your Options</a>
+        <a href="genogram.html">Genogram Builder</a>
+        <a href="step-builder.html">Step Builder</a>
+        <a href="week-builder.html">Week Builder</a>
       </div>
       <div>
-        <h4>Privacy</h4>
-        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+        <h4>Providers</h4>
+        <a href="providers.html">Dashboard &amp; packets</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="login.html">Log in</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
       </div>
       <div>
         <h4>In Crisis?</h4>
@@ -90,7 +208,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
-      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+      <span>For education and self-reflection. Not a substitute for professional care.</span>
     </div>
   </div>
 </footer>
@@ -103,20 +221,23 @@
   var grid = document.getElementById("um-tools");
   UM_TOOLS.forEach(function (t) {
     var a = document.createElement("a");
-    a.className = "card um-tool-card";
-    a.href = t.file;
+    a.className = "um-tool-card";
+    a.href = UM.carryHref(t.file);
+    var top = document.createElement("div"); top.className = "um-tool-top";
+    var ic = document.createElement("span"); ic.className = "um-icon"; ic.innerHTML = umToolIcon(t);
     var meta = document.createElement("div"); meta.className = "um-tool-meta";
     var who = document.createElement("span");
     who.className = "um-tag" + (t.who === "Clinician-led" ? " um-tag-clinician" : "");
     who.textContent = t.who;
     var time = document.createElement("span"); time.className = "um-tag"; time.textContent = t.time;
     meta.appendChild(who); meta.appendChild(time);
+    top.appendChild(ic); top.appendChild(meta);
     var h = document.createElement("h3"); h.textContent = t.name;
     var p = document.createElement("p"); p.textContent = t.blurb;
-    a.appendChild(meta); a.appendChild(h); a.appendChild(p);
+    var go = document.createElement("span"); go.className = "um-tool-go"; go.textContent = "Open exercise \u2192";
+    a.appendChild(top); a.appendChild(h); a.appendChild(p); a.appendChild(go);
     grid.appendChild(a);
   });
-  if (typeof UM !== "undefined") UM.refresh();
 })();
 </script>
 </body>

@@ -12,7 +12,9 @@ Unit tests (calc modules): `node --test js/*.test.js`
 | Page | Purpose |
 |---|---|
 | `index.html` | Landing page and tool directory (catalog in `js/tools.js`) |
-| `providers.html` | Provider dashboard: profile, assignment links, ready-to-send message |
+| `providers.html` | Provider dashboard: profile, ordered packet builder, packet link, ready-to-send message |
+| `packet.html` | What a patient sees from a packet link: the ordered steps and a start button |
+| `pricing.html`, `about.html`, `privacy.html`, `login.html` | Company pages. Pricing is placeholder copy from `js/pricing-data.js`; login is a profile entry point plus a clearly labelled non-functional preview form |
 | `values-sort`, `avoidance-calculator`, `suds-tracker`, `wheel-of-life`, `decision-matrix`, `genogram`, `step-builder`, `week-builder` | The eight tools |
 
 ## Data model: export-only
@@ -27,6 +29,12 @@ No patient data is collected, stored, or transmitted by this site.
 - Some tools offer opt-in local autosave (Step Builder, Week Builder) and resume of an in-progress sort (Values Sort). That data stays in the browser it was entered in.
 
 `js/provider.js` is the single seam for real accounts later: replace its load/save with an auth backend and the tools do not change. Patient-result dashboards would need a HIPAA-grade backend and are out of scope for this version.
+
+## Flow and export
+
+- **Packets:** `packet.html?p=<profile>&flow=wheel-of-life,values-sort` lists tools in order. Each tool page then shows a step bar and a "Next" panel (`js/flow.js`). Without a packet, tool pages suggest other exercises.
+- **Save & share tray** (`js/export.js`): reads each tool's print sheet and offers print/PDF, copy as text, download .txt, and an email draft to the provider. Nothing is uploaded.
+- **Header/footer** are stamped into every page by `python3 scripts/sync-chrome.py`. Edit them there, then re-run.
 
 ## Conventions
 
