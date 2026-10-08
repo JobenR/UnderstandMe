@@ -34,7 +34,7 @@
   font-size: 0.78rem;
   font-weight: 600;
   padding: 7px 14px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   cursor: pointer;
   white-space: nowrap;
   transition: border-color var(--transition), background var(--transition);
@@ -115,7 +115,7 @@ input[type="text"]#wb-log-unplanned-what {
 .wb-chip {
   padding: 9px 16px;
   border: 2px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-white);
   font-family: var(--font-body);
   font-weight: 600;
@@ -135,7 +135,7 @@ input[type="text"]#wb-log-unplanned-what {
   appearance: none;
   width: 100%;
   height: 6px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-border);
   outline: none;
   margin-top: 8px;

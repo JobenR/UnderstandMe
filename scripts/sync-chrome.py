@@ -24,7 +24,7 @@ footer_tool_links = "\n".join('        <a href="%s.html">%s</a>' % (t, esc(n)) f
 HEADER = '''<header class="site-header">
   <div class="container">
     <a href="index.html" class="brand" aria-label="UnderstandMe home">
-      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#1A525A"/><path d="M11 29c0-10 6-16 18-17 0 11-6 17-16 17z" fill="#EAF1E6"/><path d="M12 28c4-6 8-10 13-13" fill="none" stroke="#1A525A" stroke-width="1.8" stroke-linecap="round"/><circle cx="29" cy="11.5" r="3" fill="#8FB59A"/></svg>
       <span class="um-wordmark">Understand<em>Me</em></span>
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main">
@@ -104,6 +104,11 @@ def ensure_scripts(s, name):
     # keep tools.js / flow.js / export.js ordered after provider.js
     return s
 
+FONT_LINK = '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">'
+
+def ensure_fonts(s):
+    return re.sub(r'<link href="https://fonts\.googleapis\.com/css2[^>]*>', FONT_LINK, s, count=1)
+
 def ensure_css(s, name):
     if "css/um.css" not in s:
         s = s.replace('<link rel="stylesheet" href="css/styles.css">', '<link rel="stylesheet" href="css/styles.css">\n<link rel="stylesheet" href="css/um.css">', 1)
@@ -116,6 +121,6 @@ for path in sorted(glob.glob("*.html")):
     s = open(path).read()
     s, n1 = re.subn(r'<header class="site-header">.*?<div class="nav-scrim"></div>(?:\n<p class="um-provider-banner"[^\n]*</p>)?(?:\n<div class="um-flow"[^\n]*</div>)?', lambda m: HEADER, s, count=1, flags=re.S)
     s, n2 = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: FOOTER, s, count=1, flags=re.S)
-    s = ensure_css(ensure_scripts(s, name), name)
+    s = ensure_fonts(ensure_css(ensure_scripts(s, name), name))
     open(path, "w").write(s)
     print("%-28s header=%d footer=%d" % (path, n1, n2))

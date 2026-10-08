@@ -8,11 +8,11 @@
    * sessionStorage, a cookie, or sent anywhere. A reload starts over.
    * ------------------------------------------------------------------- */
 
-  // Two-tone palette built from the site's own brand hues (teal, terracotta)
+  // Two-tone palette built from the site's own brand hues (deep sea teal, olive)
   // instead of a fixed 6-color cycle that started repeating past 6 domains.
   // Alternates hue by index and steps the lightness up every other domain,
   // so any count from 6 to 10 gets a full set of distinct, on-brand shades.
-  var WHEEL_HUES = [198, 28];
+  var WHEEL_HUES = [183, 78];
   function lightnessForIndex(i) {
     var variant = Math.floor(i / 2);
     return Math.min(42 + variant * 8, 74);
@@ -26,7 +26,7 @@
   // text reads fine on the dark end but disappears on the light end, so
   // the number's color switches once the wedge gets light enough.
   function wedgeTextColorForIndex(i) {
-    return lightnessForIndex(i) >= 60 ? "#2C3E44" : "#FFFFFF";
+    return lightnessForIndex(i) >= 60 ? "#1F3A3E" : "#FFFFFF";
   }
 
   var domains = WOL_DOMAINS.map(function (d) {
@@ -290,7 +290,7 @@
     shadow.setAttribute("dx", "0");
     shadow.setAttribute("dy", "3");
     shadow.setAttribute("stdDeviation", "5");
-    shadow.setAttribute("flood-color", "#2C3E44");
+    shadow.setAttribute("flood-color", "#1F3A3E");
     shadow.setAttribute("flood-opacity", "0.22");
     filter.appendChild(shadow);
     defs.appendChild(filter);
@@ -388,7 +388,7 @@
       // page background -- using the fill-contrast color there is how a
       // "0" ends up white-on-white. Only trust that contrast calculation
       // when the number is actually sitting on the wedge's own color.
-      number.setAttribute("fill", numberRadius <= radius ? wedgeTextColorForIndex(i) : "#2C3E44");
+      number.setAttribute("fill", numberRadius <= radius ? wedgeTextColorForIndex(i) : "#1F3A3E");
       number.textContent = String(domain.score);
       svgEl.appendChild(number);
     });

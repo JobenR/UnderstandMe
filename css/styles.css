@@ -1,44 +1,49 @@
 /* =========================================================
    UnderstandMe — Design System
-   Brand teal #719CA8 / gray #888888 (carried over from the Mindset Psychological Care identity)
+   Deep sea teal, sage and olive
    ========================================================= */
 
 :root {
-  /* Brand */
-  --color-primary: #719CA8;
-  --color-primary-dark: #557C8B;
-  --color-primary-darker: #3F5F6C;
-  --color-primary-light: #A9C6CE;
-  --color-primary-pale: #EAF1F3;
+  /* Brand: deep sea teal with sage and olive */
+  --color-primary: #2F7F86;
+  --color-primary-dark: #246A71;
+  --color-primary-darker: #1A525A;
+  --color-primary-light: #9CCBC9;
+  --color-primary-pale: #E4F1F0;
 
-  --color-gray: #888888;
-  --color-gray-dark: #5B5B5B;
+  --color-gray: #7F8C84;
+  --color-gray-dark: #56635B;
 
-  /* Neutrals */
-  --color-ink: #263238;
-  --color-body: #45525A;
-  --color-bg: #FBFCFD;
-  --color-bg-alt: #F3F7F8;
-  --color-cream: #F7F5F0;
-  --color-border: #E1E8EA;
+  /* Neutrals (faintly green-tinted) */
+  --color-ink: #1F2B29;
+  --color-body: #415250;
+  --color-bg: #F8FAF6;
+  --color-bg-alt: #F0F5F0;
+  --color-cream: #F6F3E7;
+  --color-border: #DCE5DD;
   --color-white: #FFFFFF;
 
-  /* Accent (warm, used sparingly for contrast against teal) */
-  --color-accent: #C98A5E;
-  --color-accent-dark: #A76E45;
+  /* Accent: olive (used sparingly against the teal) */
+  --color-accent: #6F8236;
+  --color-accent-dark: #51622A;
+  --color-sage: #8FB59A;
+  --color-sage-pale: #EAF1E6;
 
   /* Type */
-  --font-heading: "Cormorant Garamond", "Georgia", serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Fraunces", "Georgia", serif;
+  --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Layout */
+  /* Layout and shape: soft rectangles and leaf corners, never pills */
   --max-width: 1180px;
-  --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 28px;
-  --shadow-sm: 0 2px 8px rgba(38, 50, 56, 0.06);
-  --shadow-md: 0 10px 30px rgba(63, 95, 108, 0.12);
-  --shadow-lg: 0 20px 50px rgba(63, 95, 108, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shape-control: 12px;
+  --shape-leaf: 28px 8px 28px 8px;
+  --shape-leaf-sm: 18px 6px 18px 6px;
+  --shadow-sm: 0 2px 8px rgba(31, 43, 41, 0.06);
+  --shadow-md: 0 10px 30px rgba(26, 82, 90, 0.13);
+  --shadow-lg: 0 20px 50px rgba(26, 82, 90, 0.17);
 
   --transition: 220ms ease;
 }
@@ -162,7 +167,7 @@ section { position: relative; }
   justify-content: center;
   gap: 8px;
   padding: 14px 30px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.98rem;
@@ -272,7 +277,7 @@ section { position: relative; }
 .main-nav a:not(.btn) {
   display: inline-block;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--color-body);
@@ -290,7 +295,7 @@ section { position: relative; }
   align-items: center;
   gap: 6px;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   border: none;
   background: none;
   font-family: var(--font-body);
@@ -317,7 +322,7 @@ section { position: relative; }
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 500;
@@ -334,7 +339,7 @@ section { position: relative; }
   color: var(--color-gray-dark);
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   padding: 3px 9px;
   white-space: nowrap;
 }
@@ -444,7 +449,7 @@ section { position: relative; }
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(38,50,56,0.35);
+  background: rgba(31,43,41,0.35);
   z-index: 98;
 }
 .nav-scrim.is-open { display: block; }
@@ -477,7 +482,7 @@ section { position: relative; }
   padding: 8px 16px;
   background: var(--color-white);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-primary-darker);
@@ -578,7 +583,7 @@ section { position: relative; }
    accent mark -- weight and color standing in for the size it gave up. */
 .grid .card-icon {
   width: 56px; height: 56px;
-  box-shadow: 0 8px 18px rgba(63, 95, 108, 0.16);
+  box-shadow: 0 8px 18px rgba(26, 82, 90, 0.16);
 }
 .grid .card h3 {
   font-size: 1rem;
@@ -629,7 +634,7 @@ section { position: relative; }
   width: 170px;
   height: auto;
   margin: 0 auto;
-  filter: drop-shadow(0 10px 24px rgba(63, 95, 108, 0.18));
+  filter: drop-shadow(0 10px 24px rgba(26, 82, 90, 0.18));
 }
 
 .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
@@ -637,11 +642,11 @@ section { position: relative; }
   font-size: 0.95rem;
   font-weight: 600;
   padding: 7px 16px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-bg-alt);
   color: var(--color-gray-dark);
 }
-.tag.tag-accent { background: rgba(201,138,94,0.14); color: var(--color-accent-dark); }
+.tag.tag-accent { background: rgba(111,130,54,0.14); color: var(--color-accent-dark); }
 
 /* ---------- Highlight banner ---------- */
 .banner {
@@ -919,7 +924,7 @@ section { position: relative; }
 /* ---------- Contact / Crisis ---------- */
 .crisis-box {
   background: var(--color-cream);
-  border: 1px solid #E9DFCF;
+  border: 1px solid #E2E6CC;
   border-radius: var(--radius-md);
   padding: 26px 28px;
   display: flex;
@@ -933,7 +938,7 @@ section { position: relative; }
 .crisis-finder {
   margin-top: 18px;
   padding-top: 16px;
-  border-top: 1px solid #E9DFCF;
+  border-top: 1px solid #E2E6CC;
 }
 .crisis-finder label {
   display: block;
@@ -950,8 +955,8 @@ section { position: relative; }
 .crisis-finder-form input[type="text"] {
   flex: 1 1 160px;
   padding: 9px 16px;
-  border: 1px solid #E9DFCF;
-  border-radius: 999px;
+  border: 1px solid #E2E6CC;
+  border-radius: var(--shape-control);
   font-family: var(--font-body);
   font-size: 0.9rem;
   color: var(--color-ink);
@@ -1053,7 +1058,7 @@ section { position: relative; }
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 4px 12px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
 }
 .fee-card h3 { font-size: 1rem; margin: 6px 0 2px; }
 .fee-card-duration { font-size: 0.86rem; color: var(--color-gray-dark); margin-bottom: 16px; }

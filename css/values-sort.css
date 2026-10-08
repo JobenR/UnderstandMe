@@ -43,7 +43,7 @@
   width: 100%;
   padding: 11px 16px;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   font-family: var(--font-body);
   font-size: 0.95rem;
 }
@@ -59,7 +59,7 @@
 .vs-progress-track {
   height: 10px;
   background: var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   overflow: hidden;
   margin-bottom: 8px;
 }
@@ -136,7 +136,7 @@
 .vs-sort-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 .vs-sort-btn.vs-sort-not { border-color: var(--color-border); color: var(--color-gray-dark); }
 .vs-sort-btn.vs-sort-important { border-color: var(--color-primary-light); color: var(--color-primary-darker); }
-.vs-sort-btn.vs-sort-most { border-color: var(--color-accent); color: var(--color-accent-dark); background: rgba(201,138,94,0.08); }
+.vs-sort-btn.vs-sort-most { border-color: var(--color-accent); color: var(--color-accent-dark); background: rgba(111,130,54,0.08); }
 
 /* Alignment check — one top-10 value at a time, rate 1-10 how consistently
    it's currently being lived, feeding the results-page gap analysis. */
@@ -187,7 +187,7 @@
 .vs-tile {
   padding: 12px 18px;
   border: 2px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-white);
   font-family: var(--font-body);
   font-weight: 600;
@@ -237,8 +237,8 @@
   flex-shrink: 0;
 }
 .vs-ranked-list li.vs-ranked-first {
-  background: rgba(201, 138, 94, 0.1);
-  border: 1px solid rgba(201, 138, 94, 0.35);
+  background: rgba(111, 130, 54, 0.1);
+  border: 1px solid rgba(111, 130, 54, 0.35);
 }
 .vs-ranked-list .vs-rank-num-top { background: var(--color-accent); }
 .vs-rank-grip {
@@ -266,13 +266,13 @@
 .vs-domain-track {
   height: 10px;
   background: var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   overflow: hidden;
 }
 .vs-domain-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  border-radius: 999px;
+  border-radius: var(--shape-control);
 }
 .vs-domain-count { font-size: 0.85rem; font-weight: 700; color: var(--color-gray-dark); text-align: right; }
 @media (max-width: 560px) {
@@ -299,8 +299,8 @@
   box-shadow: var(--shadow-sm);
 }
 .vs-result-item.vs-result-item-top {
-  border-color: rgba(201, 138, 94, 0.4);
-  background: linear-gradient(135deg, rgba(201, 138, 94, 0.07), var(--color-white) 55%);
+  border-color: rgba(111, 130, 54, 0.4);
+  background: linear-gradient(135deg, rgba(111, 130, 54, 0.07), var(--color-white) 55%);
 }
 .vs-result-rank {
   width: 42px; height: 42px;
@@ -336,18 +336,18 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--color-accent-dark);
-  background: rgba(201, 138, 94, 0.14);
-  border: 1px solid rgba(201, 138, 94, 0.35);
-  border-radius: 999px;
+  background: rgba(111, 130, 54, 0.14);
+  border: 1px solid rgba(111, 130, 54, 0.35);
+  border-radius: var(--shape-control);
   padding: 3px 10px;
 }
 .vs-result-align-track {
   height: 8px;
   background: var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   overflow: hidden;
 }
-.vs-result-align-fill { height: 100%; background: var(--color-primary); border-radius: 999px; }
+.vs-result-align-fill { height: 100%; background: var(--color-primary); border-radius: var(--shape-control); }
 .vs-result-align-fill.vs-result-align-fill-gap { background: var(--color-accent); }
 
 /* Optional toward/away reflection, written directly onto the results */

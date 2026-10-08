@@ -6,7 +6,7 @@
   var INTERVAL_PRESETS = [30, 60, 90, 120, 300];
 
   // Chart series colors, brand-only, cycled per exposure in the order run.
-  var CHART_COLORS = ["#3F5F6C", "#C98A5E", "#719CA8", "#A76E45", "#5B8A99", "#DDAB84"];
+  var CHART_COLORS = ["#1A525A", "#6F8236", "#2F7F86", "#B5653D", "#7FB0AC", "#C3CE8A"];
 
   /* ---------------------------------------------------------------------
    * STATE — in-memory only. A client's ratings are never written to

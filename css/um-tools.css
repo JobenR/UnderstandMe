@@ -3,8 +3,8 @@
    (hero, panels, utility bars, focus, motion), never tool-specific layout. */
 
 main { background: linear-gradient(180deg, var(--um-mist) 0, var(--color-bg) 420px); }
-::selection { background: rgba(113, 156, 168, 0.28); }
-:focus-visible { outline: 3px solid rgba(113, 156, 168, 0.5); outline-offset: 2px; }
+::selection { background: rgba(47, 127, 134, 0.28); }
+:focus-visible { outline: 3px solid rgba(47, 127, 134, 0.5); outline-offset: 2px; }
 
 /* Compact hero with the tool's icon and a one-line description */
 .page-hero { padding: 34px 0 40px; }
@@ -19,14 +19,14 @@ main { background: linear-gradient(180deg, var(--um-mist) 0, var(--color-bg) 420
 /* Panels: one soft surface for every tool */
 [class$="-card-panel"] {
   border-color: var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 18px 48px rgba(63, 95, 108, 0.1);
+  border-radius: var(--shape-leaf-sm);
+  box-shadow: 0 18px 48px rgba(26, 82, 90, 0.1);
 }
 [class$="-card-panel"] h1, [class$="-card-panel"] h2 { letter-spacing: -0.005em; }
 
 /* Utility bars (crisis line + delete) line up with the page container */
 .wb-utility-bar-inner, .sb-utility-bar-inner { max-width: var(--max-width); margin: 0 auto; padding: 10px 24px; }
-.wb-utility-bar, .sb-utility-bar { background: var(--um-sand); border-bottom: 1px solid #EFE3D6; }
+.wb-utility-bar, .sb-utility-bar { background: var(--um-sand); border-bottom: 1px solid #E4E7CF; }
 
 /* A gentle arrival when the exercise moves to its next step */
 @keyframes um-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

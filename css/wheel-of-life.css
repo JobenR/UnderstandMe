@@ -180,7 +180,7 @@
   appearance: none;
   flex: 1;
   height: 7px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-border);
   outline: none;
 }
@@ -292,7 +292,7 @@
 .wol-legend-bar-track {
   position: relative;
   height: 9px;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-bg-alt);
   overflow: hidden;
 }
@@ -300,7 +300,7 @@
   position: absolute;
   inset: 0;
   width: 0%;
-  border-radius: 999px;
+  border-radius: var(--shape-control);
 }
 .wol-legend-importance-marker {
   position: absolute;
@@ -354,7 +354,7 @@
 .wol-add-domain-chip {
   padding: 8px 16px;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--shape-control);
   background: var(--color-white);
   font-family: var(--font-body);
   font-size: 0.85rem;
