@@ -57,7 +57,7 @@
     };
     reader.readAsDataURL(file);
   }
-  function status(msg) { $("pv-status").textContent = msg; }
+  function status(msg) { $("pv-status").textContent = msg; var s2 = $("pv-status2"); if (s2) s2.textContent = msg; }
   function base() { return window.location.href.replace(/[?#].*$/, "").replace(/[^\/]*$/, ""); }
 
   function chosen() { return order.filter(function (id) { return selected[id]; }); }
@@ -236,6 +236,42 @@
   $("pv-select-all").addEventListener("click", function () { order.forEach(function (id) { selected[id] = true; }); refresh(); });
   $("pv-select-none").addEventListener("click", function () { order.forEach(function (id) { selected[id] = false; }); refresh(); });
 
+  /* Three-step wizard */
+  var panels = [].slice.call(document.querySelectorAll(".um-wiz-panel"));
+  var stepBtns = [].slice.call(document.querySelectorAll("#pv-steps button"));
+  var current = 1;
+
+  function go(n, silent) {
+    n = Math.max(1, Math.min(3, n));
+    var dir = n >= current ? "fwd" : "back";
+    panels.forEach(function (p) {
+      var on = Number(p.getAttribute("data-step")) === n;
+      p.hidden = !on;
+      p.classList.toggle("is-active", on);
+      p.classList.remove("is-fwd", "is-back");
+      if (on && !silent) p.classList.add("is-" + dir);
+    });
+    stepBtns.forEach(function (b, i) {
+      b.classList.toggle("is-current", i + 1 === n);
+      b.classList.toggle("is-done", i + 1 < n);
+      if (i + 1 === n) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    });
+    $("pv-bar").style.width = ((n - 1) / 2 * 100) + "%";
+    current = n;
+    status("");
+    if (!silent) {
+      var top = $("pv-wizard").getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top: top, behavior: "smooth" });
+      try { history.replaceState(null, "", "#step-" + n); } catch (e) { /* ignore */ }
+    }
+  }
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-go]");
+    if (t) go(Number(t.getAttribute("data-go")));
+  });
+
   writeForm(UM.profile);
   refresh();
+  var m = /^#step-(\d)$/.exec(window.location.hash);
+  go(m ? Number(m[1]) : (UM.hasProfile() ? 2 : 1), true);
 })();

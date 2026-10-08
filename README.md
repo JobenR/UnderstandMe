@@ -11,8 +11,8 @@ Unit tests (calc modules): `node --test js/*.test.js`
 
 | Page | Purpose |
 |---|---|
-| `index.html` | Landing page and tool directory (catalog in `js/tools.js`) |
-| `providers.html` | Provider dashboard: profile, ordered packet builder, packet link, ready-to-send message |
+| `index.html` | Landing page: "What's on your mind?" guide, exercise index, how it works (catalog, groups and guide answers in `js/tools.js`) |
+| `providers.html` | Provider setup in three steps: profile, packet builder, share link and message |
 | `packet.html` | What a patient sees from a packet link: the ordered steps and a start button |
 | `pricing.html`, `about.html`, `privacy.html`, `login.html` | Company pages. Pricing is placeholder copy from `js/pricing-data.js`; login is a profile entry point plus a clearly labelled non-functional preview form |
 | `values-sort`, `avoidance-calculator`, `suds-tracker`, `wheel-of-life`, `decision-matrix`, `genogram`, `step-builder`, `week-builder` | The eight tools |
@@ -38,6 +38,13 @@ One-time setup: in the repo go to Settings, Pages, Build and deployment, and set
 ## Logo on printouts
 
 A provider can upload a logo in the dashboard. It is shrunk in the browser to a tiny raster image (PNG, JPEG or WebP, 3,000 characters or less) so it can travel inside the assignment link. SVG and remote image URLs are rejected on purpose: a remote URL would make every patient's browser contact the provider's image host.
+
+## Navigation and motion
+
+- Header: an Exercises menu grouped by purpose, For Providers, Pricing, About, Provider sign in, and a "Find an exercise" button. A thin progress line shows reading position.
+- After each exercise, a "What to try next" list suggests two follow-ups with a reason (`UM_NEXT` in `js/tools.js`).
+- Page-to-page fades use the browser's cross-page View Transitions where supported and fall back to a soft fade elsewhere. All motion is switched off for visitors who prefer reduced motion.
+- `404.html` gives a helpful way back.
 
 ## Flow and export
 

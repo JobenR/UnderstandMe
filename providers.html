@@ -15,6 +15,7 @@
 </head>
 <body>
 
+<a class="um-skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
     <a href="index.html" class="brand" aria-label="UnderstandMe home">
@@ -23,55 +24,71 @@
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main">
       <div class="nav-dropdown">
-        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Tools
+        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Exercises
           <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-dropdown-panel">
-          <a href="index.html#tools">All tools</a>
-          <a href="values-sort.html">Values Card Sort</a>
-          <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
-          <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
-          <a href="wheel-of-life.html">Wheel of Life</a>
-          <a href="decision-matrix.html">Weigh Your Options</a>
-          <a href="genogram.html">Genogram Builder</a>
-          <a href="step-builder.html">Step Builder</a>
-          <a href="week-builder.html">Week Builder</a>
+        <div class="nav-dropdown-panel um-mega">
+          <div class="um-mega-group"><p class="um-mega-title">See where you are</p>
+            <a href="values-sort.html">Values Card Sort</a>
+            <a href="wheel-of-life.html">Wheel of Life</a>
+            <a href="genogram.html">Genogram Builder</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">Move through what is hard</p>
+            <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+            <a href="step-builder.html">Step Builder</a>
+            <a href="decision-matrix.html">Weigh Your Options</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">Keep it going</p>
+            <a href="week-builder.html">Week Builder</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">In the room (clinicians)</p>
+            <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+          </div>
+          <a class="um-mega-find" href="index.html#find">Not sure where to start? <strong>Find your starting point &rarr;</strong></a>
         </div>
       </div>
       <a href="providers.html">For Providers</a>
       <a href="pricing.html">Pricing</a>
       <a href="about.html">About</a>
       <div class="nav-actions">
-        <a class="btn btn-outline btn-sm" href="login.html">Log in</a>
-        <a class="btn btn-primary btn-sm" href="index.html#tools">Try a tool</a>
+        <a class="btn btn-outline btn-sm" href="login.html">Provider sign in</a>
+        <a class="btn btn-primary btn-sm" href="index.html#find">Find an exercise</a>
       </div>
     </nav>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
   </div>
+  <div class="um-progress" id="um-progress" aria-hidden="true"></div>
 </header>
 <div class="nav-scrim"></div>
 <p class="um-provider-banner" id="um-provider-banner" hidden></p>
 <div class="um-flow" id="um-flow" hidden></div>
 
-<main>
+<main id="main">
 
   <section class="page-hero um-page-hero">
     <div class="container">
       <p class="eyebrow">Provider dashboard</p>
       <h1>Send the right exercises, with your name on them.</h1>
-      <p class="lede">Set up your profile once, build a packet, and share one link. Patients complete everything privately in their own browser and bring the printed results to you.</p>
+      <p class="lede">Three short steps: your details, your packet, your link. Patients complete everything privately in their own browser and bring the printed results to you.</p>
     </div>
   </section>
 
-  <section class="um-section" style="padding-top:56px">
+  <section class="um-section" style="padding-top:40px">
     <div class="container">
-      <div class="um-dash">
-        <div>
-          <div class="um-panel" id="profile">
+      <div class="um-wizard" id="pv-wizard">
+        <ol class="um-wiz-steps" id="pv-steps">
+          <li><button type="button" data-go="1" class="is-current"><span class="n">1</span><span class="t">Your profile</span></button></li>
+          <li><button type="button" data-go="2"><span class="n">2</span><span class="t">Your packet</span></button></li>
+          <li><button type="button" data-go="3"><span class="n">3</span><span class="t">Share</span></button></li>
+        </ol>
+        <div class="um-wiz-bar" aria-hidden="true"><span id="pv-bar"></span></div>
+
+        <div class="um-wiz-stage">
+          <div class="um-panel um-wiz-panel is-active" data-step="1" id="profile">
             <h2>Your profile</h2>
-            <p class="small">Appears as the letterhead on printed results and in the banner patients see.</p>
+            <p class="small">Appears as the letterhead on printed results and in the banner patients see. Everything here is optional.</p>
             <form id="pv-form" autocomplete="off">
               <div class="um-row">
                 <div class="um-field"><label for="pv-name">Your name</label><input id="pv-name" name="name" type="text" maxlength="80" placeholder="e.g. Alex Rivera"></div>
@@ -79,7 +96,7 @@
               </div>
               <div class="um-field"><label for="pv-practice">Practice name</label><input id="pv-practice" name="practice" type="text" maxlength="100" placeholder="e.g. Riverbend Counseling"></div>
               <div class="um-field">
-                <label for="pv-logo">Logo (optional)</label>
+                <label for="pv-logo">Logo</label>
                 <input id="pv-logo" type="file" accept="image/png,image/jpeg,image/webp">
                 <p class="small" id="pv-logo-note">PNG, JPG or WebP. It is shrunk to fit inside your link, so simple logos work best.</p>
                 <div class="um-logo-row" id="pv-logo-row" hidden><img id="pv-logo-img" alt="Your logo"><button type="button" class="btn btn-ghost btn-sm" id="pv-logo-remove">Remove logo</button></div>
@@ -89,25 +106,24 @@
                 <div class="um-field"><label for="pv-phone">Phone</label><input id="pv-phone" name="phone" type="tel" maxlength="40" placeholder="optional"></div>
               </div>
               <div class="um-field">
-                <label for="pv-note">Note to patients (optional)</label>
+                <label for="pv-note">Note to patients</label>
                 <textarea id="pv-note" name="note" maxlength="280" placeholder="e.g. Try these before Thursday and bring the printouts."></textarea>
                 <p class="small">Shown in the banner and at the top of your message.</p>
               </div>
             </form>
             <div class="um-preview"><span class="small">Printed letterhead</span><div id="pv-preview-body"></div></div>
             <div class="um-btn-row">
-              <button type="button" class="btn btn-primary btn-sm" id="pv-save">Save on this device</button>
-              <button type="button" class="btn btn-outline btn-sm" id="pv-export">Export profile</button>
-              <label class="btn btn-outline btn-sm" for="pv-import" style="cursor:pointer;">Import profile</label>
+              <button type="button" class="btn btn-outline btn-sm" id="pv-save">Save on this device</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="pv-export">Export profile</button>
+              <label class="btn btn-ghost btn-sm" for="pv-import" style="cursor:pointer;">Import profile</label>
               <input type="file" id="pv-import" accept="application/json,.json" hidden>
               <button type="button" class="btn btn-ghost btn-sm" id="pv-forget">Remove from this device</button>
             </div>
             <p class="um-status" id="pv-status" role="status" aria-live="polite"></p>
+            <div class="um-wiz-nav"><span></span><button type="button" class="btn btn-primary" data-go="2">Continue to your packet</button></div>
           </div>
-        </div>
 
-        <div>
-          <div class="um-panel">
+          <div class="um-panel um-wiz-panel" data-step="2" hidden>
             <h2>Build a packet</h2>
             <p class="small">Tick the exercises to include and set their order. Patients move through them in this sequence.</p>
             <div class="um-assign-toolbar">
@@ -116,17 +132,22 @@
             </div>
             <ul class="um-assign-list" id="pv-assign-list"></ul>
             <p class="small" style="margin-top:12px;">The Exposure &amp; SUDS Tracker is a clinician-led, in-session tool, so it is not part of patient packets. <a href="suds-tracker.html">Open it</a> when you need it.</p>
+            <div class="um-wiz-nav"><button type="button" class="btn btn-ghost" data-go="1">Back</button><button type="button" class="btn btn-primary" data-go="3">Continue to share</button></div>
+          </div>
 
-            <h3 style="font-size:1.15rem;margin-top:26px;">Packet link</h3>
+          <div class="um-panel um-wiz-panel" data-step="3" hidden>
+            <h2>Share your packet</h2>
+            <p class="small">One link opens the whole packet for your patient. Nothing they enter is sent back to you or to us.</p>
+            <h3 style="font-size:1.1rem;margin-top:22px;">Packet link</h3>
             <div class="um-packet-link">
               <input type="text" id="pv-packet-link" readonly aria-label="Packet link">
               <button type="button" class="btn btn-primary btn-sm" id="pv-copy-packet">Copy link</button>
-              <a class="btn btn-outline btn-sm" id="pv-preview-packet" target="_blank" rel="noopener">Preview</a>
             </div>
-
             <label for="pv-message" class="small" style="display:block;margin-top:22px;">Message to paste into email or your portal</label>
             <textarea id="pv-message" class="um-message" readonly></textarea>
-            <div class="um-btn-row"><button type="button" class="btn btn-outline btn-sm" id="pv-copy-message">Copy message</button></div>
+            <div class="um-btn-row"><button type="button" class="btn btn-outline btn-sm" id="pv-copy-message">Copy message</button><a class="btn btn-ghost btn-sm" id="pv-preview-packet" target="_blank" rel="noopener">Preview as a patient</a></div>
+            <p class="um-status" id="pv-status2" role="status" aria-live="polite"></p>
+            <div class="um-wiz-nav"><button type="button" class="btn btn-ghost" data-go="2">Back</button><span></span></div>
           </div>
         </div>
       </div>
@@ -145,7 +166,8 @@
         <p>A toolkit for providers and their patients. Calm, private, and ready to take with you.</p>
       </div>
       <div>
-        <h4>Toolkit</h4>
+        <h4>Exercises</h4>
+        <a href="index.html#find">Find your starting point</a>
         <a href="values-sort.html">Values Card Sort</a>
         <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
         <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
@@ -159,7 +181,7 @@
         <h4>Providers</h4>
         <a href="providers.html">Dashboard &amp; packets</a>
         <a href="pricing.html">Pricing</a>
-        <a href="login.html">Log in</a>
+        <a href="login.html">Provider sign in</a>
       </div>
       <div>
         <h4>Company</h4>
@@ -181,6 +203,7 @@
 <script src="js/main.js"></script>
 <script src="js/provider.js"></script>
 <script src="js/tools.js"></script>
+<script src="js/um-ui.js"></script>
 <script src="js/providers.js"></script>
 </body>
 </html>

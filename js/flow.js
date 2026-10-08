@@ -95,31 +95,31 @@ var UMFlow = (function () {
   }
 
   function renderMore(cur) {
-    var pool = UM_TOOLS.filter(function (t) { return t.id !== cur && t.who !== "Clinician-led"; });
-    var start = 0;
-    UM_TOOLS.forEach(function (t, i) { if (t.id === cur) start = i; });
-    var picks = [];
-    for (var i = 1; i <= UM_TOOLS.length && picks.length < 3; i++) {
-      var t = UM_TOOLS[(start + i) % UM_TOOLS.length];
-      if (pool.indexOf(t) !== -1) picks.push(t);
-    }
+    var picks = UM_NEXT[cur];
+    if (!picks) return;
     var wrap = el("section", "um-more");
     var inner = el("div", "container");
-    inner.appendChild(el("p", "eyebrow", "Keep going"));
-    inner.appendChild(el("h2", "", "Other exercises you might try"));
-    var grid = el("div", "um-more-grid");
-    picks.forEach(function (t) {
-      var a = el("a", "um-more-card");
+    inner.appendChild(el("p", "eyebrow", "What to try next"));
+    inner.appendChild(el("h2", "", "Where to go from here"));
+    var list = el("div", "um-suggest");
+    picks.forEach(function (p) {
+      var t = umToolById(p.id);
+      var a = el("a", "um-suggest-row");
       a.href = href(t.id);
       var ic = el("span", "um-icon"); ic.innerHTML = umToolIcon(t);
       a.appendChild(ic);
-      var body = el("span", "um-more-body");
+      var body = el("span", "um-suggest-body");
       body.appendChild(el("strong", "", t.name));
-      body.appendChild(el("span", "", t.time));
+      body.appendChild(el("span", "", p.why));
       a.appendChild(body);
-      grid.appendChild(a);
+      a.appendChild(el("span", "um-row-time", t.time));
+      a.appendChild(el("span", "um-row-arrow", "\u2192"));
+      list.appendChild(a);
     });
-    inner.appendChild(grid);
+    var all = el("a", "um-suggest-all", "Browse every exercise \u2192");
+    all.href = href("index") + "#exercises";
+    list.appendChild(all);
+    inner.appendChild(list);
     wrap.appendChild(inner);
     mount(wrap);
   }
@@ -146,7 +146,7 @@ var UMFlow = (function () {
     decorateHero(umToolById(cur));
     var idx = ids.indexOf(cur);
     if (idx !== -1) { renderBar(idx); renderNext(idx); }
-    else if (cur !== "suds-tracker") renderMore(cur);
+    else renderMore(cur);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

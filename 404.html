@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>document.documentElement.classList.add("js");</script>
-<title>Pricing | UnderstandMe</title>
-<meta name="description" content="UnderstandMe pricing: free for patients, with provider and practice plans on the way.">
+<title>Page not found | UnderstandMe</title>
+<meta name="description" content="This page could not be found.">
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,23 +67,15 @@
 
 <main id="main">
 
-  <section class="page-hero um-page-hero">
+  <section class="page-hero um-page-hero" style="min-height:52vh;display:flex;align-items:center">
     <div class="container">
-      <p class="eyebrow">Pricing</p>
-      <h1>Simple plans, free while we build.</h1>
-      <p class="lede" id="pr-note"></p>
-    </div>
-  </section>
-  <section class="um-section">
-    <div class="container">
-      <div class="um-plans" id="pr-plans"></div>
-      <p class="um-note">Placeholder amounts for preview. Plans marked &ldquo;Soon&rdquo; describe features that are not built yet.</p>
-    </div>
-  </section>
-  <section class="um-section um-section-alt">
-    <div class="container">
-      <div class="um-head"><p class="eyebrow">Questions</p><h2>Good to know</h2></div>
-      <div class="um-faq" id="pr-faq"></div>
+      <p class="eyebrow">Page not found</p>
+      <h1>That path doesn&rsquo;t lead anywhere.</h1>
+      <p class="lede">The page may have moved, or the link may be mistyped. Here are some good places to go instead.</p>
+      <div class="um-hero-actions" style="justify-content:center">
+        <a class="btn btn-primary btn-lg" href="index.html#find">Find my starting point</a>
+        <a class="btn btn-outline btn-lg" href="providers.html">For providers</a>
+      </div>
     </div>
   </section>
 
@@ -135,41 +127,6 @@
 <script src="js/provider.js"></script>
 <script src="js/tools.js"></script>
 <script src="js/um-ui.js"></script>
-<script src="js/pricing-data.js"></script>
-<script>
-(function () {
-  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-  var CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 1.5"/></svg>';
-  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
-  document.getElementById("pr-note").textContent = UM_PRICING_NOTE;
-  var wrap = document.getElementById("pr-plans");
-  UM_PLANS.forEach(function (p) {
-    var card = el("div", "um-plan" + (p.featured ? " um-plan-featured" : ""));
-    if (p.featured) card.appendChild(el("span", "um-plan-badge", "Most popular"));
-    card.appendChild(el("h3", "", p.name));
-    card.appendChild(el("p", "um-plan-for", p.forWho));
-    var price = el("p", "um-plan-price", p.price + " ");
-    price.appendChild(el("span", "", p.per));
-    card.appendChild(price);
-    var ul = el("ul");
-    p.features.forEach(function (f) {
-      var li = el("li", f.soon ? "soon" : "");
-      var ic = el("span"); ic.innerHTML = f.soon ? CLOCK : CHECK; li.appendChild(ic.firstChild);
-      li.appendChild(el("span", "", f.text));
-      if (f.soon) li.appendChild(el("span", "um-soon-tag", "Soon"));
-      ul.appendChild(li);
-    });
-    card.appendChild(ul);
-    var btn = el(p.cta.href ? "a" : "span", "btn " + p.cta.style, p.cta.label);
-    if (p.cta.href) btn.href = p.cta.href; else btn.setAttribute("aria-disabled", "true");
-    card.appendChild(btn);
-    wrap.appendChild(card);
-  });
-  var faq = document.getElementById("pr-faq");
-  UM_PRICING_FAQ.forEach(function (f) {
-    var d = el("details"); d.appendChild(el("summary", "", f.q)); d.appendChild(el("p", "", f.a)); faq.appendChild(d);
-  });
-})();
-</script>
+
 </body>
 </html>

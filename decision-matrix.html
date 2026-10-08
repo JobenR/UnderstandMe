@@ -17,6 +17,7 @@
 </head>
 <body>
 
+<a class="um-skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
     <a href="index.html" class="brand" aria-label="UnderstandMe home">
@@ -25,43 +26,52 @@
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main">
       <div class="nav-dropdown">
-        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Tools
+        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Exercises
           <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-dropdown-panel">
-          <a href="index.html#tools">All tools</a>
-          <a href="values-sort.html">Values Card Sort</a>
-          <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
-          <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
-          <a href="wheel-of-life.html">Wheel of Life</a>
-          <a href="decision-matrix.html">Weigh Your Options</a>
-          <a href="genogram.html">Genogram Builder</a>
-          <a href="step-builder.html">Step Builder</a>
-          <a href="week-builder.html">Week Builder</a>
+        <div class="nav-dropdown-panel um-mega">
+          <div class="um-mega-group"><p class="um-mega-title">See where you are</p>
+            <a href="values-sort.html">Values Card Sort</a>
+            <a href="wheel-of-life.html">Wheel of Life</a>
+            <a href="genogram.html">Genogram Builder</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">Move through what is hard</p>
+            <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+            <a href="step-builder.html">Step Builder</a>
+            <a href="decision-matrix.html">Weigh Your Options</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">Keep it going</p>
+            <a href="week-builder.html">Week Builder</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">In the room (clinicians)</p>
+            <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+          </div>
+          <a class="um-mega-find" href="index.html#find">Not sure where to start? <strong>Find your starting point &rarr;</strong></a>
         </div>
       </div>
       <a href="providers.html">For Providers</a>
       <a href="pricing.html">Pricing</a>
       <a href="about.html">About</a>
       <div class="nav-actions">
-        <a class="btn btn-outline btn-sm" href="login.html">Log in</a>
-        <a class="btn btn-primary btn-sm" href="index.html#tools">Try a tool</a>
+        <a class="btn btn-outline btn-sm" href="login.html">Provider sign in</a>
+        <a class="btn btn-primary btn-sm" href="index.html#find">Find an exercise</a>
       </div>
     </nav>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
   </div>
+  <div class="um-progress" id="um-progress" aria-hidden="true"></div>
 </header>
 <div class="nav-scrim"></div>
 <p class="um-provider-banner" id="um-provider-banner" hidden></p>
 <div class="um-flow" id="um-flow" hidden></div>
 
-<main>
+<main id="main">
 
   <section class="page-hero dm-page-hero">
     <div class="container">
-      <p class="breadcrumb"><a href="index.html">Home</a> / Weigh Your Options</p>
+      <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#exercises">Exercises</a> / Weigh Your Options</p>
       <p class="eyebrow">Weigh Your Options</p>
     </div>
   </section>
@@ -223,7 +233,8 @@
         <p>A toolkit for providers and their patients. Calm, private, and ready to take with you.</p>
       </div>
       <div>
-        <h4>Toolkit</h4>
+        <h4>Exercises</h4>
+        <a href="index.html#find">Find your starting point</a>
         <a href="values-sort.html">Values Card Sort</a>
         <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
         <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
@@ -237,7 +248,7 @@
         <h4>Providers</h4>
         <a href="providers.html">Dashboard &amp; packets</a>
         <a href="pricing.html">Pricing</a>
-        <a href="login.html">Log in</a>
+        <a href="login.html">Provider sign in</a>
       </div>
       <div>
         <h4>Company</h4>
@@ -259,6 +270,7 @@
 <script src="js/main.js"></script>
 <script src="js/provider.js"></script>
 <script src="js/tools.js"></script>
+<script src="js/um-ui.js"></script>
 <script src="js/export.js"></script>
 <script src="js/flow.js"></script>
 <script src="js/decision-matrix-data.js"></script>

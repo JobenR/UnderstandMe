@@ -28,3 +28,63 @@ function umToolById(id) {
   for (var i = 0; i < UM_TOOLS.length; i++) if (UM_TOOLS[i].id === id) return UM_TOOLS[i];
   return null;
 }
+
+/* Groups for the home page index and the Exercises menu. */
+var UM_GROUPS = [
+  { id: "see", title: "See where you are", tools: ["values-sort", "wheel-of-life", "genogram"] },
+  { id: "move", title: "Move through what is hard", tools: ["avoidance-calculator", "step-builder", "decision-matrix"] },
+  { id: "keep", title: "Keep it going", tools: ["week-builder"] },
+  { id: "room", title: "In the room (clinicians)", tools: ["suds-tracker"] }
+];
+
+/* What to try after each exercise, and why. */
+var UM_NEXT = {
+  "values-sort": [
+    { id: "step-builder", why: "Turn what matters into one small first step." },
+    { id: "wheel-of-life", why: "See how those values show up across your life." }
+  ],
+  "avoidance-calculator": [
+    { id: "step-builder", why: "Break the avoided thing into a step small enough to try." },
+    { id: "values-sort", why: "Name what avoiding it is costing you." }
+  ],
+  "wheel-of-life": [
+    { id: "values-sort", why: "Name what matters most in the areas that feel empty." },
+    { id: "week-builder", why: "Schedule something for the area that feels lowest." }
+  ],
+  "decision-matrix": [
+    { id: "values-sort", why: "Check your options against what you value." },
+    { id: "step-builder", why: "Plan a first step toward the option you picked." }
+  ],
+  "genogram": [
+    { id: "values-sort", why: "Clarify what you want your relationships to stand for." },
+    { id: "wheel-of-life", why: "See how relationships sit among the rest of life." }
+  ],
+  "step-builder": [
+    { id: "week-builder", why: "Put your first step on the calendar." },
+    { id: "avoidance-calculator", why: "See what the avoidance has been costing." }
+  ],
+  "week-builder": [
+    { id: "wheel-of-life", why: "Check how your week touches each area of life." },
+    { id: "step-builder", why: "Break one activity down into a gentler first step." }
+  ]
+};
+
+/* "What's on your mind?" on the home page. */
+var UM_FINDER = [
+  { label: "I am not sure what really matters to me", tool: "values-sort", then: "wheel-of-life",
+    why: "Sorting a deck of values is the fastest way to put words to what you care about." },
+  { label: "Life feels out of balance", tool: "wheel-of-life", then: "values-sort",
+    why: "One picture of satisfaction across life areas shows where you feel full and where you feel depleted." },
+  { label: "I keep avoiding something", tool: "avoidance-calculator", then: "step-builder",
+    why: "Tallying the time and money avoidance takes makes its real cost visible." },
+  { label: "I want to start something, but small", tool: "step-builder", then: "week-builder",
+    why: "Break it into steps and find a first one small enough to actually try." },
+  { label: "My mood or energy has been low", tool: "week-builder", then: "wheel-of-life",
+    why: "Plan gentle activities, then notice how each one changes your mood." },
+  { label: "I am facing a big decision", tool: "decision-matrix", then: "values-sort",
+    why: "Weigh what matters, score each option, and let the math show what fits." },
+  { label: "My relationships feel complicated", tool: "genogram", then: "values-sort",
+    why: "Map the people in your life by closeness, then compare today with how you would like it to be." },
+  { label: "I am a clinician running an exposure in session", tool: "suds-tracker", then: "step-builder",
+    why: "A live stopwatch with timed distress check-ins and a chart across exposures." }
+];

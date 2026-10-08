@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>document.documentElement.classList.add("js");</script>
-<title>Log in | UnderstandMe</title>
-<meta name="description" content="Providers: open your profile and dashboard. Patients never need to log in.">
+<title>Provider Sign In | UnderstandMe</title>
+<meta name="description" content="Providers: sign in or create your profile. Patients never need to log in.">
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,7 @@
 </head>
 <body>
 
+<a class="um-skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container">
     <a href="index.html" class="brand" aria-label="UnderstandMe home">
@@ -23,73 +24,114 @@
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main">
       <div class="nav-dropdown">
-        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Tools
+        <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">Exercises
           <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-dropdown-panel">
-          <a href="index.html#tools">All tools</a>
-          <a href="values-sort.html">Values Card Sort</a>
-          <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
-          <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
-          <a href="wheel-of-life.html">Wheel of Life</a>
-          <a href="decision-matrix.html">Weigh Your Options</a>
-          <a href="genogram.html">Genogram Builder</a>
-          <a href="step-builder.html">Step Builder</a>
-          <a href="week-builder.html">Week Builder</a>
+        <div class="nav-dropdown-panel um-mega">
+          <div class="um-mega-group"><p class="um-mega-title">See where you are</p>
+            <a href="values-sort.html">Values Card Sort</a>
+            <a href="wheel-of-life.html">Wheel of Life</a>
+            <a href="genogram.html">Genogram Builder</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">Move through what is hard</p>
+            <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
+            <a href="step-builder.html">Step Builder</a>
+            <a href="decision-matrix.html">Weigh Your Options</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">Keep it going</p>
+            <a href="week-builder.html">Week Builder</a>
+          </div>
+          <div class="um-mega-group"><p class="um-mega-title">In the room (clinicians)</p>
+            <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
+          </div>
+          <a class="um-mega-find" href="index.html#find">Not sure where to start? <strong>Find your starting point &rarr;</strong></a>
         </div>
       </div>
       <a href="providers.html">For Providers</a>
       <a href="pricing.html">Pricing</a>
       <a href="about.html">About</a>
       <div class="nav-actions">
-        <a class="btn btn-outline btn-sm" href="login.html">Log in</a>
-        <a class="btn btn-primary btn-sm" href="index.html#tools">Try a tool</a>
+        <a class="btn btn-outline btn-sm" href="login.html">Provider sign in</a>
+        <a class="btn btn-primary btn-sm" href="index.html#find">Find an exercise</a>
       </div>
     </nav>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
   </div>
+  <div class="um-progress" id="um-progress" aria-hidden="true"></div>
 </header>
 <div class="nav-scrim"></div>
 <p class="um-provider-banner" id="um-provider-banner" hidden></p>
 <div class="um-flow" id="um-flow" hidden></div>
 
-<main>
+<main id="main">
 
   <section class="page-hero um-page-hero">
     <div class="container">
-      <p class="eyebrow">Log in</p>
-      <h1>Welcome back.</h1>
-      <p class="lede">Patients never need to log in. Providers use a profile today, with full accounts on the way.</p>
+      <p class="eyebrow">Provider access</p>
+      <h1>Welcome. Let&rsquo;s get you set up.</h1>
+      <p class="lede">Patients never need to sign in. Providers use a profile today, with full accounts on the way.</p>
     </div>
   </section>
-  <section class="um-section" style="padding-top:56px">
+  <section class="um-section" style="padding-top:48px">
     <div class="container">
-      <div class="um-login">
-        <div class="um-panel">
-          <span class="um-demo-flag" style="background:var(--color-primary-pale);color:var(--color-primary-darker)">Available now</span>
-          <h2>Provider profile</h2>
-          <p>Your profile holds your name, practice, and contact details, and brands everything you send. It lives on your device, and you can move it to another with Export and Import.</p>
-          <div class="um-btn-row">
-            <a class="btn btn-primary" href="providers.html">Open provider dashboard</a>
-            <a class="btn btn-outline" href="providers.html#profile">Import a saved profile</a>
-          </div>
-          <p class="small" style="margin-top:18px">New here? The same page is where you set up your profile. There is nothing to register.</p>
-        </div>
+      <div class="um-tabs" role="tablist" aria-label="Provider access">
+        <button class="um-tab is-active" role="tab" id="tab-signin" aria-selected="true" aria-controls="panel-signin" type="button">Sign in</button>
+        <button class="um-tab" role="tab" id="tab-create" aria-selected="false" aria-controls="panel-create" type="button" tabindex="-1">Create your profile</button>
+        <span class="um-tab-ink" aria-hidden="true"></span>
+      </div>
 
-        <div class="um-panel" id="notify">
-          <span class="um-demo-flag">Preview &middot; not connected</span>
-          <h2>Account sign-in</h2>
-          <p class="small">This shows what sign-in could look like. No accounts exist yet, so nothing you type is checked, sent, or stored. Please do not enter a real password.</p>
-          <form id="lg-form" autocomplete="off" novalidate>
-            <div class="um-field"><label for="lg-email">Email</label><input id="lg-email" type="email" placeholder="you@practice.com" autocomplete="off"></div>
-            <div class="um-field"><label for="lg-pass">Password</label><input id="lg-pass" type="password" placeholder="Not checked in this preview" autocomplete="off"></div>
-            <div class="um-btn-row"><button type="submit" class="btn btn-primary" style="flex:1;justify-content:center">Log in</button></div>
-          </form>
-          <div class="um-form-msg" id="lg-msg" role="status" hidden>
-            <strong>This is a preview.</strong> Accounts are not live, and nothing was sent or saved. You can keep working with a provider profile.
-            <br><a class="btn btn-outline btn-sm" href="providers.html">Go to the dashboard</a>
+      <div class="um-tabpanel is-active" role="tabpanel" id="panel-signin" aria-labelledby="tab-signin">
+        <div class="um-login">
+          <div class="um-panel">
+            <span class="um-demo-flag" style="background:var(--color-primary-pale);color:var(--color-primary-darker)">Available now</span>
+            <h2>Use your saved profile</h2>
+            <p>If you have set up a profile on this device, your dashboard is ready. If you exported one from another device, import it there.</p>
+            <div class="um-btn-row">
+              <a class="btn btn-primary" href="providers.html">Open my dashboard</a>
+              <a class="btn btn-outline" href="providers.html">Import a saved profile</a>
+            </div>
+          </div>
+          <div class="um-panel" id="notify">
+            <span class="um-demo-flag">Preview &middot; not connected</span>
+            <h2>Account sign-in</h2>
+            <p class="small">This shows what sign-in could look like. No accounts exist yet, so nothing you type is checked, sent, or stored. Please do not enter a real password.</p>
+            <form id="lg-form" autocomplete="off" novalidate>
+              <div class="um-field"><label for="lg-email">Email</label><input id="lg-email" type="email" placeholder="you@practice.com" autocomplete="off"></div>
+              <div class="um-field"><label for="lg-pass">Password</label><input id="lg-pass" type="password" placeholder="Not checked in this preview" autocomplete="off"></div>
+              <label class="um-check-row"><input type="checkbox"> <span>Keep me signed in on this device</span></label>
+              <div class="um-btn-row"><button type="submit" class="btn btn-primary" style="flex:1;justify-content:center">Sign in</button></div>
+            </form>
+            <div class="um-form-msg" id="lg-msg" role="status" hidden>
+              <strong>This is a preview.</strong> Accounts are not live, and nothing was sent or saved. You can keep working with a provider profile.
+              <br><a class="btn btn-outline btn-sm" href="providers.html">Go to the dashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="um-tabpanel" role="tabpanel" id="panel-create" aria-labelledby="tab-create" hidden>
+        <div class="um-create">
+          <div>
+            <p class="eyebrow">New here?</p>
+            <h2>There is nothing to register.</h2>
+            <p class="lede">Your profile is three short steps and takes about two minutes. It stays on your device, and you decide what goes into the links you send.</p>
+            <ol class="um-create-steps">
+              <li><strong>Add your details.</strong> Name, practice, contact, and a logo if you have one.</li>
+              <li><strong>Pick your exercises.</strong> Choose them and set the order.</li>
+              <li><strong>Share one link.</strong> Copy it, or paste a ready-made message.</li>
+            </ol>
+            <a class="btn btn-primary btn-lg" href="providers.html">Start setting up</a>
+            <p class="small" style="margin-top:14px">Want accounts that work across devices? Those are on the roadmap. See <a href="pricing.html">Pricing</a> for what is planned.</p>
+          </div>
+          <div class="um-mock" aria-hidden="true">
+            <div class="um-mock-bar"><i></i><i></i><i></i></div>
+            <ol class="um-mock-steps">
+              <li class="done"><span class="n">&#10003;</span><span>Your profile</span><span>2 min</span></li>
+              <li class="on"><span class="n">2</span><span>Build a packet</span><span></span></li>
+              <li><span class="n">3</span><span>Share the link</span><span></span></li>
+            </ol>
           </div>
         </div>
       </div>
@@ -106,7 +148,8 @@
         <p>A toolkit for providers and their patients. Calm, private, and ready to take with you.</p>
       </div>
       <div>
-        <h4>Toolkit</h4>
+        <h4>Exercises</h4>
+        <a href="index.html#find">Find your starting point</a>
         <a href="values-sort.html">Values Card Sort</a>
         <a href="avoidance-calculator.html">Avoidance Cost Calculator</a>
         <a href="suds-tracker.html">Exposure &amp; SUDS Tracker</a>
@@ -120,7 +163,7 @@
         <h4>Providers</h4>
         <a href="providers.html">Dashboard &amp; packets</a>
         <a href="pricing.html">Pricing</a>
-        <a href="login.html">Log in</a>
+        <a href="login.html">Provider sign in</a>
       </div>
       <div>
         <h4>Company</h4>
@@ -142,14 +185,36 @@
 <script src="js/main.js"></script>
 <script src="js/provider.js"></script>
 <script src="js/tools.js"></script>
+<script src="js/um-ui.js"></script>
 <script>
 (function () {
   var f = document.getElementById("lg-form");
-  f.addEventListener("submit", function (e) {
-    e.preventDefault();
-    f.reset();
-    document.getElementById("lg-msg").hidden = false;
+  f.addEventListener("submit", function (e) { e.preventDefault(); f.reset(); document.getElementById("lg-msg").hidden = false; });
+  var tabs = [].slice.call(document.querySelectorAll(".um-tab"));
+  var panels = { "tab-signin": document.getElementById("panel-signin"), "tab-create": document.getElementById("panel-create") };
+  var ink = document.querySelector(".um-tab-ink");
+  function place() {
+    var t = document.querySelector(".um-tab.is-active");
+    ink.style.width = t.offsetWidth + "px"; ink.style.transform = "translateX(" + t.offsetLeft + "px)";
+  }
+  function show(id) {
+    tabs.forEach(function (t) {
+      var on = t.id === id;
+      t.classList.toggle("is-active", on); t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1;
+      panels[t.id].hidden = !on; panels[t.id].classList.toggle("is-active", on);
+    });
+    place();
+    try { history.replaceState(null, "", id === "tab-create" ? "#create" : "#signin"); } catch (e) { /* ignore */ }
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { show(t.id); });
+    t.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") { var n = tabs[(i + 1) % tabs.length]; n.focus(); show(n.id); }
+    });
   });
+  if (location.hash === "#create") show("tab-create"); else place();
+  window.addEventListener("resize", place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
 })();
 </script>
 </body>
