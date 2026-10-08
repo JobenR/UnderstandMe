@@ -19,17 +19,27 @@ var UM = (function () {
   var FIELDS = ["name", "credentials", "practice", "email", "phone", "note"];
   var LIMITS = { name: 80, credentials: 60, practice: 100, email: 120, phone: 40, note: 280 };
 
+  /* A logo travels inside the assignment link, so it must stay tiny: a small
+     raster data URL only (no SVG, no remote URL, which would make every
+     patient's browser contact the provider's image host). */
+  var LOGO_RE = /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+\/=]+$/;
+  var LOGO_MAX = 3000;
+
   function clean(raw) {
     var out = {};
     FIELDS.forEach(function (f) {
       var v = raw && typeof raw[f] === "string" ? raw[f] : "";
       out[f] = v.replace(/[\u0000-\u001f]/g, " ").trim().slice(0, LIMITS[f]);
     });
+    var logo = raw && typeof raw.logo === "string" ? raw.logo : "";
+    out.logo = logo.length <= LOGO_MAX && LOGO_RE.test(logo) ? logo : "";
     return out;
   }
 
   function encode(profile) {
-    var json = JSON.stringify(clean(profile));
+    var c = clean(profile);
+    if (!c.logo) delete c.logo;
+    var json = JSON.stringify(c);
     var bytes = new TextEncoder().encode(json);
     var bin = "";
     bytes.forEach(function (b) { bin += String.fromCharCode(b); });
@@ -109,6 +119,13 @@ var UM = (function () {
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
       while (el.firstChild) el.removeChild(el.firstChild);
+      if (profile.logo) {
+        var img = document.createElement("img");
+        img.className = "um-letterhead-logo";
+        img.alt = "";
+        img.src = profile.logo;
+        el.appendChild(img);
+      }
       var strong = document.createElement("strong");
       strong.textContent = letterheadName();
       el.appendChild(strong);
@@ -209,7 +226,7 @@ var UM = (function () {
   return {
     get profile() { return profile; },
     get source() { return source; },
-    FIELDS: FIELDS, LIMITS: LIMITS,
+    FIELDS: FIELDS, LIMITS: LIMITS, LOGO_MAX: LOGO_MAX,
     clean: clean, encode: encode, decode: decode,
     save: save, forget: forget, hasProfile: hasProfile, toolUrl: toolUrl,
     letterheadName: letterheadName, letterheadContact: letterheadContact, letterheadLine: letterheadLine,

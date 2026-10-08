@@ -124,9 +124,26 @@ var UMFlow = (function () {
     mount(wrap);
   }
 
+  /* Tool icon + one-line description in the page hero. */
+  function decorateHero(tool) {
+    var hero = document.querySelector(".page-hero .container");
+    var eyebrow = hero && hero.querySelector(".eyebrow");
+    if (!eyebrow || hero.querySelector(".um-hero-row")) return;
+    var row = el("div", "um-hero-row");
+    var ic = el("span", "um-icon"); ic.innerHTML = umToolIcon(tool);
+    eyebrow.parentNode.insertBefore(row, eyebrow);
+    row.appendChild(ic); row.appendChild(eyebrow);
+    hero.appendChild(el("p", "um-hero-blurb", tool.blurb));
+    var meta = el("div", "um-hero-meta");
+    meta.appendChild(el("span", "um-tag" + (tool.who === "Clinician-led" ? " um-tag-clinician" : ""), tool.who));
+    meta.appendChild(el("span", "um-tag", tool.time));
+    hero.appendChild(meta);
+  }
+
   function init() {
     var cur = currentId();
     if (!umToolById(cur)) return;
+    decorateHero(umToolById(cur));
     var idx = ids.indexOf(cur);
     if (idx !== -1) { renderBar(idx); renderNext(idx); }
     else if (cur !== "suds-tracker") renderMore(cur);

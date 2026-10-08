@@ -30,6 +30,15 @@ No patient data is collected, stored, or transmitted by this site.
 
 `js/provider.js` is the single seam for real accounts later: replace its load/save with an auth backend and the tools do not change. Patient-result dashboards would need a HIPAA-grade backend and are out of scope for this version.
 
+## Deploy (GitHub Pages)
+
+`.github/workflows/pages.yml` runs the unit tests and checks the header/footer are in sync, then publishes the static site on every push to `main`.
+One-time setup: in the repo go to Settings, Pages, Build and deployment, and set Source to "GitHub Actions". The site works from a project sub-path (all links are relative). Any static host works the same way: upload `*.html`, `css/`, `js/` and `images/`.
+
+## Logo on printouts
+
+A provider can upload a logo in the dashboard. It is shrunk in the browser to a tiny raster image (PNG, JPEG or WebP, 3,000 characters or less) so it can travel inside the assignment link. SVG and remote image URLs are rejected on purpose: a remote URL would make every patient's browser contact the provider's image host.
+
 ## Flow and export
 
 - **Packets:** `packet.html?p=<profile>&flow=wheel-of-life,values-sort` lists tools in order. Each tool page then shows a step bar and a "Next" panel (`js/flow.js`). Without a packet, tool pages suggest other exercises.

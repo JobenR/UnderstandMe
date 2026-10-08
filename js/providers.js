@@ -13,12 +13,50 @@
   var selected = {};
   order.forEach(function (id) { selected[id] = DEFAULT_PACKET.indexOf(id) !== -1; });
 
+  var logo = "";
+
   function readForm() {
-    var out = {};
+    var out = { logo: logo };
     UM.FIELDS.forEach(function (f) { out[f] = form.elements[f].value; });
     return UM.clean(out);
   }
-  function writeForm(p) { UM.FIELDS.forEach(function (f) { form.elements[f].value = p[f] || ""; }); }
+  function writeForm(p) {
+    UM.FIELDS.forEach(function (f) { form.elements[f].value = p[f] || ""; });
+    setLogo(p.logo || "");
+  }
+
+  function setLogo(dataUrl) {
+    logo = dataUrl;
+    $("pv-logo-row").hidden = !dataUrl;
+    if (dataUrl) $("pv-logo-img").src = dataUrl; else $("pv-logo-img").removeAttribute("src");
+  }
+
+  /* Shrink an uploaded image until its data URL fits in a link. */
+  function fitLogo(file, done) {
+    var reader = new FileReader();
+    reader.onerror = function () { done(""); };
+    reader.onload = function () {
+      var img = new Image();
+      img.onerror = function () { done(""); };
+      img.onload = function () {
+        var widths = [200, 160, 128, 96, 72], types = ["image/webp", "image/png", "image/jpeg"];
+        for (var w = 0; w < widths.length; w++) {
+          var scale = Math.min(widths[w] / img.width, (widths[w] * 0.45) / img.height, 1);
+          var cw = Math.max(1, Math.round(img.width * scale)), ch = Math.max(1, Math.round(img.height * scale));
+          var c = document.createElement("canvas");
+          c.width = cw; c.height = ch;
+          c.getContext("2d").drawImage(img, 0, 0, cw, ch);
+          for (var t = 0; t < types.length; t++) {
+            var url = c.toDataURL(types[t], 0.7);
+            if (url.indexOf("data:" + types[t]) === 0 && url.length <= UM.LOGO_MAX) { done(url); return; }
+          }
+        }
+        done("");
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
   function status(msg) { $("pv-status").textContent = msg; }
   function base() { return window.location.href.replace(/[?#].*$/, "").replace(/[^\/]*$/, ""); }
 
@@ -62,6 +100,11 @@
     var p = readForm();
     var el = $("pv-preview-body");
     el.textContent = "";
+    if (p.logo) {
+      var li = document.createElement("img");
+      li.className = "um-letterhead-logo"; li.alt = ""; li.src = p.logo;
+      el.appendChild(li);
+    }
     var name = [p.practice, (p.name + (p.credentials ? ", " + p.credentials : "")).trim()].filter(Boolean).join(" — ") || "UnderstandMe";
     var strong = document.createElement("strong");
     strong.textContent = name;
@@ -150,6 +193,17 @@
 
   form.addEventListener("input", refresh);
   form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+  $("pv-logo").addEventListener("change", function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    fitLogo(file, function (url) {
+      if (url) { setLogo(url); refresh(); status("Logo added. Choose Save on this device to keep it."); }
+      else status("That logo is too detailed to fit in a link. Try a simpler or smaller image.");
+    });
+    e.target.value = "";
+  });
+  $("pv-logo-remove").addEventListener("click", function () { setLogo(""); refresh(); status("Logo removed."); });
 
   $("pv-save").addEventListener("click", function () {
     status(UM.save(readForm()) ? "Saved on this device only. Nothing was uploaded." : "This browser blocked local storage, so nothing was saved. Use Export instead.");

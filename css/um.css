@@ -332,6 +332,9 @@ h1, h2, h3 { letter-spacing: -0.005em; }
 .um-callout { margin-top: 28px; padding: 18px 22px; border-left: 4px solid var(--color-accent); background: #FBF4EE; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.9rem; }
 .um-callout strong { color: var(--color-ink); }
 .um-letterhead { text-align: center; margin-bottom: 4px; }
+.um-letterhead-logo { display: block; margin: 0 auto 6px; max-height: 48px; max-width: 200px; width: auto; height: auto; }
+.um-logo-row { display: flex; align-items: center; gap: 14px; margin-top: 10px; flex-wrap: wrap; }
+.um-logo-row img { max-height: 44px; max-width: 160px; border: 1px solid var(--color-border); border-radius: 8px; padding: 4px; background: #fff; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: linear-gradient(170deg, #2F4B56, #263238); }

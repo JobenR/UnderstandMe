@@ -104,9 +104,11 @@ def ensure_scripts(s, name):
     # keep tools.js / flow.js / export.js ordered after provider.js
     return s
 
-def ensure_css(s):
+def ensure_css(s, name):
     if "css/um.css" not in s:
         s = s.replace('<link rel="stylesheet" href="css/styles.css">', '<link rel="stylesheet" href="css/styles.css">\n<link rel="stylesheet" href="css/um.css">', 1)
+    if name in TOOL_FILES and "css/um-tools.css" not in s:
+        s = s.replace("</head>", '<link rel="stylesheet" href="css/um-tools.css">\n</head>', 1)
     return s
 
 for path in sorted(glob.glob("*.html")):
@@ -114,6 +116,6 @@ for path in sorted(glob.glob("*.html")):
     s = open(path).read()
     s, n1 = re.subn(r'<header class="site-header">.*?<div class="nav-scrim"></div>(?:\n<p class="um-provider-banner"[^\n]*</p>)?(?:\n<div class="um-flow"[^\n]*</div>)?', lambda m: HEADER, s, count=1, flags=re.S)
     s, n2 = re.subn(r'<footer class="site-footer">.*?</footer>', lambda m: FOOTER, s, count=1, flags=re.S)
-    s = ensure_css(ensure_scripts(s, name))
+    s = ensure_css(ensure_scripts(s, name), name)
     open(path, "w").write(s)
     print("%-28s header=%d footer=%d" % (path, n1, n2))

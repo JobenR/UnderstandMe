@@ -78,6 +78,12 @@
                 <div class="um-field"><label for="pv-cred">Credentials</label><input id="pv-cred" name="credentials" type="text" maxlength="60" placeholder="e.g. LCSW"></div>
               </div>
               <div class="um-field"><label for="pv-practice">Practice name</label><input id="pv-practice" name="practice" type="text" maxlength="100" placeholder="e.g. Riverbend Counseling"></div>
+              <div class="um-field">
+                <label for="pv-logo">Logo (optional)</label>
+                <input id="pv-logo" type="file" accept="image/png,image/jpeg,image/webp">
+                <p class="small" id="pv-logo-note">PNG, JPG or WebP. It is shrunk to fit inside your link, so simple logos work best.</p>
+                <div class="um-logo-row" id="pv-logo-row" hidden><img id="pv-logo-img" alt="Your logo"><button type="button" class="btn btn-ghost btn-sm" id="pv-logo-remove">Remove logo</button></div>
+              </div>
               <div class="um-row">
                 <div class="um-field"><label for="pv-email">Email</label><input id="pv-email" name="email" type="email" maxlength="120" placeholder="you@practice.com"></div>
                 <div class="um-field"><label for="pv-phone">Phone</label><input id="pv-phone" name="phone" type="tel" maxlength="40" placeholder="optional"></div>
