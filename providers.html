@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>For Providers | UnderstandMe</title>
+<meta name="description" content="Set up your provider profile and share branded exercise links. No accounts to host and no patient data stored.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / For Providers</p>
+      <p class="eyebrow">Provider dashboard</p>
+      <h1>Send the right exercise, with your name on it.</h1>
+      <p class="lede">Set up your profile once, pick the tools, and share links. Patients complete the exercise privately in their own browser and bring the printed results to you.</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container">
+      <div class="um-dash">
+        <div>
+          <div class="um-panel">
+            <h2>Your profile</h2>
+            <p class="small">Appears as the letterhead on printed results and in the banner patients see.</p>
+            <form id="pv-form" autocomplete="off">
+              <div class="um-row">
+                <div class="um-field"><label for="pv-name">Your name</label><input id="pv-name" name="name" type="text" maxlength="80" placeholder="e.g. Alex Rivera"></div>
+                <div class="um-field"><label for="pv-cred">Credentials</label><input id="pv-cred" name="credentials" type="text" maxlength="60" placeholder="e.g. LCSW"></div>
+              </div>
+              <div class="um-field"><label for="pv-practice">Practice name</label><input id="pv-practice" name="practice" type="text" maxlength="100" placeholder="e.g. Riverbend Counseling"></div>
+              <div class="um-row">
+                <div class="um-field"><label for="pv-email">Email</label><input id="pv-email" name="email" type="email" maxlength="120" placeholder="you@practice.com"></div>
+                <div class="um-field"><label for="pv-phone">Phone</label><input id="pv-phone" name="phone" type="tel" maxlength="40" placeholder="optional"></div>
+              </div>
+              <div class="um-field">
+                <label for="pv-note">Note to patients (optional)</label>
+                <textarea id="pv-note" name="note" maxlength="280" placeholder="e.g. Try this before Thursday and bring the printout."></textarea>
+                <p class="small">Shown in the banner and at the top of your message.</p>
+              </div>
+            </form>
+            <div class="um-preview"><span class="small">Printed letterhead</span><div id="pv-preview-body"></div></div>
+            <div class="um-btn-row">
+              <button type="button" class="btn btn-primary btn-sm" id="pv-save">Save on this device</button>
+              <button type="button" class="btn btn-outline btn-sm" id="pv-export">Export profile</button>
+              <label class="btn btn-outline btn-sm" for="pv-import" style="cursor:pointer;">Import profile</label>
+              <input type="file" id="pv-import" accept="application/json,.json" hidden>
+              <button type="button" class="btn btn-ghost btn-sm" id="pv-forget">Remove from this device</button>
+            </div>
+            <p class="um-status" id="pv-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div>
+          <div class="um-panel">
+            <h2>Share exercises</h2>
+            <p class="small">Each link carries your profile only. Nothing a patient enters is ever sent back to you or to us.</p>
+            <div class="um-assign-toolbar">
+              <span class="small">Choose what to include in the message below.</span>
+              <span><button type="button" class="btn btn-ghost btn-sm" id="pv-select-all">All</button> <button type="button" class="btn btn-ghost btn-sm" id="pv-select-none">None</button></span>
+            </div>
+            <ul class="um-assign-list" id="pv-assign-list"></ul>
+            <label for="pv-message" class="small" style="display:block;margin-top:22px;">Message to paste into email or your portal</label>
+            <textarea id="pv-message" class="um-message" readonly></textarea>
+            <div class="um-btn-row"><button type="button" class="btn btn-primary btn-sm" id="pv-copy-message">Copy message</button></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="um-callout"><strong>How &ldquo;accounts&rdquo; work here.</strong> There is no sign-in and no server. Your profile lives only on this device (if you choose to save it) or in the links you send, and you can move it between devices with Export and Import. Because links are not secret, leave out anything you would not want a patient to forward. Dashboards that show patient results would require a secure, compliant backend and are not part of this version.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/providers.js"></script>
+</body>
+</html>

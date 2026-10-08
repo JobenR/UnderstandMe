@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Exposure &amp; SUDS Tracker | UnderstandMe</title>
+<meta name="description" content="A live, in-session tool for clinicians: a visual stopwatch with timed SUDS check-ins during exposure work, and a habituation chart comparing multiple exposures.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/suds-tracker.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero st-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Exposure &amp; SUDS Tracker</p>
+      <p class="eyebrow">Exposure &amp; SUDS Tracker</p>
+    </div>
+  </section>
+
+  <!-- Announces each step change to screen reader users, and each new
+       rating as it's logged, since neither is otherwise signaled to
+       someone using a screen reader. -->
+  <div id="st-live-region" class="st-sr-only" aria-live="polite" role="status"></div>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:760px;">
+
+      <!-- STEP 1: OPENING -->
+      <div id="st-view-opening" class="st-view">
+        <div class="st-card-panel">
+          <h1 id="st-opening-heading">A live stopwatch for exposure work</h1>
+          <div class="st-body">
+            <p>Built for running an exposure exercise in session: start the clock, rate distress before you begin, and this tracks the rest &mdash; prompting a check-in at whatever interval you set, logging every rating with a timestamp, and charting how it rises and (with continued exposure) comes back down.</p>
+            <p>Run more than one exposure in the same sitting and they're automatically compared side by side, so change across the session &mdash; not just within one exposure &mdash; is visible immediately.</p>
+            <p>Session data &mdash; exposures, ratings, timestamps &mdash; lives only in this browser tab. Nothing about a client is saved or sent anywhere, and closing or reloading the tab clears it, so print or save the summary before you do.</p>
+          </div>
+          <div class="st-actions">
+            <button type="button" id="st-start-btn" class="btn btn-primary btn-lg">Start a Session</button>
+          </div>
+          <p class="st-fine-print" style="margin-top:26px;">A session-documentation aid for clinicians, not a standardized or diagnostic instrument. It doesn&rsquo;t replace clinical judgment.</p>
+        </div>
+        <p class="st-crisis-line">If you or someone you're with is in crisis, call or text <strong>988</strong> &mdash; the Suicide &amp; Crisis Lifeline, available 24/7 in the US.</p>
+      </div>
+
+      <!-- STEP 2: SESSION SETUP -->
+      <div id="st-view-session-setup" class="st-view" hidden>
+        <div class="st-card-panel">
+          <h1>Set up this session</h1>
+          <p class="st-body">Both fields are optional and print on the summary sheet &mdash; leave either blank if you'd rather add it by hand afterward.</p>
+
+          <div class="st-field-row">
+            <label for="st-client-initials">Client initials</label>
+            <input type="text" id="st-client-initials" placeholder="e.g. J.R." maxlength="12" autocomplete="off">
+          </div>
+
+          <div class="st-field-row">
+            <label for="st-measure-label">What are you rating?</label>
+            <input type="text" id="st-measure-label" placeholder="e.g. anxiety, tension, urgency" maxlength="40" autocomplete="off" value="Distress">
+            <p class="small">Shown on every rating prompt and on the chart. Stays the same across every exposure in this session, so the ratings line up on one scale.</p>
+          </div>
+
+          <div class="st-actions">
+            <button type="button" id="st-session-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="st-session-continue-btn" class="btn btn-primary btn-lg">Add First Exposure</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: EXPOSURE SETUP (repeats for exposure 2, 3, ...) -->
+      <div id="st-view-exposure-setup" class="st-view" hidden>
+        <div class="st-card-panel">
+          <h1 id="st-exposure-setup-heading">Set up this exposure</h1>
+
+          <div class="st-field-row">
+            <label for="st-exposure-label">What's the exposure?</label>
+            <input type="text" id="st-exposure-label" placeholder="e.g. Touching a doorknob without washing hands" maxlength="80" autocomplete="off">
+          </div>
+
+          <div class="st-field-row">
+            <label for="st-interval-input">Check in every</label>
+            <div class="st-interval-row">
+              <div class="st-interval-presets" id="st-interval-presets"></div>
+              <div class="st-interval-custom">
+                <input type="number" id="st-interval-input" min="5" max="1800" step="5" value="60" inputmode="numeric">
+                <span>seconds</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="st-field-row">
+            <p class="st-scale-heading" id="st-presuds-heading">Rate right now, before starting: 1 (lowest) to 10 (highest)</p>
+            <div class="st-suds-scale" id="st-presuds-scale"></div>
+          </div>
+
+          <div class="st-actions">
+            <button type="button" id="st-exposure-setup-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="st-exposure-start-btn" class="btn btn-primary btn-lg" disabled>Start Exposure</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: LIVE EXPOSURE -->
+      <div id="st-view-exposure-live" class="st-view" hidden>
+        <h1 class="st-sr-only" id="st-live-heading">Exposure in progress</h1>
+        <div class="st-stopwatch-card" id="st-stopwatch-card" tabindex="-1">
+          <p class="st-domain-badge" id="st-live-exposure-badge"></p>
+          <div class="st-timer-display" id="st-timer-display" aria-hidden="true">00:00</div>
+          <p class="st-next-checkin" id="st-next-checkin-label">Next check-in in 1:00</p>
+          <div class="st-checkin-track"><div class="st-checkin-fill" id="st-checkin-fill"></div></div>
+
+          <div class="st-rating-panel" id="st-rating-panel" hidden>
+            <p class="st-scale-heading" id="st-rating-heading">Rate right now: 1 (lowest) to 10 (highest)</p>
+            <div class="st-suds-scale" id="st-rating-scale"></div>
+          </div>
+
+          <div class="st-live-actions">
+            <button type="button" id="st-manual-log-btn" class="btn btn-outline btn-sm">Log a Rating Now</button>
+            <label class="st-mute-toggle">
+              <input type="checkbox" id="st-mute-toggle">
+              Mute chime
+            </label>
+          </div>
+        </div>
+
+        <div class="st-live-log-wrap">
+          <p class="small" style="margin-bottom:8px;">Ratings logged so far</p>
+          <ul class="st-live-log" id="st-live-log"></ul>
+        </div>
+
+        <div class="st-actions" style="justify-content:center; margin-top:24px;">
+          <button type="button" id="st-end-exposure-btn" class="btn btn-primary btn-lg">End This Exposure</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: EXPOSURE COMPLETE -->
+      <div id="st-view-exposure-complete" class="st-view" hidden>
+        <div class="st-card-panel">
+          <h1>Exposure logged</h1>
+          <h2 id="st-complete-exposure-label" class="st-exposure-title"></h2>
+
+          <div class="st-chart-wrap">
+            <svg class="st-chart" id="st-complete-chart" viewBox="0 0 560 260" role="img" aria-labelledby="st-complete-chart-title"></svg>
+            <p id="st-complete-chart-title" class="st-sr-only">Chart of this exposure's ratings over time</p>
+          </div>
+
+          <div class="st-stat-row" id="st-complete-stats"></div>
+
+          <div class="st-actions">
+            <button type="button" id="st-run-another-btn" class="btn btn-outline btn-lg">Run Another Exposure</button>
+            <button type="button" id="st-finish-session-btn" class="btn btn-primary btn-lg">Finish &amp; Compare</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: SESSION SUMMARY / COMPARE -->
+      <div id="st-view-summary" class="st-view" hidden>
+        <div class="st-card-panel">
+          <h1>Session summary</h1>
+          <p class="st-body" id="st-summary-intro"></p>
+
+          <div class="st-chart-wrap">
+            <svg class="st-chart" id="st-summary-chart" viewBox="0 0 560 260" role="img" aria-labelledby="st-summary-chart-title"></svg>
+            <p id="st-summary-chart-title" class="st-sr-only">Chart comparing every exposure's ratings over time</p>
+          </div>
+          <div class="st-legend" id="st-summary-legend"></div>
+
+          <div class="st-table-wrap">
+            <table class="st-summary-table" id="st-summary-table">
+              <thead>
+                <tr><th>Exposure</th><th>Duration</th><th>Pre</th><th>Peak</th><th>End</th><th>Change</th></tr>
+              </thead>
+              <tbody id="st-summary-table-body"></tbody>
+            </table>
+          </div>
+
+          <p class="st-trend-note" id="st-trend-note"></p>
+
+          <div class="st-actions">
+            <button type="button" id="st-add-exposure-btn" class="btn btn-outline btn-sm">Add Another Exposure</button>
+            <button type="button" id="st-print-btn" class="btn btn-outline btn-sm">Print / Save Session</button>
+            <button type="button" id="st-new-session-btn" class="btn btn-ghost btn-sm">Start a New Session</button>
+          </div>
+
+          <p class="st-fine-print" style="margin-top:26px;">A session-documentation aid for clinicians, not a standardized or diagnostic instrument. It doesn&rsquo;t replace clinical judgment.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Print-only summary. Populated by JS once a session exists; invisible
+       on screen (.st-print-only), the only thing shown when printing (see
+       @media print in suds-tracker.css). -->
+  <div class="st-print-only" id="st-print-sheet">
+    <p class="um-letterhead" data-um-letterhead></p>
+    <p id="st-print-meta"></p>
+    <div id="st-print-exposures"></div>
+    <p id="st-print-trend"></p>
+    <p>Session-documentation aid, not a standardized or diagnostic instrument. Does not replace clinical judgment.</p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/suds-tracker-calc.js"></script>
+<script src="js/suds-tracker.js"></script>
+</body>
+</html>

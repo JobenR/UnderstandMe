@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Step Builder | UnderstandMe</title>
+<meta name="description" content="Break something you've been avoiding into an ordered set of steps, find a first one small enough to actually try, and keep a practice record of what you expected versus what happened. Nothing is saved unless you choose to.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/step-builder.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero sb-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Step Builder</p>
+      <p class="eyebrow">Step Builder</p>
+    </div>
+  </section>
+
+  <!-- Present on every screen, per spec. -->
+  <div class="sb-utility-bar">
+    <div class="container sb-utility-bar-inner">
+      <p class="sb-crisis-line" id="sb-crisis-line"></p>
+      <button type="button" id="sb-delete-btn" class="sb-delete-btn" hidden></button>
+    </div>
+  </div>
+
+  <!-- Announces screen changes to screen reader users. -->
+  <div id="sb-live-region" class="sb-sr-only" aria-live="polite" role="status"></div>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:1000px;">
+
+      <!-- ================= BUILD MODE ================= -->
+      <div id="sb-view-build" hidden>
+
+        <!-- Screen 1: Opening -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-opening">
+          <h1 id="sb-opening-heading"></h1>
+          <div class="sb-body" id="sb-opening-body"></div>
+          <p class="sb-inline-notice" id="sb-opening-declined-note" hidden></p>
+          <p class="sb-fine-print" id="sb-opening-disclaimer"></p>
+          <div class="sb-actions">
+            <button type="button" id="sb-opening-start-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Screen 2: The goal -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-goal" hidden>
+          <p class="eyebrow">Step 1</p>
+          <h2 id="sb-goal-heading"></h2>
+          <p class="sb-body" id="sb-goal-helper"></p>
+          <textarea id="sb-goal-text" class="sb-textarea-lg" rows="2"></textarea>
+          <button type="button" id="sb-goal-examples-toggle" class="sb-link-btn"></button>
+          <div class="sb-example-chips" id="sb-goal-examples" hidden></div>
+
+          <div class="sb-field" style="margin-top:22px;">
+            <label class="sb-field-label" id="sb-goal-why-label" for="sb-goal-why"></label>
+            <p class="sb-helper-outro" id="sb-goal-why-helper"></p>
+            <textarea id="sb-goal-why" class="sb-textarea" rows="3"></textarea>
+          </div>
+
+          <div class="sb-actions">
+            <button type="button" id="sb-goal-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Screen 3: Generating situations -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-generate" hidden>
+          <p class="eyebrow">Step 2</p>
+          <h2 id="sb-generate-heading"></h2>
+          <p class="sb-body" id="sb-generate-helper"></p>
+
+          <div class="sb-entry-row">
+            <input type="text" id="sb-generate-input" maxlength="140">
+            <button type="button" id="sb-generate-add-btn" class="btn btn-outline btn-sm"></button>
+          </div>
+
+          <p class="sb-count" id="sb-generate-count"></p>
+          <p class="sb-inline-notice" id="sb-generate-encourage" hidden></p>
+          <p class="sb-inline-notice" id="sb-generate-softwarn" hidden></p>
+
+          <ul class="sb-situation-list" id="sb-generate-list"></ul>
+
+          <div class="sb-variable-prompts" id="sb-generate-prompts-wrap">
+            <p class="sb-subheading" id="sb-generate-prompts-heading"></p>
+            <div class="sb-variable-prompt-grid" id="sb-generate-prompts"></div>
+          </div>
+
+          <p class="sb-inline-notice" id="sb-generate-min-notice" hidden></p>
+          <div class="sb-actions">
+            <button type="button" id="sb-generate-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Screen 4: Rating -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-rate" hidden>
+          <p class="eyebrow">Step 3</p>
+          <div class="sb-rate-layout">
+            <div class="sb-rate-main">
+              <h2 class="sb-rate-situation-text" id="sb-rate-situation-text"></h2>
+
+              <div class="sb-field">
+                <label class="sb-field-label" id="sb-rate-difficulty-label"></label>
+                <input type="range" id="sb-rate-difficulty" class="sb-slider" min="0" max="100" step="5" value="50">
+                <div class="sb-slider-readout" id="sb-rate-difficulty-readout"></div>
+                <div class="sb-slider-scale" id="sb-rate-difficulty-scale"></div>
+              </div>
+
+              <div class="sb-field">
+                <label class="sb-field-label" id="sb-rate-importance-label"></label>
+                <p class="sb-helper-outro" id="sb-rate-importance-helper"></p>
+                <input type="range" id="sb-rate-importance" class="sb-slider" min="0" max="100" step="5" value="50">
+                <div class="sb-slider-readout" id="sb-rate-importance-readout"></div>
+              </div>
+
+              <button type="button" id="sb-rate-feared-toggle" class="sb-link-btn"></button>
+              <div class="sb-field" id="sb-rate-feared-wrap" hidden>
+                <p class="sb-helper-outro" id="sb-rate-feared-helper"></p>
+                <textarea id="sb-rate-feared" class="sb-textarea" rows="2"></textarea>
+              </div>
+
+              <div class="sb-actions">
+                <button type="button" id="sb-rate-back-btn" class="btn btn-ghost btn-sm"></button>
+                <button type="button" id="sb-rate-next-btn" class="btn btn-primary btn-lg"></button>
+              </div>
+            </div>
+
+            <div class="sb-rate-sidebar">
+              <p class="sb-subheading">Your situations</p>
+              <ul class="sb-rate-sidebar-list" id="sb-rate-sidebar-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 5: The stack -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-stack" hidden>
+          <p class="eyebrow">Step 4</p>
+          <h2 id="sb-stack-heading"></h2>
+
+          <div class="sb-stack" id="sb-stack-list"></div>
+
+          <div class="sb-actions">
+            <button type="button" id="sb-stack-add-btn" class="btn btn-outline btn-sm"></button>
+          </div>
+          <div class="sb-actions">
+            <button type="button" id="sb-stack-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Screen 6: Build a bridge step -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-bridge" hidden>
+          <h2 id="sb-bridge-heading"></h2>
+          <p class="sb-body" id="sb-bridge-intro"></p>
+          <p class="sb-bridge-situation-text" id="sb-bridge-situation-text"></p>
+
+          <div class="sb-bridge-methods" id="sb-bridge-methods">
+            <div class="sb-bridge-method" data-method="shorten">
+              <p class="sb-bridge-method-label" id="sb-bridge-shorten-label"></p>
+              <p class="sb-helper-outro" id="sb-bridge-shorten-prompt"></p>
+              <div class="sb-chip-row" id="sb-bridge-shorten-options"></div>
+            </div>
+            <div class="sb-bridge-method" data-method="leave">
+              <p class="sb-bridge-method-label" id="sb-bridge-leave-label"></p>
+              <p class="sb-helper-outro" id="sb-bridge-leave-prompt"></p>
+              <div class="sb-chip-row" id="sb-bridge-leave-options"></div>
+            </div>
+            <div class="sb-bridge-method" data-method="who">
+              <p class="sb-bridge-method-label" id="sb-bridge-who-label"></p>
+              <p class="sb-helper-outro" id="sb-bridge-who-prompt"></p>
+              <div class="sb-chip-row" id="sb-bridge-who-options"></div>
+            </div>
+            <div class="sb-bridge-method" data-method="part">
+              <p class="sb-bridge-method-label" id="sb-bridge-part-label"></p>
+              <p class="sb-helper-outro" id="sb-bridge-part-prompt"></p>
+              <p class="sb-helper-outro" id="sb-bridge-part-helper"></p>
+              <div class="sb-entry-row">
+                <input type="text" id="sb-bridge-part-input" maxlength="140">
+                <button type="button" id="sb-bridge-part-add-btn" class="btn btn-outline btn-sm"></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="sb-bridge-new-steps"></div>
+
+          <p class="sb-inline-notice" id="sb-bridge-still-big" hidden></p>
+          <div class="sb-actions">
+            <button type="button" id="sb-bridge-done-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Screen 7: First step -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-first-step" hidden>
+          <h2 id="sb-first-step-heading"></h2>
+          <p class="sb-inline-notice" id="sb-first-step-suggestion"></p>
+          <div class="sb-stack" id="sb-first-step-list"></div>
+          <p class="sb-inline-notice" id="sb-first-step-top-warning" hidden></p>
+          <div class="sb-actions">
+            <button type="button" id="sb-first-step-continue-btn" class="btn btn-primary btn-lg" disabled></button>
+          </div>
+        </div>
+
+        <!-- Screen 8: Storage offer -->
+        <div class="sb-card-panel sb-build-screen" id="sb-screen-storage" hidden>
+          <h2 id="sb-storage-heading"></h2>
+          <p class="sb-body" id="sb-storage-offer-text"></p>
+          <div class="sb-storage-choices">
+            <button type="button" id="sb-storage-keep-btn" class="sb-chip" aria-pressed="false"></button>
+            <button type="button" id="sb-storage-decline-btn" class="sb-chip" aria-pressed="false"></button>
+          </div>
+          <p class="sb-helper-outro" id="sb-storage-decline-note" hidden></p>
+          <button type="button" id="sb-storage-whats-kept-toggle" class="sb-link-btn"></button>
+          <p class="sb-fine-print" id="sb-storage-whats-kept-text" hidden></p>
+          <div class="sb-actions">
+            <button type="button" id="sb-storage-continue-btn" class="btn btn-primary btn-lg" disabled></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= PRACTICE MODE ================= -->
+      <div id="sb-view-practice" hidden>
+
+        <!-- Practice home -->
+        <div class="sb-card-panel sb-practice-screen" id="sb-screen-practice-home">
+          <h1 id="sb-practice-home-heading"></h1>
+          <div class="sb-current-step-card" id="sb-practice-current-step"></div>
+          <div class="sb-actions">
+            <button type="button" id="sb-practice-going-btn" class="btn btn-primary btn-lg"></button>
+            <button type="button" id="sb-practice-did-btn" class="btn btn-outline btn-lg"></button>
+          </div>
+
+          <p class="sb-subheading" id="sb-practice-stack-heading" style="margin-top:32px;"></p>
+          <div class="sb-stack" id="sb-practice-stack-list"></div>
+
+          <div class="sb-actions">
+            <button type="button" id="sb-practice-record-link" class="btn btn-ghost btn-sm"></button>
+          </div>
+        </div>
+
+        <!-- Before practice -->
+        <div class="sb-card-panel sb-practice-screen" id="sb-screen-before" hidden>
+          <h2 id="sb-before-heading"></h2>
+          <p class="sb-before-situation-text" id="sb-before-situation-text"></p>
+
+          <div class="sb-field">
+            <label class="sb-field-label" id="sb-before-expect-label"></label>
+            <p class="sb-helper-outro" id="sb-before-expect-helper"></p>
+            <textarea id="sb-before-expect" class="sb-textarea" rows="3"></textarea>
+          </div>
+
+          <div class="sb-field">
+            <label class="sb-field-label" id="sb-before-sure-label"></label>
+            <input type="range" id="sb-before-sure" class="sb-slider" min="0" max="100" step="5" value="50">
+            <div class="sb-slider-readout" id="sb-before-sure-readout"></div>
+          </div>
+
+          <div class="sb-field">
+            <label class="sb-field-label" id="sb-before-difficulty-label"></label>
+            <input type="range" id="sb-before-difficulty" class="sb-slider" min="0" max="100" step="5" value="50">
+            <div class="sb-slider-readout" id="sb-before-difficulty-readout"></div>
+          </div>
+
+          <p class="sb-reminder" id="sb-before-reminder1"></p>
+          <p class="sb-reminder" id="sb-before-reminder2"></p>
+
+          <div class="sb-timer" id="sb-before-timer-wrap">
+            <button type="button" id="sb-before-timer-btn" class="btn btn-ghost btn-sm"></button>
+            <span class="sb-timer-readout" id="sb-before-timer-readout" hidden></span>
+          </div>
+
+          <div class="sb-actions">
+            <button type="button" id="sb-before-go-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- After practice -->
+        <div class="sb-card-panel sb-practice-screen" id="sb-screen-after" hidden>
+          <h2 id="sb-after-heading"></h2>
+          <p class="sb-after-situation-text" id="sb-after-situation-text"></p>
+
+          <div class="sb-field">
+            <label class="sb-field-label" id="sb-after-didit-label"></label>
+            <div class="sb-chip-row" id="sb-after-didit-options"></div>
+          </div>
+
+          <div id="sb-after-yes-branch" hidden>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-duration-label"></label>
+              <input type="text" id="sb-after-duration" maxlength="60">
+            </div>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-what-label"></label>
+              <textarea id="sb-after-what" class="sb-textarea" rows="3"></textarea>
+            </div>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-comparison-label"></label>
+              <div class="sb-chip-row" id="sb-after-comparison-options"></div>
+            </div>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-surprise-label"></label>
+              <input type="range" id="sb-after-surprise" class="sb-slider" min="0" max="100" step="5" value="50">
+              <div class="sb-slider-readout" id="sb-after-surprise-readout"></div>
+            </div>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-during-label"></label>
+              <input type="range" id="sb-after-during" class="sb-slider" min="0" max="100" step="5" value="50">
+              <div class="sb-slider-readout" id="sb-after-during-readout"></div>
+            </div>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-now-label"></label>
+              <input type="range" id="sb-after-now" class="sb-slider" min="0" max="100" step="5" value="50">
+              <div class="sb-slider-readout" id="sb-after-now-readout"></div>
+            </div>
+            <button type="button" id="sb-after-easier-toggle" class="sb-link-btn"></button>
+            <div class="sb-field" id="sb-after-easier-wrap" hidden>
+              <p class="sb-helper-outro" id="sb-after-easier-helper"></p>
+              <textarea id="sb-after-easier" class="sb-textarea" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div id="sb-after-no-branch" hidden>
+            <div class="sb-field">
+              <label class="sb-field-label" id="sb-after-barrier-label"></label>
+              <div class="sb-chip-row" id="sb-after-barrier-options"></div>
+            </div>
+            <div class="sb-field" id="sb-after-no-notes-wrap" hidden>
+              <textarea id="sb-after-no-notes" class="sb-textarea" rows="2"></textarea>
+            </div>
+            <p class="sb-inline-notice" id="sb-after-followup-text" hidden></p>
+            <div class="sb-actions" id="sb-after-followup-action-wrap" hidden>
+              <button type="button" id="sb-after-followup-btn" class="btn btn-outline btn-sm"></button>
+            </div>
+            <div class="sb-field" id="sb-after-plan-wrap" hidden>
+              <textarea id="sb-after-plan" class="sb-textarea" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div class="sb-actions">
+            <button type="button" id="sb-after-submit-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Record / review -->
+        <div class="sb-card-panel sb-practice-screen" id="sb-screen-record" hidden>
+          <h2 id="sb-record-heading"></h2>
+          <p class="sb-inline-notice" id="sb-record-empty" hidden></p>
+          <p class="sb-count" id="sb-record-attempts-count"></p>
+
+          <div id="sb-record-body">
+            <p class="sb-subheading" id="sb-record-expected-heading"></p>
+            <div id="sb-record-expected-actual"></div>
+            <p class="sb-helper-outro" id="sb-record-expected-note"></p>
+
+            <p class="sb-subheading" id="sb-record-perstep-heading" style="margin-top:28px;"></p>
+            <p class="sb-helper-outro" id="sb-record-reorder-note"></p>
+            <div id="sb-record-per-step"></div>
+          </div>
+
+          <div class="sb-actions">
+            <button type="button" id="sb-record-save-copy-btn" class="btn btn-primary btn-lg"></button>
+            <button type="button" id="sb-record-back-btn" class="btn btn-ghost btn-lg"></button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Print-only summary. Populated by JS whenever the plan changes;
+       invisible on screen (.sb-print-only), the only thing shown when
+       printing. No site chrome, no nav, no buttons. -->
+  <div class="sb-print-only" id="sb-print-sheet">
+    <p class="sb-print-letterhead" id="sb-print-letterhead" data-um-letterhead></p>
+    <h2 class="sb-print-title" id="sb-print-title"></h2>
+    <h3 id="sb-print-goal-heading"></h3>
+    <p id="sb-print-goal"></p>
+    <h3 id="sb-print-stack-heading"></h3>
+    <div id="sb-print-stack"></div>
+    <h3 id="sb-print-record-heading"></h3>
+    <div id="sb-print-record"></div>
+    <h3 id="sb-print-questions-heading"></h3>
+    <ul id="sb-print-questions"></ul>
+    <p id="sb-print-disclaimer"></p>
+    <p id="sb-print-crisis"></p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/step-builder-data.js"></script>
+<script src="js/step-builder.js"></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Week Builder | UnderstandMe</title>
+<meta name="description" content="Build a menu of activities, schedule a few into specific slots in the coming week, and track what actually happened to your mood -- not what you expected to happen. Nothing is saved unless you choose to.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/week-builder.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero wb-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Week Builder</p>
+      <p class="eyebrow">Week Builder</p>
+    </div>
+  </section>
+
+  <!-- Present on every screen, per spec. -->
+  <div class="wb-utility-bar">
+    <div class="container wb-utility-bar-inner">
+      <p class="wb-crisis-line" id="wb-crisis-line"></p>
+      <button type="button" id="wb-delete-btn" class="wb-delete-btn" hidden></button>
+    </div>
+  </div>
+
+  <div id="wb-live-region" class="wb-sr-only" aria-live="polite" role="status"></div>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:1000px;">
+
+      <!-- ================= BUILD FLOW ================= -->
+      <div id="wb-view-build" hidden>
+
+        <!-- Phase 1a: Noticing intro -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-noticing-intro">
+          <h1 id="wb-noticing-intro-heading"></h1>
+          <div class="wb-body" id="wb-noticing-intro-body"></div>
+          <p class="wb-inline-notice" id="wb-noticing-declined-note" hidden></p>
+          <p class="wb-fine-print" id="wb-noticing-intro-disclaimer"></p>
+          <div class="wb-actions">
+            <button type="button" id="wb-noticing-start-btn" class="btn btn-primary btn-lg"></button>
+            <button type="button" id="wb-noticing-skip-btn" class="btn btn-outline btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Phase 1b: Noticing log -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-noticing-log" hidden>
+          <h2 id="wb-noticing-log-heading"></h2>
+          <p class="wb-count" id="wb-noticing-count"></p>
+
+          <div class="wb-field">
+            <label class="wb-field-label" id="wb-noticing-what-label"></label>
+            <input type="text" id="wb-noticing-what" maxlength="140">
+          </div>
+          <div class="wb-field">
+            <label class="wb-field-label" id="wb-noticing-mood-label"></label>
+            <input type="range" id="wb-noticing-mood" class="wb-slider" min="0" max="10" step="1" value="5">
+            <div class="wb-slider-readout" id="wb-noticing-mood-readout"></div>
+            <div class="wb-slider-scale" id="wb-noticing-mood-scale"></div>
+          </div>
+          <button type="button" id="wb-noticing-enjoy-toggle" class="wb-link-btn"></button>
+          <div class="wb-field" id="wb-noticing-enjoy-wrap" hidden>
+            <input type="range" id="wb-noticing-enjoy" class="wb-slider" min="0" max="10" step="1" value="5">
+            <div class="wb-slider-readout" id="wb-noticing-enjoy-readout"></div>
+          </div>
+          <button type="button" id="wb-noticing-accomplish-toggle" class="wb-link-btn"></button>
+          <div class="wb-field" id="wb-noticing-accomplish-wrap" hidden>
+            <input type="range" id="wb-noticing-accomplish" class="wb-slider" min="0" max="10" step="1" value="5">
+            <div class="wb-slider-readout" id="wb-noticing-accomplish-readout"></div>
+          </div>
+
+          <div class="wb-actions">
+            <button type="button" id="wb-noticing-add-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+
+          <ul class="wb-noticing-list" id="wb-noticing-list"></ul>
+
+          <div class="wb-inline-notice" id="wb-noticing-ready-wrap" hidden>
+            <span id="wb-noticing-ready-text"></span>
+            <button type="button" id="wb-noticing-ready-btn" class="btn btn-outline btn-sm"></button>
+          </div>
+          <div class="wb-actions">
+            <button type="button" id="wb-noticing-continue-btn" class="btn btn-ghost btn-sm"></button>
+          </div>
+        </div>
+
+        <!-- Phase 2a: Menu intro -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-menu-intro" hidden>
+          <h1 id="wb-menu-intro-heading"></h1>
+          <div class="wb-body" id="wb-menu-intro-body"></div>
+          <p class="wb-fine-print" id="wb-menu-intro-disclaimer"></p>
+          <div class="wb-actions">
+            <button type="button" id="wb-menu-intro-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Phase 2b: Menu generate -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-menu-generate" hidden>
+          <h2 id="wb-menu-generate-heading"></h2>
+          <p class="wb-count" id="wb-menu-generate-count"></p>
+          <p class="wb-inline-notice" id="wb-menu-generate-encourage" hidden></p>
+
+          <div id="wb-menu-categories"></div>
+
+          <p class="wb-inline-notice" id="wb-menu-generate-min-notice" hidden></p>
+          <div class="wb-actions">
+            <button type="button" id="wb-menu-generate-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Phase 2c: Menu rate -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-menu-rate" hidden>
+          <h2 id="wb-menu-rate-heading"></h2>
+          <p class="wb-helper-outro" id="wb-menu-rate-note"></p>
+          <div id="wb-menu-rate-list"></div>
+          <div class="wb-actions">
+            <button type="button" id="wb-menu-rate-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Phase 3: The week -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-week" hidden>
+          <h2 id="wb-week-heading"></h2>
+          <p class="wb-helper-outro" id="wb-week-default-guidance"></p>
+          <p class="wb-inline-notice" id="wb-week-softcap-notice" hidden></p>
+          <p class="wb-inline-notice" id="wb-week-specificity-notice" hidden></p>
+
+          <div class="wb-week-layout">
+            <div class="wb-week-grid-wrap">
+              <div class="wb-week-grid" id="wb-week-grid"></div>
+            </div>
+            <div class="wb-week-menu-panel">
+              <p class="wb-subheading" id="wb-week-menu-heading"></p>
+              <p class="wb-helper-outro" id="wb-week-select-hint"></p>
+              <div id="wb-week-menu-list"></div>
+            </div>
+          </div>
+
+          <div class="wb-actions">
+            <button type="button" id="wb-week-continue-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+        <!-- Storage offer -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-storage" hidden>
+          <h2 id="wb-storage-heading"></h2>
+          <p class="wb-body" id="wb-storage-offer-text"></p>
+          <div class="wb-storage-choices">
+            <button type="button" id="wb-storage-keep-btn" class="wb-chip" aria-pressed="false"></button>
+            <button type="button" id="wb-storage-decline-btn" class="wb-chip" aria-pressed="false"></button>
+          </div>
+          <p class="wb-helper-outro" id="wb-storage-decline-note" hidden></p>
+          <button type="button" id="wb-storage-whats-kept-toggle" class="wb-link-btn"></button>
+          <p class="wb-fine-print" id="wb-storage-whats-kept-text" hidden></p>
+          <div class="wb-actions">
+            <button type="button" id="wb-storage-continue-btn" class="btn btn-primary btn-lg" disabled></button>
+            <button type="button" id="wb-storage-print-btn" class="btn btn-ghost btn-sm"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= ONGOING (PHASE 4) ================= -->
+      <div id="wb-view-ongoing" hidden>
+
+        <!-- Current week -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-current-week">
+          <h1 id="wb-current-week-heading"></h1>
+          <div class="wb-week-layout">
+            <div class="wb-week-grid-wrap">
+              <div class="wb-week-grid" id="wb-current-week-grid"></div>
+            </div>
+          </div>
+          <div class="wb-actions">
+            <button type="button" id="wb-current-week-log-unplanned-btn" class="btn btn-outline btn-sm"></button>
+            <button type="button" id="wb-current-week-review-btn" class="btn btn-outline btn-sm"></button>
+            <button type="button" id="wb-current-week-print-btn" class="btn btn-ghost btn-sm"></button>
+          </div>
+        </div>
+
+        <!-- Logging an item -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-log" hidden>
+          <h2 id="wb-log-heading"></h2>
+          <p class="wb-log-item-text" id="wb-log-item-text"></p>
+
+          <div id="wb-log-unplanned-field" class="wb-field" hidden>
+            <label class="wb-field-label" id="wb-log-unplanned-what-label"></label>
+            <input type="text" id="wb-log-unplanned-what" maxlength="140">
+          </div>
+
+          <div class="wb-field">
+            <label class="wb-field-label" id="wb-log-didit-label"></label>
+            <div class="wb-chip-row" id="wb-log-didit-options"></div>
+          </div>
+
+          <div id="wb-log-yes-branch" hidden>
+            <div class="wb-field">
+              <label class="wb-field-label" id="wb-log-mood-after-label"></label>
+              <input type="range" id="wb-log-mood-after" class="wb-slider" min="0" max="10" step="1" value="5">
+              <div class="wb-slider-readout" id="wb-log-mood-after-readout"></div>
+            </div>
+            <button type="button" id="wb-log-enjoy-toggle" class="wb-link-btn"></button>
+            <div class="wb-field" id="wb-log-enjoy-wrap" hidden>
+              <input type="range" id="wb-log-enjoy" class="wb-slider" min="0" max="10" step="1" value="5">
+              <div class="wb-slider-readout" id="wb-log-enjoy-readout"></div>
+            </div>
+            <button type="button" id="wb-log-accomplish-toggle" class="wb-link-btn"></button>
+            <div class="wb-field" id="wb-log-accomplish-wrap" hidden>
+              <input type="range" id="wb-log-accomplish" class="wb-slider" min="0" max="10" step="1" value="5">
+              <div class="wb-slider-readout" id="wb-log-accomplish-readout"></div>
+            </div>
+            <button type="button" id="wb-log-mood-before-toggle" class="wb-link-btn"></button>
+            <div class="wb-field" id="wb-log-mood-before-wrap" hidden>
+              <input type="range" id="wb-log-mood-before" class="wb-slider" min="0" max="10" step="1" value="5">
+              <div class="wb-slider-readout" id="wb-log-mood-before-readout"></div>
+            </div>
+            <button type="button" id="wb-log-notes-toggle" class="wb-link-btn"></button>
+            <div class="wb-field" id="wb-log-notes-wrap" hidden>
+              <textarea id="wb-log-notes" class="wb-textarea" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div id="wb-log-no-branch" hidden>
+            <div class="wb-field">
+              <label class="wb-field-label" id="wb-log-barrier-label"></label>
+              <div class="wb-chip-row" id="wb-log-barrier-options"></div>
+            </div>
+            <p class="wb-reminder" id="wb-log-barrier-ack" hidden></p>
+            <div class="wb-field" id="wb-log-barrier-notes-wrap" hidden>
+              <textarea id="wb-log-barrier-notes" class="wb-textarea" rows="2"></textarea>
+            </div>
+            <p class="wb-inline-notice" id="wb-log-followup-text" hidden></p>
+            <div class="wb-actions" id="wb-log-followup-action-wrap" hidden>
+              <button type="button" id="wb-log-followup-btn" class="btn btn-outline btn-sm"></button>
+            </div>
+          </div>
+
+          <div class="wb-actions">
+            <button type="button" id="wb-log-submit-btn" class="btn btn-primary btn-lg" hidden></button>
+            <button type="button" id="wb-log-cancel-btn" class="btn btn-ghost btn-sm"></button>
+          </div>
+        </div>
+
+        <!-- Review -->
+        <div class="wb-card-panel wb-screen" id="wb-screen-review" hidden>
+          <h2 id="wb-review-heading"></h2>
+
+          <p class="wb-subheading" id="wb-review-expected-actual-heading"></p>
+          <p class="wb-helper-outro" id="wb-review-expected-actual-summary"></p>
+          <p class="wb-inline-notice" id="wb-review-expected-actual-note" hidden></p>
+          <div id="wb-review-expected-actual-list"></div>
+
+          <p class="wb-subheading" id="wb-review-what-helps-heading" style="margin-top:28px;"></p>
+          <p class="wb-helper-outro" id="wb-review-what-helps-note"></p>
+          <div id="wb-review-what-helps-list"></div>
+
+          <p class="wb-subheading" id="wb-review-mood-time-heading" style="margin-top:28px;"></p>
+          <div id="wb-review-mood-time"></div>
+
+          <p class="wb-subheading" id="wb-review-plans-heading" style="margin-top:28px;"></p>
+          <div id="wb-review-plans-list"></div>
+
+          <p class="wb-helper-outro" id="wb-review-footer-note" style="margin-top:22px;"></p>
+
+          <div class="wb-actions">
+            <button type="button" id="wb-review-plan-next-btn" class="btn btn-primary btn-lg"></button>
+            <button type="button" id="wb-review-save-copy-btn" class="btn btn-outline btn-lg"></button>
+            <button type="button" id="wb-review-back-btn" class="btn btn-ghost btn-lg"></button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Print-only. Two variants, toggled by JS at print time: the week
+       ahead (blank, for handwriting) and the full record. -->
+  <div class="wb-print-only" id="wb-print-week-sheet">
+    <p class="wb-print-letterhead" id="wb-print-week-letterhead" data-um-letterhead></p>
+    <h2 class="wb-print-title" id="wb-print-week-title"></h2>
+    <div id="wb-print-week-grid"></div>
+    <p id="wb-print-week-disclaimer"></p>
+    <p id="wb-print-week-crisis"></p>
+  </div>
+
+  <div class="wb-print-only" id="wb-print-record-sheet">
+    <p class="wb-print-letterhead" id="wb-print-record-letterhead" data-um-letterhead></p>
+    <h2 class="wb-print-title" id="wb-print-record-title"></h2>
+    <h3 id="wb-print-record-menu-heading"></h3>
+    <div id="wb-print-record-menu"></div>
+    <h3 id="wb-print-record-log-heading"></h3>
+    <div id="wb-print-record-log"></div>
+    <h3 id="wb-print-record-expected-actual-heading"></h3>
+    <div id="wb-print-record-expected-actual"></div>
+    <h3 id="wb-print-record-what-helps-heading"></h3>
+    <div id="wb-print-record-what-helps"></div>
+    <h3 id="wb-print-record-questions-heading"></h3>
+    <ul id="wb-print-record-questions"></ul>
+    <p id="wb-print-record-disclaimer"></p>
+    <p id="wb-print-record-crisis"></p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/week-builder-data.js"></script>
+<script src="js/week-builder.js"></script>
+</body>
+</html>

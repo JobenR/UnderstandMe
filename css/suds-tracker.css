@@ -1,0 +1,321 @@
+/* Exposure & SUDS Tracker — page-specific styles.
+   Component naming mirrors css/values-sort.css (vs-) and
+   css/avoidance-calculator.css (ac-) — same site, same conventions,
+   st- prefix for this tool. */
+
+.st-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.st-view[hidden] { display: none !important; }
+
+.st-card-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+}
+@media (max-width: 560px) { .st-card-panel { padding: 28px 22px; } }
+
+.st-body p { margin-bottom: 16px; }
+.st-body p:last-child { margin-bottom: 0; }
+
+/* Step headings receive focus on each transition (see showView() in
+   suds-tracker.js) so screen readers announce the new step, but carry
+   tabindex="-1" and are never reachable by Tab -- a sighted user already
+   sees the new heading appear, so no visible ring is needed. */
+.st-view h1:focus-visible,
+.st-view h1:focus {
+  outline: none;
+}
+
+.st-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+
+/* Step headings are full sentences, not a short page title -- at the base
+   h1 size they wrap onto 2 lines even at the 760px content column's full
+   width on any screen size, since the column itself never grows past that. */
+.st-view h1 { font-size: clamp(1.4rem, 2vw, 1.6rem); }
+
+.st-crisis-line {
+  max-width: 640px;
+  margin: 26px auto 0;
+  padding: 16px 20px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  text-align: center;
+}
+.st-fine-print {
+  max-width: 640px;
+  margin: 18px auto 0;
+  font-size: 0.82rem;
+  color: var(--color-gray-dark);
+  text-align: center;
+}
+
+/* Session-setup / exposure-setup form fields */
+.st-field-row { margin-top: 22px; }
+.st-field-row label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+.st-field-row input[type="text"],
+.st-field-row input[type="number"] {
+  width: 100%;
+  max-width: 360px;
+  padding: 11px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+.st-field-row input:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.st-field-row p.small { margin-top: 8px; color: var(--color-gray-dark); }
+
+/* Check-in interval: quick-select presets + a custom numeric fallback */
+.st-interval-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.st-interval-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.st-interval-preset-btn {
+  padding: 9px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+.st-interval-preset-btn:hover { transform: translateY(-1px); }
+.st-interval-preset-btn.st-interval-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+}
+.st-interval-custom { display: flex; align-items: center; gap: 8px; }
+.st-interval-custom input {
+  width: 84px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+.st-interval-custom span { font-size: 0.85rem; color: var(--color-gray-dark); }
+
+/* 1-10 SUDS scale, used on exposure setup (pre-rating) and the live view
+   (interval/manual/final ratings). Color runs from --color-primary at 1 to
+   --color-accent at 10 -- a calm-to-distressed gradient built only from
+   brand colors, computed inline per button in JS (see sudsColorForValue). */
+.st-scale-heading { font-weight: 600; color: var(--color-ink); margin-bottom: 14px; }
+.st-suds-scale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.st-suds-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.st-suds-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.st-suds-btn.st-suds-selected {
+  color: #fff;
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+
+/* Stopwatch card -- the focal point of the live-exposure view */
+.st-stopwatch-card {
+  text-align: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 40px 32px;
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+/* Programmatically focused after each rating is logged, to keep focus
+   from reverting to <body> (see the comment in handleRatingPick in
+   js/suds-tracker.js) -- never reached by real Tab navigation, and a
+   sighted user already sees the log update, so no visible ring needed. */
+.st-stopwatch-card:focus, .st-stopwatch-card:focus-visible { outline: none; }
+@media (max-width: 560px) { .st-stopwatch-card { padding: 30px 20px; } }
+
+.st-domain-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-bottom: 18px;
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.st-timer-display {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 4.2rem;
+  line-height: 1;
+  color: var(--color-primary-darker);
+  letter-spacing: 0.01em;
+}
+@media (max-width: 560px) { .st-timer-display { font-size: 3.2rem; } }
+
+.st-next-checkin { margin-top: 14px; font-size: 0.92rem; color: var(--color-gray-dark); }
+.st-checkin-track {
+  max-width: 320px;
+  margin: 8px auto 0;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.st-checkin-fill {
+  height: 100%;
+  background: var(--color-primary-light);
+  width: 0%;
+  transition: width 900ms linear;
+}
+
+/* Pulsing highlight when a rating is due -- the card's border/shadow pulse
+   in the accent color rather than a jarring flash, since a clinician may
+   be watching the client, not the screen, when this fires. */
+@keyframes stPulse {
+  0%, 100% { box-shadow: var(--shadow-sm); border-color: var(--color-border); }
+  50% { box-shadow: 0 0 0 8px rgba(201, 138, 94, 0.18); border-color: var(--color-accent); }
+}
+.st-stopwatch-card.st-pulse { animation: stPulse 1.1s ease-in-out infinite; }
+
+.st-rating-panel {
+  margin-top: 28px;
+  padding-top: 26px;
+  border-top: 1px solid var(--color-border);
+}
+.st-rating-panel .st-suds-scale { justify-content: center; }
+
+.st-live-actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.st-mute-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  cursor: pointer;
+}
+
+.st-live-log-wrap { max-width: 420px; margin: 28px auto 0; }
+.st-live-log { list-style: none; }
+.st-live-log li {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+.st-live-log li:last-child { border-bottom: none; }
+.st-live-log .st-log-time { color: var(--color-gray-dark); font-variant-numeric: tabular-nums; }
+.st-live-log .st-log-suds { font-weight: 700; color: var(--color-primary-darker); }
+.st-live-log .st-log-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-gray-dark);
+  margin-left: 8px;
+}
+
+/* Exposure title + stat row on the per-exposure complete view */
+.st-exposure-title { color: var(--color-primary-darker); margin-top: -6px; margin-bottom: 22px; }
+.st-stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+.st-stat {
+  text-align: center;
+  padding: 16px 10px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+}
+.st-stat-value { font-family: var(--font-heading); font-size: 1.7rem; color: var(--color-primary-darker); }
+.st-stat-label { font-size: 0.78rem; color: var(--color-gray-dark); margin-top: 4px; }
+
+/* Chart (single exposure or multi-exposure comparison) */
+.st-chart-wrap { margin-top: 26px; }
+.st-chart { width: 100%; height: auto; display: block; }
+.st-chart-grid { stroke: var(--color-border); stroke-width: 1; }
+.st-chart-axis-label { font-size: 11px; fill: var(--color-gray-dark); font-family: var(--font-body); }
+.st-chart-line { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.st-chart-dot { stroke: var(--color-white); stroke-width: 2; }
+
+.st-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+.st-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--color-ink); }
+.st-legend-swatch { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+
+/* Comparison table */
+.st-table-wrap { margin-top: 26px; overflow-x: auto; }
+.st-summary-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.st-summary-table th, .st-summary-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--color-border); }
+.st-summary-table th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-gray-dark); }
+.st-summary-table td:not(:first-child) { font-variant-numeric: tabular-nums; }
+
+.st-trend-note {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: var(--color-primary-pale);
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  color: var(--color-primary-darker);
+}
+
+
+/* Printed copy -- scoped to this page only, same approach as
+   css/avoidance-calculator.css. Only .st-print-only renders when printing;
+   every on-screen step and site chrome is hidden. */
+.st-print-only { display: none; }
+.st-print-rating-table { border-collapse: collapse; margin-top: 8px; font-size: 0.85rem; }
+.st-print-rating-table th, .st-print-rating-table td { padding: 4px 14px 4px 0; text-align: left; }
+.st-print-rating-table th { color: var(--color-gray-dark); font-weight: 600; }
+@media print {
+  .site-header, .site-footer, .nav-scrim, .breadcrumb, .st-page-hero,
+  main .st-view, #st-live-region {
+    display: none !important;
+  }
+  .st-print-only { display: block !important; }
+  body { background: #fff; }
+  .st-print-exposure { break-inside: avoid; margin-top: 18px; }
+}

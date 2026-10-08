@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Values Card Sort | UnderstandMe</title>
+<meta name="description" content="An interactive values card sort exercise to help you identify and rank order the values that matter most to you.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/values-sort.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero vs-hero-center">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Values Card Sort</p>
+      <p class="eyebrow" style="justify-content:center;">Values Card Sort</p>
+      <h1>Find your top 10 values</h1>
+      <p class="lede">A guided exercise to help you identify, narrow, and rank order the values that matter most to you right now.</p>
+    </div>
+  </section>
+
+  <section class="section-pad bg-alt" id="vs-explainer-section">
+    <div class="container" style="max-width:760px;">
+      <div class="section-head reveal">
+        <p class="eyebrow">What It Is</p>
+        <h2>A tool for naming what matters, on purpose</h2>
+        <p>A values card sort has a client sort words representing personal values &mdash; connection, autonomy, growth, and similar &mdash; into tiers of importance, narrowing down to a core handful.</p>
+      </div>
+
+      <div class="vs-card-panel reveal reveal-delay-1" style="margin-bottom:24px;">
+        <h3>What It Does</h3>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Clarifies values that are often felt but rarely named</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Forces genuine prioritization, not just a vague list of "things that matter"</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Concretizes abstract concepts into shared language you and the client can reference throughout treatment</li>
+        </ul>
+      </div>
+
+      <div class="vs-card-panel reveal reveal-delay-2">
+        <h3>How It's Used, Ongoing</h3>
+        <p>Once identified, the values function as a compass, not a one-time intake exercise:</p>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong>Away from values</strong> &mdash; avoidance, safety behaviors, or symptom-driven choices framed against a specific sacrificed value</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> <strong>Toward values</strong> &mdash; reframes hard or exposure-adjacent actions as evidence of value-consistent living, not just symptom reduction (especially useful in ERP/exposure work, where short-term discomfort needs meaning-based reinforcement, not relief)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Resolves ambivalence at stuck points ("is this toward values, or away from values?")</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Supports recurring check-ins across sessions without re-explaining the concept</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg> Keeps treatment anchored in ongoing direction, rather than collapsing once a specific goal is met</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:760px;">
+
+      <!-- INTRO -->
+      <div id="view-intro" class="vs-view">
+        <div class="vs-card-panel reveal is-visible">
+          <p class="eyebrow">How It's Completed</p>
+          <h2>Four simple steps</h2>
+          <ol class="vs-steps">
+            <li><strong>Sort each card.</strong> You'll see {{TOTAL}} values, one at a time, each with a short definition. For each one, choose Most Important, Important, or Not Important &mdash; based on how you want to be or act, if you were able.</li>
+            <li><strong>Narrow down.</strong> Once every card is sorted, you'll narrow your strongest values down to a core group of 10.</li>
+            <li><strong>Rank order.</strong> Put those 10 in order, from most important (1) to least (10).</li>
+            <li><strong>Check alignment.</strong> For each of your top 10, rate how consistently you're actually living it right now.</li>
+            <li><strong>Get your results.</strong> You'll receive your rank-ordered values list, a life-domain balance snapshot, a reflection exercise for each value, and your full "Not Important" list for reference &mdash; moving toward one of those can be a sign of misalignment too.</li>
+          </ol>
+          <p class="small">There's no time limit, and you can take breaks between cards &mdash; your progress is saved in this browser.</p>
+
+          <div class="vs-name-row">
+            <label for="vs-name">Your name (optional, shown on your results)</label>
+            <input type="text" id="vs-name" placeholder="e.g. Alex">
+          </div>
+
+          <button type="button" id="vs-start-btn" class="btn btn-primary btn-lg">Begin My Values Card Sort</button>
+        </div>
+      </div>
+
+      <!-- SORTING -->
+      <div id="view-sorting" class="vs-view" hidden>
+        <div class="vs-progress-row">
+          <div class="vs-progress-track"><div class="vs-progress-fill" id="vs-progress-fill"></div></div>
+          <p class="small" id="vs-progress-label">Card 1 of 126</p>
+        </div>
+        <div class="vs-card-panel vs-sort-card vs-card-fade" id="vs-sort-card">
+          <h2 id="vs-card-name">Value Name</h2>
+          <p id="vs-card-def">Definition text.</p>
+        </div>
+        <div class="vs-sort-buttons">
+          <button type="button" class="vs-sort-btn vs-sort-not" data-choice="not">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+            Not Important
+          </button>
+          <button type="button" class="vs-sort-btn vs-sort-important" data-choice="important">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            Important
+          </button>
+          <button type="button" class="vs-sort-btn vs-sort-most" data-choice="most">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg>
+            Most Important
+          </button>
+        </div>
+        <button type="button" id="vs-undo-btn" class="btn btn-ghost btn-sm" style="margin-top:18px;">&larr; Undo last card</button>
+      </div>
+
+      <!-- PARING -->
+      <div id="view-paring" class="vs-view" hidden>
+        <div class="vs-card-panel reveal is-visible">
+          <p class="eyebrow">Narrow It Down</p>
+          <h2>Choose the 10 that matter most</h2>
+          <p>Tap to select the values below that matter most to you. Keep going until you've chosen exactly <strong>10</strong>.</p>
+          <p class="small" id="vs-paring-count">Selected: 0 of 10</p>
+        </div>
+        <div class="vs-tile-grid" id="vs-paring-grid"></div>
+        <button type="button" id="vs-paring-continue" class="btn btn-primary btn-lg" style="margin-top:24px;" disabled>Continue</button>
+      </div>
+
+      <!-- RANKING -->
+      <div id="view-ranking" class="vs-view" hidden>
+        <div class="vs-card-panel reveal is-visible">
+          <p class="eyebrow">Rank Order</p>
+          <h2>Tap in order, most important first</h2>
+          <p>Tap the value that matters most to you first, then the next most important, and so on. Once a value is on your list, drag it up or down anytime to adjust the order.</p>
+        </div>
+        <div class="vs-ranked-list" id="vs-ranked-list"></div>
+        <div class="vs-tile-grid" id="vs-ranking-grid"></div>
+        <button type="button" id="vs-rank-submit" class="btn btn-primary btn-lg" style="margin-top:24px;" hidden>Submit My Rankings</button>
+      </div>
+
+      <!-- ALIGNMENT CHECK -->
+      <div id="view-alignment" class="vs-view" hidden>
+        <div class="vs-progress-row">
+          <div class="vs-progress-track"><div class="vs-progress-fill" id="vs-align-progress-fill"></div></div>
+          <p class="small" id="vs-align-progress-label">Value 1 of 10</p>
+        </div>
+        <div class="vs-card-panel vs-align-card vs-card-fade" id="vs-align-card">
+          <p class="eyebrow" style="justify-content:center;">How Consistently Are You Living This?</p>
+          <h2 id="vs-align-name">Value Name</h2>
+          <p id="vs-align-def">Definition text.</p>
+          <div class="vs-align-scale" id="vs-align-scale"></div>
+          <div class="vs-align-scale-labels">
+            <span>Not living this way at all</span>
+            <span>Living this fully</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="view-results" class="vs-view" hidden>
+        <div class="vs-card-panel reveal is-visible" id="vs-results-header">
+          <p class="eyebrow">Your Results</p>
+          <h2 id="vs-results-title">Your Top Values</h2>
+          <p>Here is your personal, rank-ordered values list &mdash; along with how consistently you're currently living each one, how your top 10 balance across life domains, and a reflection exercise for each value.</p>
+          <div class="hero-actions">
+            <button type="button" id="vs-print-btn" class="btn btn-outline btn-sm">Print / Save My Results</button>
+            <button type="button" id="vs-restart-btn" class="btn btn-ghost btn-sm">Start a New Sort</button>
+          </div>
+        </div>
+
+        <div class="vs-card-panel vs-compare-panel" id="vs-compare-panel" hidden>
+          <p class="eyebrow">Since Your Last Sort</p>
+          <h3 id="vs-compare-date">Compared to your last sort</h3>
+          <div id="vs-compare-body"></div>
+        </div>
+
+        <div class="vs-card-panel vs-domain-panel" id="vs-domain-panel">
+          <p class="eyebrow">Where Your Values Cluster</p>
+          <h3>Life-domain balance</h3>
+          <p class="small">How your top 10 break down across broad life domains &mdash; a full or empty row can be worth discussing.</p>
+          <div id="vs-domain-bars"></div>
+        </div>
+
+        <div class="vs-card-panel vs-gap-explainer" id="vs-gap-explainer" hidden>
+          <p class="eyebrow">Worth A Second Look</p>
+          <h3>What "Priority Gap" means</h3>
+          <p>A Priority Gap appears next to any of your top 3 values where you rated how consistently you're living it at 5 or below. It flags a value you say matters most, but aren't yet living out day to day &mdash; often the most useful place to focus, in session or on your own.</p>
+        </div>
+
+        <ol class="vs-results-list" id="vs-results-list"></ol>
+
+        <div class="vs-card-panel vs-notimportant-panel" id="vs-notimportant-panel" hidden>
+          <p class="eyebrow">For Reference</p>
+          <h3>Values you marked "Not Important"</h3>
+          <p class="small">If a recent choice has been moving you toward one of these instead of a top-10 value, that can signal misalignment too &mdash; not just moving away from what matters most. Tap a value to see its definition.</p>
+          <div class="tag-list" id="vs-notimportant-tags"></div>
+          <p class="small" id="vs-notimportant-def" hidden></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/values-data.js"></script>
+<script src="js/values-sort.js"></script>
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+</body>
+</html>

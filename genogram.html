@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Genogram Builder | UnderstandMe</title>
+<meta name="description" content="Map the people in your life by closeness, influence, and relationship quality -- a Current map and an Ideal map, side by side. Nothing you enter is saved or sent anywhere.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/genogram.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero gb-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Genogram Builder</p>
+      <p class="eyebrow">Genogram Builder</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:1100px;">
+
+      <!-- INTRO -->
+      <div class="gb-card-panel">
+        <h1 id="gb-opening-heading"></h1>
+        <p class="lede" id="gb-opening-tagline"></p>
+        <div class="gb-body" id="gb-opening-body"></div>
+        <div class="gb-how-it-works">
+          <p class="gb-how-it-works-heading" id="gb-how-it-works-heading"></p>
+          <ol class="gb-how-it-works-list" id="gb-how-it-works-list"></ol>
+        </div>
+      </div>
+      <p class="gb-crisis-line" id="gb-crisis-line-top"></p>
+
+      <!-- STEP 1: PEOPLE -->
+      <div class="gb-card-panel" style="margin-top:28px;">
+        <p class="eyebrow" id="gb-people-step"></p>
+        <h2 id="gb-people-heading"></h2>
+
+        <div class="gb-client-row">
+          <p class="gb-subheading" id="gb-client-label"></p>
+          <p class="gb-helper-outro" id="gb-client-instruction"></p>
+          <div class="gb-client-fields">
+            <div class="gb-field-inline">
+              <label for="gb-client-name" id="gb-client-name-label"></label>
+              <input type="text" id="gb-client-name" maxlength="30">
+            </div>
+            <div class="gb-field-inline">
+              <label for="gb-client-gender" id="gb-client-gender-label"></label>
+              <select id="gb-client-gender"></select>
+            </div>
+          </div>
+        </div>
+
+        <datalist id="gb-relationship-suggestions"></datalist>
+        <div class="gb-people-list" id="gb-people-list"></div>
+        <button type="button" id="gb-add-person-btn" class="btn btn-outline btn-sm"></button>
+        <p class="gb-inline-notice" id="gb-people-notice" hidden></p>
+
+        <div class="gb-actions">
+          <button type="button" id="gb-load-example-btn" class="btn btn-ghost btn-sm"></button>
+          <button type="button" id="gb-reset-btn" class="btn btn-ghost btn-sm"></button>
+        </div>
+      </div>
+
+      <!-- STEP 2: RATINGS -->
+      <div class="gb-card-panel" style="margin-top:28px;">
+        <p class="eyebrow" id="gb-ratings-step"></p>
+        <h2 id="gb-ratings-heading"></h2>
+
+        <p class="gb-body" id="gb-ratings-helper"></p>
+
+        <div class="gb-ratings-list" id="gb-ratings-list"></div>
+      </div>
+
+      <!-- STEP 3: MAP -->
+      <div class="gb-card-panel" style="margin-top:28px;">
+        <p class="eyebrow" id="gb-map-step"></p>
+        <h2 id="gb-map-heading"></h2>
+
+        <div class="gb-map-controls">
+          <div class="gb-mode-toggle" id="gb-map-mode-toggle" role="group"></div>
+          <label class="gb-side-by-side-label">
+            <input type="checkbox" id="gb-side-by-side-toggle">
+            <span id="gb-side-by-side-label-text"></span>
+          </label>
+          <button type="button" id="gb-reset-positions-btn" class="btn btn-ghost btn-sm"></button>
+        </div>
+        <p class="gb-helper-outro" id="gb-drag-hint"></p>
+
+        <p class="gb-empty-message" id="gb-empty-message" hidden></p>
+
+        <div class="gb-map-area" id="gb-map-area">
+          <div class="gb-map-single" id="gb-map-single">
+            <svg id="gb-chart" viewBox="0 0 900 700" role="img" aria-label="Genogram map"></svg>
+          </div>
+          <div class="gb-map-pair" id="gb-map-pair" hidden>
+            <div class="gb-map-pair-col">
+              <p class="gb-map-pair-label">Current</p>
+              <svg id="gb-chart-current" viewBox="0 0 900 700" role="img" aria-label="Current genogram map"></svg>
+            </div>
+            <div class="gb-map-pair-col">
+              <p class="gb-map-pair-label">Ideal</p>
+              <svg id="gb-chart-ideal" viewBox="0 0 900 700" role="img" aria-label="Ideal genogram map"></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gb-selected-panel" id="gb-selected-panel" hidden>
+          <p class="gb-selected-name" id="gb-selected-name"></p>
+          <p class="gb-selected-notes" id="gb-selected-notes"></p>
+        </div>
+
+        <div class="gb-legend" id="gb-legend">
+          <p class="gb-legend-heading" id="gb-legend-heading"></p>
+          <ul class="gb-legend-list" id="gb-legend-list"></ul>
+          <div class="gb-legend-qualities" id="gb-legend-qualities"></div>
+        </div>
+      </div>
+
+      <!-- STEP 4: REFLECT -->
+      <div class="gb-card-panel" style="margin-top:28px;">
+        <p class="eyebrow" id="gb-reflect-step"></p>
+        <h2 id="gb-reflect-heading"></h2>
+        <p class="gb-body" id="gb-reflect-helper"></p>
+
+        <div class="gb-reflection-list" id="gb-reflection-list"></div>
+
+        <div class="gb-actions">
+          <button type="button" id="gb-save-copy-btn" class="btn btn-primary btn-lg"></button>
+          <button type="button" id="gb-start-new-btn" class="btn btn-ghost btn-lg"></button>
+        </div>
+      </div>
+
+      <p class="gb-fine-print" id="gb-fine-print-bottom"></p>
+
+    </div>
+  </section>
+
+  <!-- Print-only summary. Populated by JS whenever the map changes;
+       invisible on screen (.gb-print-only), the only thing shown when
+       printing. -->
+  <div class="gb-print-only" id="gb-print-sheet">
+    <p class="gb-print-letterhead" data-um-letterhead></p>
+    <h2 class="gb-print-title">Genogram Builder</h2>
+    <p id="gb-print-crisis"></p>
+    <div class="gb-print-maps">
+      <div>
+        <p class="gb-print-map-label">Current</p>
+        <div id="gb-print-chart-current" class="gb-print-chart-wrap"></div>
+      </div>
+      <div>
+        <p class="gb-print-map-label">Ideal</p>
+        <div id="gb-print-chart-ideal" class="gb-print-chart-wrap"></div>
+      </div>
+    </div>
+    <div id="gb-print-people"></div>
+    <div id="gb-print-reflections"></div>
+    <p id="gb-print-disclaimer"></p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/genogram-data.js"></script>
+<script src="js/genogram.js"></script>
+</body>
+</html>

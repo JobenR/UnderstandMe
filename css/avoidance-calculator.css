@@ -1,0 +1,443 @@
+/* Avoidance Cost Calculator — page-specific styles.
+   Component naming mirrors css/values-sort.css (vs- prefix there, ac- here) --
+   same site, same conventions, different exercise. */
+
+.ac-hero .container { text-align: left; }
+
+/* Visually hidden but available to assistive tech -- used for the step-change
+   live region. No such utility exists elsewhere in the site's CSS. */
+.ac-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ac-view[hidden] { display: none !important; }
+
+.ac-card-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+}
+@media (max-width: 560px) { .ac-card-panel { padding: 28px 22px; } }
+
+.ac-body p { margin-bottom: 16px; }
+.ac-body p:last-child { margin-bottom: 0; }
+
+/* Step headings receive focus on each transition (see showView() in
+   avoidance-calculator.js) so screen readers announce the new step, but they
+   carry tabindex="-1" and are never reachable by Tab -- the only way they get
+   focus is that scripted call, on every single step change. A sighted user
+   already sees the new heading appear, so no visible ring is needed here;
+   showing one drew a box around every step's heading, every time. */
+.ac-view h1:focus-visible,
+.ac-view h1:focus {
+  outline: none;
+}
+
+.ac-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+
+/* Step questions are full sentences ("What do you find yourself avoiding,
+   or planning around?"), not a short page title -- at the base h1 size
+   they wrap onto 2-3 lines even at the 760px content column's full width
+   on any screen size, since the column itself never grows past that. */
+.ac-view h1 { font-size: clamp(1.4rem, 2vw, 1.6rem); }
+
+/* Domain badge -- shown on all three frequency/time/money sub-questions so
+   the specific area being asked about is always visible, since the headings
+   deliberately don't grammatically embed the (often plural) domain label. */
+.ac-domain-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-bottom: 14px;
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* Bulleted breakdowns under the time slider and money input */
+.ac-helper-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.ac-helper-list li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--color-body);
+}
+.ac-helper-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+.ac-helper-list li strong { color: var(--color-ink); }
+.ac-helper-outro {
+  margin: 14px 0 0;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+}
+
+/* Progress bar through the repeating domain-loop section */
+.ac-progress-row { max-width: 560px; margin: 0 auto 22px; }
+.ac-progress-track {
+  height: 10px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.ac-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  width: 0%;
+  transition: width 250ms ease;
+}
+
+/* Domain select + frequency/duration bucket tiles */
+.ac-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.ac-tile {
+  padding: 14px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.ac-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.ac-tile.ac-tile-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+}
+.ac-tile.ac-tile-selected::before { content: "\2713\0020"; }
+
+.ac-bucket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+.ac-bucket-btn {
+  padding: 16px 14px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.ac-bucket-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.ac-bucket-btn.ac-bucket-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+}
+
+/* Free-text "add your own" row on the domain-select step */
+.ac-add-own {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--color-border);
+}
+.ac-add-own label {
+  flex-basis: 100%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 4px;
+}
+.ac-add-own input[type="text"] {
+  flex: 1 1 200px;
+  padding: 11px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+}
+.ac-add-own input[type="text"]:focus,
+.ac-tile:focus-visible,
+.ac-bucket-btn:focus-visible,
+.ac-add-own button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.ac-added-list { list-style: none; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+.ac-added-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 14px;
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.ac-added-list button {
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.ac-inline-notice {
+  color: var(--color-accent-dark);
+  font-size: 0.88rem;
+  margin-top: 14px;
+}
+
+/* Minutes slider -- no existing precedent on this site, built to match tokens */
+.ac-slider-row { margin-top: 26px; }
+.ac-slider-value {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--color-primary-darker);
+  margin-bottom: 10px;
+}
+.ac-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-border);
+  outline: none;
+}
+.ac-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.ac-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.ac-slider:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--color-primary-darker); outline-offset: 2px; }
+.ac-slider:focus-visible::-moz-range-thumb { outline: 2px solid var(--color-primary-darker); outline-offset: 2px; }
+.ac-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: var(--color-gray-dark);
+  margin-top: 6px;
+}
+
+/* Currency input */
+.ac-money-row { margin-top: 24px; max-width: 220px; }
+.ac-money-row label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--color-ink); margin-bottom: 8px; }
+.ac-money-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-white);
+}
+.ac-money-input-wrap:focus-within { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.ac-money-prefix { color: var(--color-gray-dark); font-weight: 600; flex-shrink: 0; }
+.ac-money-row input,
+.ac-hourly-row input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 11px 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+.ac-money-row input:focus,
+.ac-hourly-row input:focus { outline: none; }
+
+/* Opportunity-inventory checkboxes -- also no existing precedent */
+.ac-checkbox-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 4px; }
+.ac-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 6px;
+  border-bottom: 1px solid var(--color-border);
+}
+.ac-checkbox-row:last-child { border-bottom: none; }
+.ac-checkbox-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+.ac-checkbox-row label { font-size: 0.96rem; color: var(--color-ink); cursor: pointer; }
+
+/* Review step */
+.ac-review-table { list-style: none; margin-top: 20px; }
+.ac-review-row {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  font-family: var(--font-body);
+}
+.ac-review-row:hover, .ac-review-row:focus-visible { border-color: var(--color-primary); box-shadow: var(--shadow-sm); }
+.ac-review-row h4 { margin-bottom: 6px; }
+.ac-review-row p { margin: 0; font-size: 0.88rem; color: var(--color-gray-dark); }
+.ac-review-notice {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+}
+
+/* The total step -- restrained by design: one focal number, generous space,
+   no color-coded alarm states, no motion. */
+.ac-total-figure {
+  text-align: center;
+  padding: 12px 0 8px;
+}
+.ac-total-number {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 8vw, 4.2rem);
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+.ac-total-lines { max-width: 560px; margin: 28px auto 0; text-align: center; }
+.ac-total-lines p { font-size: 1.08rem; margin-bottom: 14px; color: var(--color-body); }
+.ac-total-lines p:last-child { margin-bottom: 0; }
+.ac-total-note {
+  max-width: 520px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-gray-dark);
+}
+.ac-value-toggle-row { text-align: center; margin-top: 22px; }
+.ac-hourly-row {
+  max-width: 260px;
+  margin: 16px auto 0;
+  text-align: left;
+}
+.ac-hourly-row label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--color-ink); margin-bottom: 8px; }
+.ac-time-value-line {
+  max-width: 560px;
+  margin: 14px auto 0;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--color-accent-dark);
+  font-style: italic;
+}
+
+/* Where-to-take-this cards, equal visual weight */
+.ac-nextstep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+@media (max-width: 760px) { .ac-nextstep-grid { grid-template-columns: 1fr; } }
+.ac-nextstep-card {
+  display: block;
+  text-align: left;
+  padding: 26px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition);
+  font-family: var(--font-body);
+}
+.ac-nextstep-card:hover, .ac-nextstep-card:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.ac-nextstep-card h3 { margin-bottom: 10px; }
+.ac-nextstep-card p { font-size: 0.92rem; color: var(--color-body); margin: 0; }
+
+.ac-discussion-list { margin-top: 18px; padding-left: 22px; }
+.ac-discussion-list li { margin-bottom: 10px; }
+
+.ac-crisis-line {
+  max-width: 640px;
+  margin: 26px auto 0;
+  padding: 16px 20px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  text-align: center;
+}
+.ac-fine-print {
+  max-width: 640px;
+  margin: 18px auto 0;
+  font-size: 0.82rem;
+  color: var(--color-gray-dark);
+  text-align: center;
+}
+
+/* Printed copy -- scoped to this page only. No global print stylesheet
+   exists on this site (confirmed by grep before adding this), so there is
+   nothing here to conflict with. The on-screen step views (whichever one is
+   currently visible) are hidden entirely in print; only .ac-print-only
+   renders, as a single clean document with no site chrome. */
+.ac-print-only { display: none; }
+@media print {
+  .site-header, .site-footer, .nav-scrim, .breadcrumb, .ac-page-hero,
+  main .ac-view, #ac-live-region {
+    display: none !important;
+  }
+  .ac-print-only { display: block !important; }
+  body { background: #fff; }
+}

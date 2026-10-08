@@ -1,0 +1,379 @@
+/* Weigh Your Options — page-specific styles.
+   Component naming mirrors css/avoidance-calculator.css (ac- prefix there,
+   dm- here) -- same site, same conventions, different exercise. */
+
+.dm-page-hero .container { text-align: left; }
+
+.dm-card-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+}
+@media (max-width: 560px) { .dm-card-panel { padding: 28px 22px; } }
+
+.dm-card-panel h2 { font-size: clamp(1.4rem, 2vw, 1.7rem); margin-bottom: 14px; }
+.dm-card-panel h3 { font-size: 1.05rem; margin-bottom: 10px; }
+.dm-importance-heading { margin-top: 28px; }
+
+.dm-body p { margin-bottom: 16px; }
+.dm-body p:last-child { margin-bottom: 0; }
+
+.dm-use-case {
+  font-size: 0.95rem;
+  color: var(--color-body);
+  margin-bottom: 10px;
+}
+.dm-use-case:last-of-type { margin-bottom: 0; }
+
+/* "How it works" -- a quick map of the whole exercise up front, numbered
+   to match the Step 1/2/3 eyebrows on the sections below. */
+.dm-how-it-works {
+  margin-top: 22px;
+  padding: 18px 22px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+}
+.dm-how-it-works-heading {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+.dm-how-it-works-list {
+  margin: 0;
+  padding-left: 22px;
+}
+.dm-how-it-works-list li {
+  font-size: 0.92rem;
+  color: var(--color-body);
+}
+.dm-how-it-works-list li + li { margin-top: 8px; }
+
+.dm-crisis-line {
+  max-width: 980px;
+  margin: 18px auto 0;
+  padding: 16px 20px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  text-align: center;
+}
+.dm-fine-print {
+  max-width: 980px;
+  margin: 28px auto 0;
+  font-size: 0.82rem;
+  color: var(--color-gray-dark);
+}
+.dm-helper-outro {
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  font-style: italic;
+  margin: 10px 0 14px;
+}
+
+/* Decision statement field */
+.dm-field { margin-bottom: 30px; }
+.dm-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+.dm-field input[type="text"] {
+  width: 100%;
+  max-width: 560px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+}
+.dm-field input[type="text"]:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.dm-section { margin-top: 28px; padding-top: 26px; border-top: 1px solid var(--color-border); }
+.dm-section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+/* Options list */
+.dm-options-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.dm-option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dm-option-row input[type="text"] {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+}
+.dm-option-row input[type="text"]:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.dm-dealbreaker-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--color-gray-dark);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.dm-dealbreaker-label input { accent-color: var(--color-accent); }
+.dm-row-remove {
+  border: none;
+  background: none;
+  color: var(--color-gray-dark);
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+.dm-row-remove:hover { color: var(--color-accent-dark); }
+
+/* Criteria list */
+.dm-criteria-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 14px; }
+.dm-criterion-row {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+.dm-criteria-list .dm-criterion-row:last-child { border-bottom: none; padding-bottom: 0; }
+.dm-criterion-top-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.dm-criterion-row input[type="text"] {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+}
+.dm-criterion-row input[type="text"]:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.dm-lower-better-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--color-gray-dark);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.dm-lower-better-label input { accent-color: var(--color-accent); }
+
+/* Importance rating -- five numbered buttons (5 = Essential ... 1 = Nice
+   to have) instead of a raw number field, so the scale is self-evident
+   without needing to re-read the legend every time. */
+.dm-importance-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dm-rating-btn {
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-body);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+.dm-rating-btn:hover { border-color: var(--color-primary); }
+.dm-rating-btn.dm-rating-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.dm-rating-btn:focus-visible { outline: 2px solid var(--color-primary-darker); outline-offset: 2px; }
+.dm-importance-pct {
+  margin-left: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary-darker);
+  font-variant-numeric: tabular-nums;
+}
+
+.dm-weight-summary {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--color-body);
+  font-style: italic;
+}
+
+.dm-inline-notice { margin-top: 10px; font-size: 0.85rem; color: var(--color-accent-dark); }
+
+.dm-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* Scoring table */
+.dm-scale-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 14px 0 20px;
+  font-size: 0.85rem;
+  color: var(--color-gray-dark);
+}
+.dm-scale-legend strong { color: var(--color-ink); }
+.dm-table-scroll { overflow-x: auto; }
+.dm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.dm-table th, .dm-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  white-space: nowrap;
+}
+.dm-table thead th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-gray-dark);
+  white-space: normal;
+}
+.dm-table td.dm-criterion-cell { font-weight: 600; color: var(--color-ink); white-space: normal; }
+.dm-table .dm-option-excluded { color: var(--color-gray-dark); font-size: 0.95rem; text-align: center; }
+.dm-table input[type="number"] {
+  width: 56px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  text-align: center;
+}
+.dm-table input[type="number"]:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.dm-table input[type="number"]::placeholder { color: var(--color-gray-dark); opacity: 0.6; }
+
+.dm-scoring-progress {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+}
+.dm-scoring-progress.dm-progress-complete { color: var(--color-primary-darker); }
+
+/* Results */
+.dm-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.dm-result-card {
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  text-align: center;
+}
+.dm-result-card.dm-result-winner {
+  border-color: var(--color-primary);
+  background: var(--color-primary-pale);
+}
+.dm-result-card.dm-result-excluded { opacity: 0.55; }
+.dm-result-option-name { font-weight: 600; color: var(--color-ink); margin-bottom: 6px; font-size: 0.92rem; }
+.dm-result-score {
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  color: var(--color-primary-darker);
+}
+.dm-result-score-of5 { font-size: 0.85rem; color: var(--color-gray-dark); }
+
+.dm-why-block {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+}
+.dm-why-heading {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+.dm-why-block p:last-child { margin: 0; font-size: 0.95rem; color: var(--color-body); }
+
+.dm-solidity-block {
+  margin-top: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.dm-solidity-heading {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+.dm-solidity-message { margin: 0; font-size: 0.95rem; color: var(--color-body); }
+.dm-solidity-message #dm-solidity-icon { margin-right: 6px; }
+
+/* Before you decide */
+.dm-feeling-list { list-style: none; margin: 0 0 16px; padding: 0; }
+.dm-feeling-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: var(--color-body);
+}
+.dm-feeling-list li::before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+  color: var(--color-gray-dark);
+}
+#dm-values-link { font-size: 0.92rem; }
+
+/* Reference section */
+.dm-pitfalls-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+.dm-pitfalls-table th, .dm-pitfalls-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+.dm-pitfalls-table thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-gray-dark);
+}
+
+/* Printed copy */
+.dm-print-only { display: none; }
+@media print {
+  .site-header, .site-footer, .nav-scrim, .breadcrumb, .dm-page-hero,
+  main .dm-card-panel, .dm-crisis-line, .dm-fine-print {
+    display: none !important;
+  }
+  .dm-print-only { display: block !important; }
+  .dm-print-only ul { padding-left: 22px; }
+  body { background: #fff; }
+}

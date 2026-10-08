@@ -1,0 +1,444 @@
+/* Wheel of Life — page-specific styles.
+   Component naming mirrors css/avoidance-calculator.css (ac- prefix there,
+   wol- here) -- same site, same conventions, different exercise. */
+
+.wol-page-hero .container { text-align: left; }
+
+/* Visually hidden but available to assistive tech -- used for the
+   rate/results view-change live region. */
+.wol-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wol-view[hidden] { display: none !important; }
+
+/* Each view's h1 gets focus on every view change (see showView() in
+   wheel-of-life.js) -- including on page load, before the visitor has
+   done anything -- so screen readers announce it. It carries tabindex="-1"
+   and is never reachable by Tab, and a sighted user already sees the
+   heading on screen, so the default focus ring just reads as a stray
+   blue box around the title rather than useful feedback. */
+.wol-view h1:focus-visible,
+.wol-view h1:focus {
+  outline: none;
+}
+
+.wol-card-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+}
+@media (max-width: 560px) { .wol-card-panel { padding: 28px 22px; } }
+
+.wol-card-panel h2 { font-size: clamp(1.4rem, 2vw, 1.7rem); margin-bottom: 14px; }
+
+.wol-body p { margin-bottom: 16px; }
+.wol-body p:last-child { margin-bottom: 0; }
+
+.wol-attribution {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-gray-dark);
+  margin: -6px 0 20px;
+}
+
+.wol-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 22px;
+}
+.wol-meta-pill {
+  flex: 1 1 220px;
+  padding: 14px 18px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+.wol-meta-pill strong {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-primary-darker);
+  margin-bottom: 4px;
+}
+
+.wol-crisis-line {
+  max-width: 900px;
+  margin: 18px auto 0;
+  padding: 16px 20px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  text-align: center;
+}
+.wol-fine-print {
+  font-size: 0.82rem;
+  color: var(--color-gray-dark);
+  margin-top: 22px;
+}
+
+/* Importance toggle */
+.wol-importance-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  margin-top: 18px;
+}
+.wol-importance-toggle input { width: 18px; height: 18px; accent-color: var(--color-primary); }
+.wol-helper-outro {
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+  color: var(--color-gray-dark);
+  font-style: italic;
+}
+
+.wol-domain-list { margin-top: 26px; }
+
+.wol-domain-row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.wol-domain-row:first-child { padding-top: 0; }
+.wol-domain-row:last-child { border-bottom: none; }
+
+.wol-domain-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.wol-domain-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.wol-domain-label-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--color-ink);
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+}
+.wol-domain-label-input:hover,
+.wol-domain-label-input:focus {
+  background: var(--color-bg-alt);
+  outline: none;
+}
+.wol-domain-remove {
+  border: none;
+  background: none;
+  color: var(--color-gray-dark);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+.wol-domain-remove:hover { color: var(--color-accent-dark); }
+.wol-domain-prompt {
+  font-size: 0.82rem;
+  color: var(--color-gray-dark);
+  margin: 0 0 10px 22px;
+}
+
+.wol-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: 22px;
+}
+.wol-slider-row + .wol-slider-row { margin-top: 10px; }
+.wol-slider-row-label {
+  flex: 0 0 90px;
+  font-size: 0.78rem;
+  color: var(--color-gray-dark);
+}
+.wol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-border);
+  outline: none;
+}
+.wol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.wol-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.wol-slider.wol-slider-importance::-webkit-slider-thumb { background: var(--color-accent); }
+.wol-slider.wol-slider-importance::-moz-range-thumb { background: var(--color-accent); }
+.wol-slider:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--color-primary-darker); outline-offset: 2px; }
+.wol-slider-value {
+  flex: 0 0 28px;
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+
+/* Results view -- the big wheel, shown full-size only after "See my
+   wheel" is pressed, so it isn't competing for space with the rating
+   sliders the way a live preview would.
+
+   The site's global reset sets `svg { display: block; }` (styles.css),
+   which quietly defeats `text-align: center` on an ancestor -- a block
+   element ignores text-align entirely, so the chart was rendering flush
+   left instead of centered. Centering it with flex here doesn't depend
+   on the svg's display type, so it's robust either way. */
+.wol-results-panel { text-align: center; }
+.wol-results-heading { margin-bottom: 8px; }
+.wol-chart-wrap-large {
+  display: flex;
+  justify-content: center;
+  margin: 18px auto 0;
+}
+/* 960px = 640px * 1.5 -- 50% larger for readability. The results view's
+   container is widened to match (see wheel-of-life.html) so this isn't
+   just clipped back down by a narrower parent. */
+#wol-chart { width: 100%; max-width: 960px; height: auto; }
+
+.wol-chart-grid { stroke: var(--color-border); stroke-width: 1; stroke-dasharray: 2 4; fill: none; opacity: 0.8; }
+.wol-chart-spoke { stroke: var(--color-border); stroke-width: 1; opacity: 0.6; }
+.wol-chart-ring-label { font-size: 10px; fill: var(--color-gray-dark); }
+.wol-chart-wedge { stroke: var(--color-white); stroke-width: 2.5; stroke-linejoin: round; }
+.wol-chart-wedge-importance {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+  stroke-linecap: round;
+}
+.wol-chart-domain-label {
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--color-ink);
+}
+.wol-chart-wedge-number {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+.wol-chart-hub { fill: var(--color-white); stroke: var(--color-border); stroke-width: 1.5; }
+
+/* Ratings list -- a horizontal bar per domain instead of a ragged grid of
+   short lines, so every row lines up and the bar lengths make the scores
+   comparable at a glance, the way the wheel itself does. */
+.wol-results-legend {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 560px;
+  margin: 32px auto 0;
+  padding: 0;
+  text-align: left;
+}
+.wol-results-legend li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 150px) 1fr 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--color-border);
+}
+.wol-results-legend li:last-child { border-bottom: none; }
+.wol-results-legend .wol-domain-swatch { flex-shrink: 0; }
+.wol-results-legend .wol-legend-label {
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wol-legend-bar-track {
+  position: relative;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--color-bg-alt);
+  overflow: hidden;
+}
+.wol-legend-bar-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+}
+.wol-legend-importance-marker {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--color-ink);
+  border-radius: 1px;
+}
+.wol-results-legend strong {
+  color: var(--color-ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+/* Below ~480px, a label + bar + score squeezed into one row forces the
+   label to truncate ("Physical h..."). Two rows instead: swatch, label
+   and score on top, the bar spanning the full width underneath -- no
+   truncation, and a wider, more legible bar besides. */
+@media (max-width: 480px) {
+  .wol-results-legend li {
+    grid-template-columns: 14px 1fr auto;
+    grid-template-areas: "swatch label score" "track track track";
+    row-gap: 8px;
+    column-gap: 10px;
+  }
+  .wol-results-legend .wol-domain-swatch { grid-area: swatch; }
+  .wol-results-legend .wol-legend-label {
+    grid-area: label;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .wol-results-legend strong { grid-area: score; }
+  .wol-legend-bar-track { grid-area: track; }
+}
+
+/* Add-domain chips */
+.wol-add-domain {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--color-border);
+}
+.wol-add-domain-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+.wol-add-domain-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wol-add-domain-chip {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary-darker);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.wol-add-domain-chip:hover { background: var(--color-primary-pale); border-color: var(--color-primary); }
+.wol-add-domain-chip:disabled { opacity: 0.4; cursor: not-allowed; }
+.wol-inline-notice {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--color-accent-dark);
+}
+
+/* Debrief -- each question with its own optional answer textarea, so the
+   on-screen version and the printed worksheet are the same artifact. */
+.wol-debrief-list { margin: 22px 0 0; display: flex; flex-direction: column; gap: 20px; }
+.wol-debrief-item label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+  font-size: 0.98rem;
+}
+.wol-debrief-item textarea {
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  resize: vertical;
+}
+.wol-debrief-item textarea:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.wol-gap-insight {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: var(--color-primary-pale);
+  color: var(--color-primary-darker);
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+}
+.wol-actions { margin-top: 26px; }
+
+/* Printed copy. Each debrief question becomes its own block; if a note
+   was typed on screen it prints as text, otherwise a blank ruled line is
+   left for a pen -- a <textarea>'s typed value doesn't reliably print in
+   every browser, so the answer text is read out of it into plain markup
+   here rather than relying on the textarea itself to print. */
+.wol-print-only { display: none; }
+.wol-print-letterhead { text-align: center; margin-bottom: 4px; }
+.wol-print-title { text-align: center; margin: 0 0 18px; }
+.wol-print-chart-wrap { display: flex; justify-content: center; }
+.wol-print-scores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 28px;
+  max-width: 480px;
+  margin: 20px auto 26px;
+  font-size: 0.92rem;
+}
+.wol-print-score-row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; }
+.wol-print-score-row span:last-child { font-weight: 600; }
+.wol-print-question { margin-bottom: 16px; }
+.wol-print-question p.wol-print-question-text { font-weight: 600; margin: 0 0 4px; }
+.wol-print-answer-blank {
+  display: block;
+  height: 36px;
+  border-bottom: 1px solid #999;
+}
+@media print {
+  .site-header, .site-footer, .nav-scrim, .breadcrumb, .wol-page-hero,
+  main .wol-card-panel, .wol-crisis-line {
+    display: none !important;
+  }
+  .wol-print-only {
+    display: block !important;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .wol-print-only svg { max-width: 340px; height: auto; }
+  body { background: #fff; }
+}

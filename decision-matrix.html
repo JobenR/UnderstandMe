@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Weigh Your Options | UnderstandMe</title>
+<meta name="description" content="A step-by-step way to compare hard choices and see what actually matters most to you. Nothing you enter is saved or sent anywhere.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/decision-matrix.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero dm-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Weigh Your Options</p>
+      <p class="eyebrow">Weigh Your Options</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:980px;">
+
+      <!-- INTRO -->
+      <div class="dm-card-panel">
+        <h1 id="dm-opening-heading"></h1>
+        <p class="lede" id="dm-opening-tagline"></p>
+        <div class="dm-body" id="dm-opening-body"></div>
+        <p class="dm-use-case" id="dm-good-for"></p>
+        <p class="dm-use-case" id="dm-not-needed-if"></p>
+        <div class="dm-how-it-works">
+          <p class="dm-how-it-works-heading" id="dm-how-it-works-heading"></p>
+          <ol class="dm-how-it-works-list" id="dm-how-it-works-list"></ol>
+        </div>
+      </div>
+      <p class="dm-crisis-line" id="dm-crisis-line-top"></p>
+
+      <!-- SETUP -->
+      <div class="dm-card-panel" style="margin-top:28px;">
+        <p class="eyebrow" id="dm-setup-step"></p>
+        <h2 id="dm-setup-heading"></h2>
+
+        <div class="dm-field">
+          <label for="dm-decision-input" id="dm-decision-label"></label>
+          <input type="text" id="dm-decision-input" maxlength="120">
+        </div>
+
+        <div class="dm-section">
+          <h3 id="dm-options-label"></h3>
+          <p class="dm-body" id="dm-options-instruction"></p>
+          <div class="dm-options-list" id="dm-options-list"></div>
+          <button type="button" id="dm-add-option-btn" class="btn btn-outline btn-sm"></button>
+          <p class="dm-inline-notice" id="dm-options-notice" hidden></p>
+          <p class="dm-helper-outro" id="dm-dealbreaker-helper"></p>
+        </div>
+
+        <div class="dm-section">
+          <h3 id="dm-criteria-label"></h3>
+          <p class="dm-body" id="dm-criteria-instruction"></p>
+          <p class="dm-helper-outro" id="dm-criteria-tip"></p>
+          <div class="dm-criteria-list" id="dm-criteria-list"></div>
+          <button type="button" id="dm-add-criterion-btn" class="btn btn-outline btn-sm"></button>
+          <p class="dm-inline-notice" id="dm-criteria-notice" hidden></p>
+
+          <h3 class="dm-importance-heading" id="dm-importance-heading"></h3>
+          <p class="dm-body" id="dm-importance-instruction"></p>
+          <p class="dm-weight-summary" id="dm-weight-summary"></p>
+        </div>
+
+        <div class="dm-actions">
+          <button type="button" id="dm-load-example-btn" class="btn btn-ghost btn-sm"></button>
+          <button type="button" id="dm-reset-btn" class="btn btn-ghost btn-sm"></button>
+        </div>
+      </div>
+
+      <!-- SCORING -->
+      <div class="dm-card-panel" style="margin-top:28px;">
+        <p class="eyebrow" id="dm-scoring-step"></p>
+        <h2 id="dm-scoring-heading"></h2>
+        <p class="dm-body" id="dm-scoring-helper"></p>
+        <div class="dm-scale-legend" id="dm-scale-legend"></div>
+        <div class="dm-table-scroll">
+          <table class="dm-table" id="dm-scoring-table">
+            <thead><tr id="dm-scoring-head-row"></tr></thead>
+            <tbody id="dm-scoring-body"></tbody>
+          </table>
+        </div>
+        <p class="dm-scoring-progress" id="dm-scoring-progress"></p>
+      </div>
+
+      <!-- RESULTS (hidden until every cell is rated) -->
+      <div id="dm-results-section" hidden>
+
+        <div class="dm-card-panel" style="margin-top:28px;">
+          <p class="eyebrow" id="dm-results-step"></p>
+          <h2 id="dm-results-heading"></h2>
+          <div class="dm-results-grid" id="dm-results-grid"></div>
+
+          <div class="dm-why-block" id="dm-why-block">
+            <p class="dm-why-heading" id="dm-why-heading"></p>
+            <p id="dm-why-text"></p>
+          </div>
+
+          <div class="dm-solidity-block" id="dm-solidity-block">
+            <p class="dm-solidity-heading" id="dm-solidity-heading"></p>
+            <p class="dm-solidity-message">
+              <span id="dm-solidity-icon"></span>
+              <span id="dm-solidity-text"></span>
+            </p>
+          </div>
+        </div>
+
+        <div class="dm-card-panel" style="margin-top:28px;">
+          <h2 id="dm-before-heading"></h2>
+
+          <h3 id="dm-feeling-heading"></h3>
+          <p class="dm-body" id="dm-feeling-intro"></p>
+          <ul class="dm-feeling-list">
+            <li id="dm-feeling-good"></li>
+            <li id="dm-feeling-bad"></li>
+          </ul>
+
+          <h3 id="dm-try-heading"></h3>
+          <p class="dm-body" id="dm-try-body"></p>
+
+          <h3 id="dm-values-heading"></h3>
+          <p class="dm-body" id="dm-values-body"></p>
+          <p><span class="link-disabled" id="dm-values-link"></span></p>
+
+          <div class="dm-actions">
+            <button type="button" id="dm-save-copy-btn" class="btn btn-primary btn-lg"></button>
+            <button type="button" id="dm-start-new-btn" class="btn btn-ghost btn-lg"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="dm-fine-print" id="dm-fine-print-bottom"></p>
+
+      <!-- REFERENCE -->
+      <div class="dm-card-panel" style="margin-top:28px;">
+        <h2 id="dm-pitfalls-heading"></h2>
+        <div class="dm-table-scroll">
+          <table class="dm-pitfalls-table">
+            <thead><tr><th>Pitfall</th><th>Fix</th></tr></thead>
+            <tbody id="dm-pitfalls-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Print-only summary. Populated by JS whenever the matrix changes;
+       invisible on screen (.dm-print-only), the only thing shown when
+       printing. -->
+  <div class="dm-print-only" id="dm-print-sheet">
+    <p class="um-letterhead" data-um-letterhead></p>
+    <h2>Weigh Your Options</h2>
+    <p id="dm-print-crisis"></p>
+    <p id="dm-print-decision"></p>
+    <ul id="dm-print-criteria"></ul>
+    <ul id="dm-print-results"></ul>
+    <p id="dm-print-message"></p>
+    <p id="dm-print-disclaimer"></p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/decision-matrix-data.js"></script>
+<script src="js/decision-matrix.js"></script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Avoidance Cost Calculator | UnderstandMe</title>
+<meta name="description" content="A private, four-minute reflection tool: add up the time and money that goes into avoiding what makes you anxious. Nothing you enter is saved or sent anywhere.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/avoidance-calculator.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero ac-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Avoidance Cost Calculator</p>
+      <p class="eyebrow">Avoidance Cost Calculator</p>
+    </div>
+  </section>
+
+  <!-- Announces each step change to screen reader users, since nothing else
+       signals that the content changed (spec section 9). Reuses each step's
+       own heading text -- no new copy invented for this. -->
+  <div id="ac-live-region" class="ac-sr-only" aria-live="polite" role="status"></div>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:760px;">
+
+      <!-- STEP 1: OPENING -->
+      <div id="ac-view-opening" class="ac-view">
+        <div class="ac-card-panel">
+          <h1 id="ac-opening-heading"></h1>
+          <div class="ac-body" id="ac-opening-body"></div>
+          <div class="ac-actions">
+            <button type="button" id="ac-start-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+          <p class="ac-fine-print" style="margin-top:26px;">This is an educational reflection tool, not a psychological assessment. It doesn&rsquo;t diagnose anything, it isn&rsquo;t treatment, and using it doesn&rsquo;t create a therapist&ndash;client relationship.</p>
+        </div>
+        <p class="ac-crisis-line">If you&rsquo;re in crisis or thinking about harming yourself, call or text <strong>988</strong> &mdash; the Suicide &amp; Crisis Lifeline, available 24/7 in the US.</p>
+      </div>
+
+      <!-- STEP 2: DOMAIN SELECT -->
+      <div id="ac-view-domain-select" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <h1>What do you find yourself avoiding, or planning around?</h1>
+          <p class="ac-body">Pick as many as apply. You can add your own at the bottom.</p>
+          <div class="ac-tile-grid" id="ac-domain-tile-grid"></div>
+
+          <div class="ac-add-own">
+            <label for="ac-add-own-input">Something else</label>
+            <input type="text" id="ac-add-own-input" placeholder="Name it here" maxlength="60" autocomplete="off">
+            <button type="button" id="ac-add-own-btn" class="btn btn-outline btn-sm">Add</button>
+          </div>
+          <ul class="ac-added-list" id="ac-added-list"></ul>
+
+          <p class="ac-inline-notice" id="ac-domain-select-notice" hidden>Pick at least one area to continue.</p>
+
+          <div class="ac-actions">
+            <button type="button" id="ac-domain-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="ac-domain-continue-btn" class="btn btn-primary btn-lg">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEPS 3..N: DOMAIN LOOP (frequency / time / money, one at a time) -->
+      <div id="ac-view-domain-question" class="ac-view" hidden>
+        <div class="ac-progress-row">
+          <div class="ac-progress-track"><div class="ac-progress-fill" id="ac-domain-progress-fill"></div></div>
+          <p class="small" id="ac-domain-progress-label">Step 1 of 1</p>
+        </div>
+        <div class="ac-card-panel">
+          <p class="ac-domain-badge" id="ac-domain-badge"></p>
+          <h1 id="ac-domain-question-heading">Question</h1>
+
+          <div id="ac-frequency-block" hidden>
+            <div class="ac-bucket-grid" id="ac-frequency-grid"></div>
+          </div>
+
+          <div id="ac-time-block" hidden>
+            <div class="ac-slider-row">
+              <p class="ac-slider-value" id="ac-time-value-label">30 minutes</p>
+              <input type="range" id="ac-time-slider" class="ac-slider" min="5" max="480" step="5" value="30" aria-label="Minutes per episode">
+              <div class="ac-slider-scale"><span>5 minutes</span><span>8 hours</span></div>
+            </div>
+            <div class="ac-helper-block" style="margin-top:18px;">
+              <p class="ac-body" id="ac-time-helper-intro"></p>
+              <ul class="ac-helper-list" id="ac-time-helper-list"></ul>
+            </div>
+          </div>
+
+          <div id="ac-money-block" hidden>
+            <div class="ac-money-row">
+              <label for="ac-money-input">Dollars per month</label>
+              <div class="ac-money-input-wrap">
+                <span class="ac-money-prefix" aria-hidden="true">$</span>
+                <input type="number" id="ac-money-input" min="0" max="5000" step="1" inputmode="numeric" value="0">
+              </div>
+            </div>
+            <div class="ac-helper-block" style="margin-top:18px;">
+              <p class="ac-body" id="ac-money-helper-intro"></p>
+              <ul class="ac-helper-list" id="ac-money-helper-list"></ul>
+              <p class="ac-helper-outro" id="ac-money-helper-outro"></p>
+            </div>
+          </div>
+
+          <div class="ac-actions">
+            <button type="button" id="ac-domain-question-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="ac-domain-question-continue-btn" class="btn btn-primary btn-lg">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP N+1: OPPORTUNITY INVENTORY -->
+      <div id="ac-view-opportunities" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <h1>Has avoidance ever led to any of these?</h1>
+          <p class="ac-body">Check anything that&rsquo;s true. These don&rsquo;t get turned into numbers &mdash; some costs shouldn&rsquo;t be.</p>
+          <ul class="ac-checkbox-list" id="ac-opportunity-list"></ul>
+          <div class="ac-actions">
+            <button type="button" id="ac-opportunities-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="ac-opportunities-continue-btn" class="btn btn-primary btn-lg">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP N+2: DURATION -->
+      <div id="ac-view-duration" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <h1>Roughly how long has this been part of your life?</h1>
+          <div class="ac-bucket-grid" id="ac-duration-grid"></div>
+          <div class="ac-actions">
+            <button type="button" id="ac-duration-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="ac-duration-continue-btn" class="btn btn-primary btn-lg" disabled>Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP N+3: REVIEW -->
+      <div id="ac-view-review" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <h1>Here&rsquo;s what you entered.</h1>
+          <div class="ac-review-notice" id="ac-review-high-total-notice" hidden>That adds up to more than eight hours a day. For some people that&rsquo;s genuinely accurate &mdash; but it&rsquo;s worth a second look before we total it up.</div>
+          <ul class="ac-review-table" id="ac-review-table"></ul>
+          <div class="ac-actions">
+            <button type="button" id="ac-review-back-btn" class="btn btn-ghost btn-sm">&larr; Back</button>
+            <button type="button" id="ac-review-continue-btn" class="btn btn-primary btn-lg">Add it up</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP N+4: THE TOTAL -->
+      <div id="ac-view-total" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <div class="ac-total-figure">
+            <div class="ac-total-number" id="ac-total-number">0 hours</div>
+          </div>
+          <div class="ac-total-lines">
+            <p id="ac-line-primary"></p>
+            <p id="ac-line-secondary"></p>
+            <p id="ac-line-retrospective"></p>
+            <p id="ac-line-money" hidden></p>
+            <p id="ac-line-life-radius"></p>
+            <p id="ac-line-largest"></p>
+          </div>
+
+          <div class="ac-value-toggle-row">
+            <label>
+              <input type="checkbox" id="ac-value-toggle">
+              <span id="ac-value-toggle-label"></span>
+            </label>
+            <div class="ac-hourly-row" id="ac-hourly-row" hidden>
+              <label for="ac-hourly-input">Hourly rate</label>
+              <div class="ac-money-input-wrap">
+                <span class="ac-money-prefix" aria-hidden="true">$</span>
+                <input type="number" id="ac-hourly-input" min="0" step="1" inputmode="numeric" value="0">
+              </div>
+            </div>
+            <p class="ac-helper-outro" id="ac-hourly-rate-helper" hidden></p>
+            <p class="ac-time-value-line" id="ac-time-value-line" hidden></p>
+          </div>
+
+          <p class="ac-total-note">These are estimates built from what you entered, projected forward assuming nothing changes. They&rsquo;re a rough order of magnitude, not a measurement.</p>
+
+          <div class="ac-actions" style="justify-content:center;">
+            <button type="button" id="ac-total-continue-btn" class="btn btn-primary btn-lg">What&rsquo;s next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP N+5: REFRAME -->
+      <div id="ac-view-reframe" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <h1>This is a baseline, not a verdict.</h1>
+          <div class="ac-body">
+            <p>The number is large because avoidance is good at hiding. Each individual instance is small and sensible &mdash; a detour, a decline, a bit of extra planning. It&rsquo;s only the total that&rsquo;s startling, and you&rsquo;ve probably never had the total before.</p>
+            <p>Nothing here says anything about your character or your willpower. Avoidance is what anxiety does; it isn&rsquo;t a personal failing. It&rsquo;s also one of the most changeable things in mental health &mdash; the evidence on that is unusually strong.</p>
+            <p id="ac-reframe-largest-line"></p>
+          </div>
+          <div class="ac-actions">
+            <button type="button" id="ac-reframe-continue-btn" class="btn btn-primary btn-lg">What&rsquo;s next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP N+6: NEXT STEP -->
+      <div id="ac-view-nextstep" class="ac-view" hidden>
+        <div class="ac-card-panel">
+          <h1>Where to take this</h1>
+          <div class="ac-nextstep-grid">
+            <button type="button" class="ac-nextstep-card" id="ac-save-copy-card">
+              <h3>Save a copy</h3>
+            </button>
+            <button type="button" class="ac-nextstep-card" id="ac-bring-to-therapist-card">
+              <h3>Bring it to a therapist</h3>
+            </button>
+            <a class="ac-nextstep-card" id="ac-provider-card" data-um-provider-mailto hidden>
+              <h3>Contact your provider</h3>
+              <p>Send a note to the provider who shared this tool with you. Bring your printed results to your next session.</p>
+            </a>
+          </div>
+
+          <div id="ac-discussion-questions" hidden>
+            <p class="ac-body" style="margin-top:24px;"><strong>Questions worth sitting with</strong></p>
+            <ol class="ac-discussion-list" id="ac-discussion-list"></ol>
+          </div>
+
+          <p class="ac-fine-print" style="margin-top:28px;">This is an educational reflection tool, not a psychological assessment. It doesn&rsquo;t diagnose anything, it isn&rsquo;t treatment, and using it doesn&rsquo;t create a therapist&ndash;client relationship.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Print-only summary. Populated by JS once the total is calculated;
+       invisible on screen (.ac-print-only), the only thing shown when
+       printing (see @media print in avoidance-calculator.css). -->
+  <div class="ac-print-only" id="ac-print-sheet">
+    <p class="um-letterhead" data-um-letterhead></p>
+    <div id="ac-print-figures"></div>
+    <p id="ac-print-largest"></p>
+    <p><strong>Questions worth sitting with</strong></p>
+    <ol id="ac-print-questions"></ol>
+    <p>This is an educational reflection tool, not a psychological assessment. It doesn&rsquo;t diagnose anything, it isn&rsquo;t treatment, and using it doesn&rsquo;t create a therapist&ndash;client relationship.</p>
+    <p>If you&rsquo;re in crisis or thinking about harming yourself, call or text 988 &mdash; the Suicide &amp; Crisis Lifeline, available 24/7 in the US.</p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/avoidance-calc.js"></script>
+<script src="js/avoidance-calculator-data.js"></script>
+<script src="js/avoidance-calculator.js"></script>
+</body>
+</html>

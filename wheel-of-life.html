@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");</script>
+<title>Wheel of Life | UnderstandMe</title>
+<meta name="description" content="A private self-assessment that maps your satisfaction across life's major domains on a circular chart, so you can see where you feel full and where you feel depleted. Nothing you enter is saved or sent anywhere.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/um.css">
+<link rel="stylesheet" href="css/wheel-of-life.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="UnderstandMe home">
+      <svg class="um-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="#719CA8" stroke-width="2.5"/><circle cx="15" cy="17" r="4.2" fill="#719CA8"/><circle cx="26" cy="17" r="4.2" fill="#C98A5E"/><path d="M11 27c2.5 3.2 6 4.8 9 4.8s6.5-1.6 9-4.8" fill="none" stroke="#3F5F6C" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span class="um-wordmark">Understand<em>Me</em></span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="providers.html">For Providers</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="providers.html">Provider Dashboard</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+<p class="um-provider-banner" id="um-provider-banner" hidden></p>
+
+<main>
+
+  <section class="page-hero wol-page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Wheel of Life</p>
+      <p class="eyebrow">Wheel of Life</p>
+    </div>
+  </section>
+
+  <!-- Announces the switch between the rating screen and the results
+       screen to screen reader users, since nothing else signals the
+       content changed. -->
+  <div id="wol-live-region" class="wol-sr-only" aria-live="polite" role="status"></div>
+
+  <section class="section-pad">
+    <div class="container" style="max-width:1060px;">
+
+      <!-- VIEW 1: RATE EACH AREA -- kept at the narrower reading width even
+           though the shared container below is wide enough for the results
+           view's larger chart. -->
+      <div id="wol-view-rate" class="wol-view" style="max-width:900px; margin:0 auto;">
+
+        <!-- INTRO -->
+        <div class="wol-card-panel">
+          <h1 id="wol-opening-heading"></h1>
+          <p class="wol-attribution" id="wol-opening-attribution"></p>
+          <div class="wol-body" id="wol-opening-body"></div>
+          <div class="wol-meta-row">
+            <div class="wol-meta-pill"><strong>Best for</strong><span id="wol-meta-best-for"></span></div>
+            <div class="wol-meta-pill"><strong>Time</strong><span id="wol-meta-time"></span></div>
+          </div>
+          <p class="wol-fine-print" id="wol-fine-print-top"></p>
+        </div>
+        <p class="wol-crisis-line" id="wol-crisis-line-top"></p>
+
+        <!-- SCORING -->
+        <div class="wol-card-panel" style="margin-top:28px;">
+          <h2 id="wol-scale-heading"></h2>
+          <p class="wol-body" id="wol-scale-helper"></p>
+
+          <label class="wol-importance-toggle">
+            <input type="checkbox" id="wol-importance-toggle">
+            <span id="wol-importance-toggle-label"></span>
+          </label>
+          <p class="wol-helper-outro" id="wol-importance-helper" hidden></p>
+
+          <div class="wol-domain-list" id="wol-domain-list"></div>
+
+          <div class="wol-add-domain">
+            <p class="wol-add-domain-label" id="wol-add-domain-label"></p>
+            <div class="wol-add-domain-chips" id="wol-add-domain-chips"></div>
+            <p class="wol-inline-notice" id="wol-domain-count-notice" hidden></p>
+          </div>
+
+          <div class="wol-actions">
+            <button type="button" id="wol-see-wheel-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VIEW 2: RESULTS -->
+      <div id="wol-view-results" class="wol-view" hidden>
+
+        <div class="wol-card-panel wol-results-panel">
+          <h1 id="wol-results-heading"></h1>
+          <div class="wol-chart-wrap-large">
+            <svg id="wol-chart" viewBox="0 0 640 640" role="img" aria-label="Wheel of Life chart"></svg>
+          </div>
+          <ul class="wol-results-legend" id="wol-results-legend"></ul>
+          <div class="wol-actions" style="justify-content:center;">
+            <button type="button" id="wol-edit-answers-btn" class="btn btn-ghost btn-sm"></button>
+          </div>
+        </div>
+
+        <!-- DEBRIEF -->
+        <div class="wol-card-panel" style="margin-top:28px;">
+          <h2 id="wol-debrief-heading"></h2>
+          <p class="wol-body" id="wol-debrief-helper"></p>
+          <div class="wol-debrief-list" id="wol-debrief-list"></div>
+          <p class="wol-gap-insight" id="wol-gap-insight" hidden></p>
+
+          <div class="wol-actions">
+            <button type="button" id="wol-save-copy-btn" class="btn btn-primary btn-lg"></button>
+          </div>
+          <p class="wol-fine-print" id="wol-fine-print-bottom"></p>
+        </div>
+        <p class="wol-crisis-line" id="wol-crisis-line-bottom"></p>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Print-only summary. Populated by JS whenever scores change; invisible
+       on screen (.wol-print-only), the only thing shown when printing. -->
+  <div class="wol-print-only" id="wol-print-sheet">
+    <p class="wol-print-letterhead" data-um-letterhead></p>
+    <h2 class="wol-print-title">Wheel of Life</h2>
+    <div id="wol-print-chart" class="wol-print-chart-wrap"></div>
+    <div id="wol-print-scores" class="wol-print-scores"></div>
+    <p class="wol-print-questions-heading"><strong>Questions to sit with</strong></p>
+    <div id="wol-print-questions"></div>
+    <p id="wol-print-disclaimer"></p>
+    <p id="wol-print-crisis"></p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="um-wordmark um-wordmark-light">Understand<em>Me</em></span></div>
+        <p>A toolkit for providers and their patients. Nothing you enter is sent to or stored on our servers.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#tools">All tools</a>
+        <a href="providers.html">For providers</a>
+      </div>
+      <div>
+        <h4>Privacy</h4>
+        <p>No accounts to create, no patient data collected. Results leave your browser only when you print or save them.</p>
+      </div>
+      <div>
+        <h4>In Crisis?</h4>
+        <p>If you are in immediate danger, call <strong>911</strong>.<br>For 24/7 crisis support, call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> UnderstandMe. All rights reserved.</span>
+      <span>For educational and self-reflection use. Not a substitute for professional care.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/provider.js"></script>
+<script src="js/wheel-of-life-data.js"></script>
+<script src="js/wheel-of-life.js"></script>
+</body>
+</html>
